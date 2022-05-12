@@ -1,4 +1,6 @@
-﻿namespace VismaMeeting.MeetingData
+﻿using VismaMeeting.Employees;
+
+namespace VismaMeeting.MeetingData
 {
     internal class Meeting
     {
