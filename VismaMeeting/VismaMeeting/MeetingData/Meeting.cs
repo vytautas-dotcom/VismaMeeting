@@ -6,7 +6,7 @@ namespace VismaMeeting.MeetingData
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public Person ResponsiblePerson { get; set; }
+        public Guid ResponsiblePersonId { get; set; }
         public List<Person> Persons { get; set; }
         public string Description { get; set; }
         public MeetCategory Category { get; set; }

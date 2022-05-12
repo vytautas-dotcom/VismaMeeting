@@ -1,17 +1,21 @@
 ﻿[
 	{
+		"Id": "d89f5294-67f9-4568-8c42-458d78404ebc",
 		"Name": "Jonas",
 		"Meets": {}
 	},
 	{
+		"Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
 		"Name": "Tomas",
 		"Meets": {}
 	},
 	{
+		"Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
 		"Name": "Julius",
 		"Meets": {}
 	},
 	{
+		"Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
 		"Name": "Matas",
 		"Meets": {}
 	}
