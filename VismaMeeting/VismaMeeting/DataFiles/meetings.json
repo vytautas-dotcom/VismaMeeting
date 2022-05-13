@@ -12,9 +12,26 @@
       }
     ],
     "Description": "its gonna be fun",
-    "Category": 1,
-    "Type": 1,
+    "Category": "CodeMonkey",
+    "Type": "Live",
     "StartDate": "2022-05-22T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "91cd28e7-ad23-49b0-a8a8-89a16b1a7288",
+    "Name": "dfgdfg",
+    "ResponsiblePersonId": "d89f5294-67f9-4568-8c42-458d78404ebc",
+    "Persons": [
+      {
+        "Id": "d89f5294-67f9-4568-8c42-458d78404ebc",
+        "Name": "Jonas",
+        "PersonMeetings": null
+      }
+    ],
+    "Description": "dfgdfg",
+    "Category": "CodeMonkey",
+    "Type": "Live",
+    "StartDate": "2022-05-12T00:00:00",
     "EndDate": "0001-01-01T00:00:00"
   }
 ]

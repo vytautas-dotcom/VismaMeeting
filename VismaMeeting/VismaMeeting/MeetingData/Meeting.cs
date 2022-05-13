@@ -1,4 +1,6 @@
-﻿using VismaMeeting.Employees;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using VismaMeeting.Employees;
 
 namespace VismaMeeting.MeetingData
 {
@@ -9,7 +11,9 @@ namespace VismaMeeting.MeetingData
         public Guid ResponsiblePersonId { get; set; }
         public List<Person> Persons { get; set; }
         public string Description { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public MeetCategory Category { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public MeetType Type { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
