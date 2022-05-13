@@ -14,10 +14,10 @@ namespace VismaMeeting.Functions
         public CreateMeeting(Person person, MeetingList meetingList, MeetingSerialazer meetingSerialazer)
         {
             _person = person;
-            _meetingList = meetingList;
             _meetingSerialazer = meetingSerialazer;
+            _meetingList = _meetingSerialazer.Deserialize() ?? meetingList;
         }
-        public override void Create()
+        public void Create()
         {
             Meeting meeting = GetUserInput();
             _meetingList.Add(meeting);

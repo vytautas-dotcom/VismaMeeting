@@ -1,7 +1,7 @@
 ﻿namespace VismaMeeting.Functions.Interfaces
 {
-    internal abstract class ICommand
+    internal interface ICommand
     {
-        public abstract void Create();
+        void Create();
     }
 }

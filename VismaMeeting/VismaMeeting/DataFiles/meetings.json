@@ -1,20 +1,20 @@
 [
   
   {
-    "Id": "8cd8e58b-878f-4772-8357-8ecef3f097c9",
-    "Name": "hfgh",
-    "ResponsiblePersonId": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+    "Id": "6f174d4d-9524-428a-bb43-4cccc2ac7fb1",
+    "Name": "first meeting",
+    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
     "Persons": [
       {
-        "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
-        "Name": "Tomas",
+        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
+        "Name": "Matas",
         "PersonMeetings": null
       }
     ],
-    "Description": "fghf",
+    "Description": "its gonna be fun",
     "Category": 1,
     "Type": 1,
-    "StartDate": "2022-05-12T00:00:00",
+    "StartDate": "2022-05-22T00:00:00",
     "EndDate": "0001-01-01T00:00:00"
   }
 ]

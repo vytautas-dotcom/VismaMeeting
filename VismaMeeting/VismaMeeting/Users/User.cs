@@ -20,5 +20,12 @@ namespace VismaMeeting.Users
         {
             UserFunctions = userFunctions;
         }
+        public void ExecuteFunctions()
+        {
+            if (IsResponsible)
+            {
+
+            }
+        }
     }
 }
