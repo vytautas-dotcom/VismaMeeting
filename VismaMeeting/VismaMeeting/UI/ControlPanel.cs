@@ -34,7 +34,7 @@ namespace VismaMeeting.UI
             User = new User(_createUser.SelectUser());
             UserFunctions = new UserFunctions();
             UserFunctions.CreateMeeting = new CreateMeeting(User.Person, MeetingList, _meetingSerialazer, _personSerialazer, _dataCheck, _personMeetingData);
-            UserFunctions.DeleteMeeting = new DeleteMeeting(User.Person, MeetingList, _meetingSerialazer, _dataCheck, _showMeetingData);
+            UserFunctions.DeleteMeeting = new DeleteMeeting(User.Person, MeetingList, _meetingSerialazer, _personSerialazer, _dataCheck, _showMeetingData, _personMeetingData);
         }
         public void SetFunctions()
         {
