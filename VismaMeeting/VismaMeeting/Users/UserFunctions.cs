@@ -6,5 +6,6 @@ namespace VismaMeeting.Users
     internal class UserFunctions
     {
         public ICommand CreateMeeting;
+        public ICommand DeleteMeeting;
     }
 }

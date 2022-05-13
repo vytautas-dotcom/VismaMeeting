@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VismaMeeting.Employees;
+using VismaMeeting.MeetingData;
 
 namespace VismaMeeting.Functions
 {
@@ -19,6 +21,8 @@ namespace VismaMeeting.Functions
             }
             return Input = input;
         }
+        public string GetIndex()
+            => Console.ReadLine();
         public DateTime GetDate()
         {
             Console.Write("(e.g. 05/12/2022): ");
@@ -40,5 +44,34 @@ namespace VismaMeeting.Functions
             }
             return numberOfCategory;
         }
+        public int? SelectMeetig(MeetingList meetingList, Person person)
+        {
+            bool isInputNumber;
+            int? index = null;
+            do
+            {
+                Console.WriteLine("Please select number of meeting or just press any other button to exit");
+                isInputNumber = Int32.TryParse(GetIndex(), out int selectedIndex);
+                if (!isInputNumber)
+                    break;
+                else if (CheckIndex(selectedIndex, meetingList))
+                {
+                    Console.WriteLine("Wrong index, please try again");
+                    return SelectMeetig(meetingList, person);
+                }
+                else if (!IsPersonResponsible(person, meetingList[selectedIndex]))
+                {
+                    Console.WriteLine("Only the responsible person can delete the meeting");
+                    return SelectMeetig(meetingList, person);
+                }
+                index = selectedIndex;
+            } while (!isInputNumber && index == null);
+            return index;
+        }
+
+        public bool CheckIndex(int index, MeetingList meetingList)
+            => index >= meetingList.Count || index < 0;
+        public bool IsPersonResponsible(Person person, Meeting meeting)
+            => meeting.ResponsiblePersonId == person.Id;
     }
 }
