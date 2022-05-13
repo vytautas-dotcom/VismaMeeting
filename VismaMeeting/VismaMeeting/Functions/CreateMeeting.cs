@@ -17,7 +17,7 @@ namespace VismaMeeting.Functions
             _meetingList = meetingList;
             _meetingSerialazer = meetingSerialazer;
         }
-        public void Create()
+        public override void Create()
         {
             Meeting meeting = GetUserInput();
             _meetingList.Add(meeting);

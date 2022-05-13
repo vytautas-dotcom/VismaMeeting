@@ -1,16 +1,24 @@
 ﻿using VismaMeeting.Employees;
-using VismaMeeting.Functions.Interfaces;
 
 namespace VismaMeeting.Users
 {
-    internal abstract class User
+    internal class  User
     {
-        protected Person Person;
-        protected bool IsResponsible = false;
-        public abstract void SetResponsibility(bool isResponsible);
-        List<ICommand> Commands;
-        public abstract void SetCommands(List<ICommand> commands);
-        public abstract void PerformCommands(List<ICommand> commands);
+        public Person Person { get; set; }
+        public bool IsResponsible {get; set;}
+        public UserFunctions UserFunctions;
+        public User(Person person)
+        {
+            Person = person;
+        }
 
+        public void SetResponsibility(bool isResponsible)
+        {
+            IsResponsible = isResponsible;
+        }
+        public void SetUserFunctions(UserFunctions userFunctions)
+        {
+            UserFunctions = userFunctions;
+        }
     }
 }

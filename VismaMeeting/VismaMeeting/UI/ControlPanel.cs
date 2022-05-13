@@ -1,4 +1,6 @@
 ﻿using VismaMeeting.Employees;
+using VismaMeeting.Functions;
+using VismaMeeting.Functions.Interfaces;
 using VismaMeeting.MeetingData;
 using VismaMeeting.Serialization;
 using VismaMeeting.Users;
@@ -13,14 +15,22 @@ namespace VismaMeeting.UI
         public MeetingList MeetingList { get; set; }
         public PersonList PersonList { get; set; }
         public User User { get; set; }
+        public UserFunctions UserFunctions { get; set; }
         public ControlPanel()
         {
             _meetingSerialazer = new MeetingSerialazer();
             _personSerialazer = new PersonSerialazer();
-            MeetingList = _meetingSerialazer.Deserialize();
-            PersonList = _personSerialazer.Deserialize();
+            MeetingList = new MeetingList();
+            PersonList = new PersonList();
             _createUser = new CreateUser(PersonList, _personSerialazer);
-            User = new UserPerson(_createUser.SelectUser());
+            User = new User(_createUser.SelectUser());
+            UserFunctions = new UserFunctions();
+            UserFunctions.CreateMeeting = new CreateMeeting(User.Person, MeetingList, _meetingSerialazer);
         }
+        public void SetFunctions()
+        {
+            User.SetUserFunctions(UserFunctions);
+        }
+        
     }
 }

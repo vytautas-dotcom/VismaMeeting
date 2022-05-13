@@ -1,1 +1,20 @@
-﻿
+[
+  
+  {
+    "Id": "8cd8e58b-878f-4772-8357-8ecef3f097c9",
+    "Name": "hfgh",
+    "ResponsiblePersonId": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+    "Persons": [
+      {
+        "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+        "Name": "Tomas",
+        "PersonMeetings": null
+      }
+    ],
+    "Description": "fghf",
+    "Category": 1,
+    "Type": 1,
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  }
+]
