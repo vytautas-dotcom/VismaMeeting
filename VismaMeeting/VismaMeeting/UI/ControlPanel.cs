@@ -12,6 +12,7 @@ namespace VismaMeeting.UI
         private readonly CreateUser _createUser;
         private readonly MeetingSerialazer _meetingSerialazer;
         private readonly PersonSerialazer _personSerialazer;
+        private readonly DataCheck _dataCheck;
         public MeetingList MeetingList { get; set; }
         public PersonList PersonList { get; set; }
         public User User { get; set; }
@@ -22,10 +23,11 @@ namespace VismaMeeting.UI
             _personSerialazer = new PersonSerialazer();
             MeetingList = new MeetingList();
             PersonList = new PersonList();
+            _dataCheck = new DataCheck();
             _createUser = new CreateUser(PersonList, _personSerialazer);
             User = new User(_createUser.SelectUser());
             UserFunctions = new UserFunctions();
-            UserFunctions.CreateMeeting = new CreateMeeting(User.Person, MeetingList, _meetingSerialazer);
+            UserFunctions.CreateMeeting = new CreateMeeting(User.Person, MeetingList, _meetingSerialazer, _dataCheck);
         }
         public void SetFunctions()
         {

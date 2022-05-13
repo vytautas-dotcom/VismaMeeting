@@ -1,7 +1,7 @@
 ﻿namespace VismaMeeting.Functions.Interfaces
 {
-    internal interface ICheck<T>
+    internal interface ICheck
     {
-        bool Check(T value);
+        bool Check();
     }
 }

@@ -33,5 +33,90 @@
     "Type": "Live",
     "StartDate": "2022-05-12T00:00:00",
     "EndDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "0ccfb0d5-aa6b-40fc-95d1-0a64a8b3f1a3",
+    "Name": "Some meeting",
+    "ResponsiblePersonId": "f8bb59d4-933c-486f-a505-2f78b962eb99",
+    "Persons": [
+      {
+        "Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
+        "Name": "Julius",
+        "PersonMeetings": null
+      }
+    ],
+    "Description": "what the beautiful day",
+    "Category": "Short",
+    "Type": "InPerson",
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "425f0de5-356b-44a4-86d5-562af76072d8",
+    "Name": "fhfgh",
+    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
+    "Persons": [
+      {
+        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
+        "Name": "Matas",
+        "PersonMeetings": null
+      }
+    ],
+    "Description": "hvghv",
+    "Category": "Short",
+    "Type": "InPerson",
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "2f6311ba-5126-4ae3-88e9-bd020642ebd7",
+    "Name": "aa",
+    "ResponsiblePersonId": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+    "Persons": [
+      {
+        "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+        "Name": "Tomas",
+        "PersonMeetings": null
+      }
+    ],
+    "Description": "bb",
+    "Category": "Hub",
+    "Type": "InPerson",
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "0001-01-01T00:00:00"
+  },
+  {
+    "Id": "3dae1652-b84b-45cc-8f81-bc6870aaea2c",
+    "Name": "123",
+    "ResponsiblePersonId": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+    "Persons": [
+      {
+        "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+        "Name": "Tomas",
+        "PersonMeetings": null
+      }
+    ],
+    "Description": "321",
+    "Category": "Short",
+    "Type": "InPerson",
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "2022-05-13T00:00:00"
+  },
+  {
+    "Id": "314048f6-38fd-4c55-9b48-04f3aee137c3",
+    "Name": "Jonas .NET meeting",
+    "ResponsiblePersonId": "d89f5294-67f9-4568-8c42-458d78404ebc",
+    "Persons": [
+      {
+        "Id": "d89f5294-67f9-4568-8c42-458d78404ebc",
+        "Name": "Jonas",
+        "PersonMeetings": null
+      }
+    ],
+    "Description": "fdsf",
+    "Category": "CodeMonkey",
+    "Type": "Live",
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "2022-05-13T00:00:00"
   }
 ]

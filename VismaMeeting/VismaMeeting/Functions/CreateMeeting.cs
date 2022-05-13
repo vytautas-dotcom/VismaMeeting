@@ -10,12 +10,16 @@ namespace VismaMeeting.Functions
         private readonly Person _person;
         private readonly MeetingList _meetingList;
         private readonly MeetingSerialazer _meetingSerialazer;
+        private readonly DataCheck _dataCheck;
 
-        public CreateMeeting(Person person, MeetingList meetingList, MeetingSerialazer meetingSerialazer)
+        public CreateMeeting(Person person, MeetingList meetingList, MeetingSerialazer meetingSerialazer, 
+                             DataCheck dataCheck)
         {
             _person = person;
             _meetingSerialazer = meetingSerialazer;
             _meetingList = _meetingSerialazer.Deserialize() ?? meetingList;
+            _dataCheck = dataCheck;
+
         }
         public void Create()
         {
@@ -32,40 +36,30 @@ namespace VismaMeeting.Functions
             meeting.Persons = new List<Person>();
             meeting.Persons.Add(_person);
             Console.WriteLine("Enter meeting's name");
-            meeting.Name = GetData();
+            meeting.Name = _dataCheck.GetData();
             Console.WriteLine("Enter meeting's description");
-            meeting.Description = GetData();
+            meeting.Description = _dataCheck.GetData();
             ShowEnum<MeetCategory>();
             Console.WriteLine("Choose meeting's number of category");
-            meeting.Category = (MeetCategory)GetNumberOfEnum<MeetCategory>();
+            meeting.Category = (MeetCategory)_dataCheck.GetNumberOfEnum<MeetCategory>();
             Console.WriteLine(meeting.Category);
             ShowEnum<MeetType>();
             Console.WriteLine("Choose meeting's type");
-            meeting.Type = (MeetType)GetNumberOfEnum<MeetType>();
+            meeting.Type = (MeetType)_dataCheck.GetNumberOfEnum<MeetType>();
             Console.WriteLine("Enter meeting's start date");
-            meeting.StartDate = GetDate();
+            meeting.StartDate = _dataCheck.GetDate();
             Console.WriteLine("Enter meeting's end date");
-            DateTime endDate = GetDate();
+            DateTime endDate = _dataCheck.GetDate();
             if (endDate < meeting.StartDate)
             {
                 while (endDate < meeting.StartDate)
                 {
                     Console.WriteLine("End date can not be less than start date!");
-                    endDate = GetDate();
+                    endDate = _dataCheck.GetDate();
                 }
             }
-
+            meeting.EndDate = endDate;
             return meeting;
-        }
-        private string GetData()
-        {
-            string input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
-            {
-                Console.WriteLine("Please enter required data");
-                GetData();
-            }
-            return input;
         }
         private void ShowEnum<T>()
         {
@@ -73,27 +67,6 @@ namespace VismaMeeting.Functions
             {
                 Console.WriteLine("{0,-15} - {1}", item, (int)item);
             }
-        }
-        private int GetNumberOfEnum<T>()
-        {
-            bool isNumberOfCategory = Int32.TryParse(GetData(), out int numberOfCategory);
-            if (!isNumberOfCategory || !Enum.IsDefined(typeof(T), numberOfCategory))
-            {
-                Console.WriteLine("Please enter correct number");
-                return GetNumberOfEnum<T>();
-            }
-            return numberOfCategory;
-        }
-        private DateTime GetDate()
-        {
-            Console.Write("(e.g. 05/12/2022): ");
-            bool isDateCorrect = DateTime.TryParse(Console.ReadLine(), out DateTime date);
-            if (!isDateCorrect)
-            {
-                Console.WriteLine("Please enter correct date");
-                GetDate();
-            }
-            return date;
         }
     }
 }
