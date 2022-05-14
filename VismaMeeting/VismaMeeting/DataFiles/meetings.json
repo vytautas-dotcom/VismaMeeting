@@ -1,190 +1,60 @@
 [
   
   {
-    "Id": "760eadfd-5052-4dc7-b1f1-5d2ac5358830",
-    "Name": "First Jonas meeting",
+    "Id": "00b379f5-70b3-4af9-a86d-2b3137c37393",
+    "Name": "Jonas meeting",
     "ResponsiblePersonId": "d89f5294-67f9-4568-8c42-458d78404ebc",
     "Persons": [
       {
         "Id": "d89f5294-67f9-4568-8c42-458d78404ebc",
         "Name": "Jonas",
-        "PersonMeetings": { "760eadfd-5052-4dc7-b1f1-5d2ac5358830": "2022-05-13T12:00:10.3715639+03:00" }
-      }
-    ],
-    "Description": "First meeting",
-    "Category": "CodeMonkey",
-    "Type": "Live",
-    "StartDate": "2022-05-13T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
-  },
-  {
-    "Id": "137fd358-00f4-4ea5-954a-04bddf736032",
-    "Name": "First tomas list",
-    "ResponsiblePersonId": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
-    "Persons": [
+        "PersonMeetings": { "00b379f5-70b3-4af9-a86d-2b3137c37393": "2022-05-15T00:08:02.7463167+03:00" }
+      },
       {
         "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
         "Name": "Tomas",
-        "PersonMeetings": { "137fd358-00f4-4ea5-954a-04bddf736032": "2022-05-13T12:07:33.8288627+03:00" }
-      }
-    ],
-    "Description": "first list",
-    "Category": "Hub",
-    "Type": "InPerson",
-    "StartDate": "2022-05-13T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
-  },
-  {
-    "Id": "5c735fac-c30b-4013-8b66-2ffe13ab818c",
-    "Name": "matas first meeting",
-    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-    "Persons": [
+        "PersonMeetings": { "00b379f5-70b3-4af9-a86d-2b3137c37393": "2022-05-15T00:09:26.799944+03:00" }
+      },
       {
         "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
         "Name": "Matas",
-        "PersonMeetings": { "5c735fac-c30b-4013-8b66-2ffe13ab818c": "2022-05-13T12:13:31.5949451+03:00" }
-      }
-    ],
-    "Description": "first meeting",
-    "Category": "Short",
-    "Type": "InPerson",
-    "StartDate": "2022-05-13T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
-  },
-  {
-    "Id": "d2c70a2b-bd35-4735-ad13-3efe5e18ad41",
-    "Name": "matas meeting",
-    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-    "Persons": [
-      {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": { "d2c70a2b-bd35-4735-ad13-3efe5e18ad41": "2022-05-13T12:19:46.1294534+03:00" }
-      }
-    ],
-    "Description": "first matas meeting",
-    "Category": "TeamBuilding",
-    "Type": "InPerson",
-    "StartDate": "2022-05-13T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
-  },
-  {
-    "Id": "890372bc-53e3-4ce3-9a49-5c229b84f637",
-    "Name": "chjgv",
-    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-    "Persons": [
-      {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": { "890372bc-53e3-4ce3-9a49-5c229b84f637": "2022-05-13T12:37:59.9937827+03:00" }
-      }
-    ],
-    "Description": "kjhhj",
-    "Category": "CodeMonkey",
-    "Type": "Live",
-    "StartDate": "2022-05-13T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
-  },
-  {
-    "Id": "3fa6bd07-6316-4259-b339-6c50a9f1f052",
-    "Name": "sdf",
-    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-    "Persons": [
-      {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": { "3fa6bd07-6316-4259-b339-6c50a9f1f052": "2022-05-13T12:53:54.480439+03:00" }
-      }
-    ],
-    "Description": "sdf",
-    "Category": "CodeMonkey",
-    "Type": "Live",
-    "StartDate": "2022-05-13T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
-  },
-  {
-    "Id": "f5c53d20-b2e9-4638-85b9-736ccc837ab1",
-    "Name": "3",
-    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-    "Persons": [
-      {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": { "f5c53d20-b2e9-4638-85b9-736ccc837ab1": "2022-05-13T12:57:11.7901371+03:00" }
-      }
-    ],
-    "Description": "3",
-    "Category": "Short",
-    "Type": "InPerson",
-    "StartDate": "0001-01-01T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
-  },
-  {
-    "Id": "cb5136fb-361c-4724-a920-85a620561ec8",
-    "Name": "3",
-    "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-    "Persons": [
-      {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": { "cb5136fb-361c-4724-a920-85a620561ec8": "2022-05-13T12:59:16.5314617+03:00" }
-      }
-    ],
-    "Description": "3",
-    "Category": "Short",
-    "Type": "Live",
-    "StartDate": "2022-05-14T00:00:00",
-    "EndDate": "2022-05-15T00:00:00"
-  },
-  {
-    "Id": "73dd0fea-2c08-4f72-a19b-fc07a2ce2c44",
-    "Name": "2",
-    "ResponsiblePersonId": "f8bb59d4-933c-486f-a505-2f78b962eb99",
-    "Persons": [
+        "PersonMeetings": { "00b379f5-70b3-4af9-a86d-2b3137c37393": "2022-05-15T00:13:34.3487792+03:00" }
+      },
       {
         "Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
         "Name": "Julius",
-        "PersonMeetings": { "73dd0fea-2c08-4f72-a19b-fc07a2ce2c44": "2022-05-13T13:03:47.7265845+03:00" }
+        "PersonMeetings": {}
       }
     ],
-    "Description": "2",
-    "Category": "Hub",
-    "Type": "InPerson",
+    "Description": "sfds",
+    "Category": "CodeMonkey",
+    "Type": "Live",
     "StartDate": "2022-05-12T00:00:00",
-    "EndDate": "2022-05-14T00:00:00"
+    "EndDate": "2022-05-13T00:00:00"
   },
   {
-    "Id": "ed4becc0-9e5a-4189-a98f-a53642bd6bfa",
-    "Name": "matas meeting ",
+    "Id": "b7194170-ab74-445d-bddc-7359c17242f0",
+    "Name": "Matas ",
     "ResponsiblePersonId": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
     "Persons": [
       {
         "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
         "Name": "Matas",
-        "PersonMeetings": { "ed4becc0-9e5a-4189-a98f-a53642bd6bfa": "2022-05-13T13:05:16.8375477+03:00" }
-      }
-    ],
-    "Description": "matas added to the meeting",
-    "Category": "Hub",
-    "Type": "InPerson",
-    "StartDate": "2022-06-15T00:00:00",
-    "EndDate": "2022-06-18T00:00:00"
-  },
-  {
-    "Id": "aa714f7e-1c8d-4064-9a56-e583c47e8323",
-    "Name": "2",
-    "ResponsiblePersonId": "f8bb59d4-933c-486f-a505-2f78b962eb99",
-    "Persons": [
+        "PersonMeetings": { "b7194170-ab74-445d-bddc-7359c17242f0": "2022-05-15T00:21:01.9034538+03:00" }
+      },
       {
         "Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
         "Name": "Julius",
-        "PersonMeetings": { "aa714f7e-1c8d-4064-9a56-e583c47e8323": "2022-05-13T13:07:03.9741788+03:00" }
+        "PersonMeetings": {
+          "00b379f5-70b3-4af9-a86d-2b3137c37393": "2022-05-15T00:19:10.3298299+03:00",
+          "b7194170-ab74-445d-bddc-7359c17242f0": "2022-05-15T00:24:01.8928471+03:00"
+        }
       }
     ],
-    "Description": "2",
-    "Category": "Hub",
-    "Type": "InPerson",
-    "StartDate": "2022-02-22T00:00:00",
-    "EndDate": "2022-02-23T00:00:00"
+    "Description": "asda",
+    "Category": "CodeMonkey",
+    "Type": "Live",
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "2022-05-15T00:00:00"
   }
 ]

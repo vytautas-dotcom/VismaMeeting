@@ -7,5 +7,6 @@ namespace VismaMeeting.Users
     {
         public ICommand CreateMeeting;
         public ICommand DeleteMeeting;
+        public ICommand AddPerson;
     }
 }

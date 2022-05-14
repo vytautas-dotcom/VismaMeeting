@@ -15,6 +15,10 @@ namespace VismaMeeting.Functions
             else
             person.PersonMeetings.Add(meeting.Id, DateTime.Now);
         }
+        public void AddMeetingToPerson(Guid id, Person person)
+            => person.PersonMeetings.Add(id, DateTime.Now);
+        public void AddPersonToMeeting(Meeting meeting, Person person)
+            => meeting.Persons.Add(person);
         public void RemoveMeetingFromPersonMeetings(Guid id, PersonList personList)
             => personList.ForEach(x => x.PersonMeetings.Remove(id));
     }

@@ -2,6 +2,7 @@
 using VismaMeeting.Functions.Interfaces;
 using VismaMeeting.MeetingData;
 using VismaMeeting.Serialization;
+using VismaMeeting.UI;
 
 namespace VismaMeeting.Functions
 {
@@ -29,19 +30,25 @@ namespace VismaMeeting.Functions
         }
         public void Create()
         {
-            ShowMeetsList();
-            int? index = _dataCheck.SelectMeetig(_meetingList, _person);
-            if (index == null)
-                Create();
-            PersonList personList = _personSerializer.Deserialize();
-            _personMeetingData.RemoveMeetingFromPersonMeetings(_meetingList[index.Value].Id, personList);
-            _personSerializer.JsonSerialize(personList);
-            _meetingList.RemoveAt(index.Value);
-            _meetingSerialazer.JsonSerialize(_meetingList);
-        }
-        public void ShowMeetsList()
-        {
+            if(!_dataCheck.IsMeetingToDeleteForPerson(_meetingList, _person))
+            {
+                new ControlPanel();
+            }
             _showMeetingData.ShowNamesIndexes(_meetingList);
+            int index = _dataCheck.SelectMeetigForDelete(_meetingList, _person);
+            if (!_dataCheck.Confirm())
+            {
+                new ControlPanel();
+            }
+            else
+            {
+                PersonList personList = _personSerializer.Deserialize();
+                _personMeetingData.RemoveMeetingFromPersonMeetings(_meetingList[index].Id, personList);
+                _personSerializer.JsonSerialize(personList);
+                _meetingList.RemoveAt(index);
+                _meetingSerialazer.JsonSerialize(_meetingList);
+                new ControlPanel();
+            }
         }
     }
 }

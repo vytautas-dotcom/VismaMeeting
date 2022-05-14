@@ -16,6 +16,7 @@ namespace VismaMeeting.UI
         private readonly PersonMeetingData _personMeetingData;
         private readonly IShowData<Meeting, MeetingList> _showMeetingData;
         private readonly IShowData<Person, PersonList> _showPersonData;
+        private readonly DataVisualization _dataVisualization;
         public MeetingList MeetingList { get; set; }
         public PersonList PersonList { get; set; }
         public User User { get; set; }
@@ -30,11 +31,12 @@ namespace VismaMeeting.UI
             _showMeetingData = new MeetingShowData();
             _showPersonData = new PersonShowData();
             _personMeetingData = new PersonMeetingData();
-            _createUser = new CreateUser(PersonList, _personSerialazer);
+            _createUser = new CreateUser(PersonList, _personSerialazer, _dataCheck);
             User = new User(_createUser.SelectUser());
             UserFunctions = new UserFunctions();
             UserFunctions.CreateMeeting = new CreateMeeting(User.Person, MeetingList, _meetingSerialazer, _personSerialazer, _dataCheck, _personMeetingData);
             UserFunctions.DeleteMeeting = new DeleteMeeting(User.Person, MeetingList, _meetingSerialazer, _personSerialazer, _dataCheck, _showMeetingData, _personMeetingData);
+            UserFunctions.AddPerson = new AddPerson(User.Person, MeetingList, PersonList, _meetingSerialazer, _personSerialazer, _dataCheck, _showMeetingData, _showPersonData, _personMeetingData);
         }
         public void SetFunctions()
         {
