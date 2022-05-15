@@ -12,11 +12,12 @@ namespace VismaMeeting.UI
         private readonly DataVisualization _dataVisualization;
         private readonly DataCheck _dataCheck;
 
-        public CreateUser(PersonList personList, PersonSerialazer personSerialazer, DataCheck dataCheck, bool consoleClear)
+        public CreateUser(PersonSerialazer personSerialazer, DataCheck dataCheck, bool consoleClear)
         {
             _personSerialazer = personSerialazer;
             _personShowData = new PersonShowData();
             _dataVisualization = new DataVisualization();
+            _personList = new PersonList();
             _personList = _personSerialazer.Deserialize();
             _personShowData.ShowNamesIndexes(_personList, consoleClear);
             _dataCheck = dataCheck;

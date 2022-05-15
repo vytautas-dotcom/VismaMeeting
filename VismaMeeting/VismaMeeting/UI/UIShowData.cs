@@ -48,7 +48,8 @@ namespace VismaMeeting.UI
                 case 5:
                     return
                     functionExecuter = _user.UserFunctions.BackToStart.Execute;
-                default: return null;
+                default: return
+                        functionExecuter = null;
             }
         }
     }

@@ -8,32 +8,6 @@ namespace VismaMeeting.Functions
 {
     internal class RemovePerson : ICommand
     {
-        private readonly Person _person;
-        private MeetingList _meetingList;
-        private PersonList _personList;
-        private readonly MeetingSerialazer _meetingSerialazer;
-        private readonly PersonSerialazer _personSerializer;
-        private readonly DataCheck _dataCheck;
-        private readonly PersonMeetingData _personMeetingData;
-        private readonly IShowData<Meeting, MeetingList> _showMeetingData;
-        private readonly IShowData<Person, PersonList> _showPersonData;
-        ControlPanel _controlPanel;
-        public RemovePerson(Person person, MeetingList meetingList, PersonList personList, MeetingSerialazer meetingSerialazer,
-                             PersonSerialazer personSerialazer, DataCheck dataCheck, IShowData<Meeting,
-                                 MeetingList> showMeetingData, IShowData<Person, PersonList> showPersonData,
-                             PersonMeetingData personMeetingData)
-        {
-            _person = person;
-            _meetingSerialazer = meetingSerialazer;
-            _personSerializer = personSerialazer;
-            _meetingList = _meetingSerialazer.Deserialize() ?? meetingList;
-            _personList = _personSerializer.Deserialize() ?? personList;
-            _dataCheck = dataCheck;
-            _showMeetingData = showMeetingData;
-            _showPersonData = showPersonData;
-            _personMeetingData = personMeetingData;
-
-        }
         public override void Execute()
         {
             if (_meetingList.Count == 0)

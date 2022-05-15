@@ -4,7 +4,7 @@ namespace VismaMeeting.Users
 {
     internal class  User
     {
-        public Person Person { get; set; }
+        public Person Person;
         public UserFunctions UserFunctions;
         public User(Person person)
         {
