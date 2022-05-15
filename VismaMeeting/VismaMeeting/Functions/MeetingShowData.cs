@@ -35,7 +35,7 @@ namespace VismaMeeting.Functions
         public void ShowAllItems(MeetingList meetingList)
             => meetingList.ForEach(x => ShowOneItem(x));
 
-        public void ShowNamesIndexes(MeetingList meetingList)
+        public void ShowNamesIndexes(MeetingList meetingList, bool consoleClear = false)
         {
             string title = "Enter number of the meeting";
             _dataVisualization.DisplayData(title, "", 0, "DarkGray", "Gray", writeTitle: _dataVisualization.WrapedTitle);

@@ -11,7 +11,8 @@ namespace VismaMeeting.Functions
         {
             _dataVisualization = new DataVisualization();
         }
-        public Meeting GetUserInput(Person person, PersonMeetingData personMeetingData)
+        #region Meeting creation
+        public Meeting CreateMeeting(Person person, PersonMeetingData personMeetingData)
         {
             Meeting meeting = new Meeting();
             meeting.Id = Guid.NewGuid();
@@ -19,26 +20,25 @@ namespace VismaMeeting.Functions
             meeting.ResponsiblePersonId = person.Id;
             meeting.Persons = new List<Person>();
             meeting.Persons.Add(person);
-            Console.WriteLine("Enter meeting's name");
+            _dataVisualization.AskForEntry("Enter meeting's name");
             meeting.Name = GetData();
-            Console.WriteLine("Enter meeting's description");
+            _dataVisualization.AskForEntry("Enter meeting's description");
             meeting.Description = GetData();
             ShowEnum<MeetCategory>();
-            Console.WriteLine("Choose meeting's number of category");
+            _dataVisualization.AskForEntry("Choose meeting's number of category");
             meeting.Category = (MeetCategory)GetNumberOfEnum<MeetCategory>();
-            Console.WriteLine(meeting.Category);
             ShowEnum<MeetType>();
-            Console.WriteLine("Choose meeting's type");
+            _dataVisualization.AskForEntry("Choose meeting's type");
             meeting.Type = (MeetType)GetNumberOfEnum<MeetType>();
-            Console.WriteLine("Enter meeting's start date");
+            _dataVisualization.AskForEntry("Enter meeting's start date");
             meeting.StartDate = GetDate();
-            Console.WriteLine("Enter meeting's end date");
+            _dataVisualization.AskForEntry("Enter meeting's end date");
             DateTime endDate = GetDate();
             if (endDate < meeting.StartDate)
             {
                 while (endDate < meeting.StartDate)
                 {
-                    Console.WriteLine("End date can not be less than start date!");
+                    _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("End date can not be less than start date!"));
                     endDate = GetDate();
                 }
             }
@@ -52,6 +52,7 @@ namespace VismaMeeting.Functions
                 Console.WriteLine("{0,-15} - {1}", item, (int)item);
             }
         }
+        #endregion
         public int Select<T>(List<T> list)
         {
             _dataVisualization.AskForEntry("Number");
@@ -65,6 +66,8 @@ namespace VismaMeeting.Functions
             }
             return index;
         }
+        public bool CheckIndex<T>(int index, List<T> list)
+            => index >= list.Count || index < 0;
         public string GetData()
         {
             string input = Console.ReadLine();
@@ -75,6 +78,7 @@ namespace VismaMeeting.Functions
             }
             return input;
         }
+        #region Filter meetings by attendees number
         public (int, int) GetInterval()
         {
             (int, int) interval;
@@ -97,11 +101,11 @@ namespace VismaMeeting.Functions
             }
             return interval;
         }
-        public string GetIndex()
-            => Console.ReadLine();
+        #endregion
+        
         public DateTime GetDate()
         {
-            Console.Write("(e.g. 05/12/2022): ");
+            Console.Write("(e.g. mm/dd/yyyy or mm/dd): ");
             bool isDateCorrect = DateTime.TryParse(GetData(), out DateTime date);
             if (!isDateCorrect)
             {
@@ -120,6 +124,7 @@ namespace VismaMeeting.Functions
             }
             return numberOfCategory;
         }
+        #region Delete meeting
         public int SelectMeetigForDelete(MeetingList meetingList, Person person)
         {
             bool success = false;
@@ -137,6 +142,18 @@ namespace VismaMeeting.Functions
             } while (!success);
             return index;
         }
+        public bool IsMeetingToDeleteForPerson(MeetingList meetingList, Person person)
+        {
+            bool isToDelete = false;
+            foreach (var meeting in meetingList)
+            {
+                if (IsPersonResponsible(person, meeting))
+                    isToDelete = true;
+            }
+            return isToDelete;
+        }
+        #endregion
+        #region Remove person
         public int SelectPersonToRemoveFromMeeting(Meeting meeting)
         {
             bool success = false;
@@ -154,6 +171,8 @@ namespace VismaMeeting.Functions
             } while (!success);
             return index;
         }
+        #endregion
+        #region Add person
         public int SelectPersonForMeeting(Meeting meeting, PersonList personList)
         {
             bool success = false;
@@ -171,16 +190,18 @@ namespace VismaMeeting.Functions
             } while (!success);
             return index;
         }
-        public bool IsMeetingToDeleteForPerson(MeetingList meetingList, Person person)
+        public bool IsPersonAdded(Person person, Meeting meeting)
         {
-            bool isToDelete = false;
-            foreach (var meeting in meetingList)
+            bool isAdded = false;
+            foreach (var item in meeting.Persons)
             {
-                if (IsPersonResponsible(person, meeting))
-                    isToDelete = true;
+                if (item.Id == person.Id)
+                    isAdded = true;
             }
-            return isToDelete;
+            return isAdded;
         }
+        #endregion
+        #region Confirmation
         public bool Confirm()
         {
             _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => 
@@ -190,7 +211,7 @@ namespace VismaMeeting.Functions
             char confirmation = 'y';
             do
             {
-                if (!char.TryParse(GetIndex(), out char confirmationLetter))
+                if (!char.TryParse(Console.ReadLine(), out char confirmationLetter))
                 {
                     _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
                     return Confirm();
@@ -208,21 +229,11 @@ namespace VismaMeeting.Functions
             } while (continueCycle);
             return success;
         }
-        public bool CheckIndex<T>(int index, List<T> list)
-            => index >= list.Count || index < 0;
+        #endregion
         public bool IsPersonResponsible(Person person, Meeting meeting)
             => meeting.ResponsiblePersonId == person.Id;
 
-        public bool IsPersonAdded(Person person, Meeting meeting)
-        {
-            bool isAdded = false;
-            foreach (var item in meeting.Persons)
-            {
-                if(item.Id == person.Id)
-                    isAdded = true;
-            }
-            return isAdded;
-        }
+        
 
     }
 }

@@ -15,6 +15,7 @@ namespace VismaMeeting.Functions
         private readonly DataCheck _dataCheck;
         private readonly PersonMeetingData _personMeetingData;
         private readonly IShowData<Meeting, MeetingList> _showMeetingData;
+        ControlPanel _controlPanel;
 
         public DeleteMeeting(Person person, MeetingList meetingList, MeetingSerialazer meetingSerialazer,
                              PersonSerialazer personSerialazer, DataCheck dataCheck, IShowData<Meeting, 
@@ -28,17 +29,19 @@ namespace VismaMeeting.Functions
             _showMeetingData = showMeetingData;
             _personMeetingData = personMeetingData;
         }
-        public void Create()
+        public override void Execute()
         {
             if(!_dataCheck.IsMeetingToDeleteForPerson(_meetingList, _person))
             {
-                new ControlPanel();
+                _controlPanel = new ControlPanel(consoleClear: true);
+                _controlPanel.RunProgram();
             }
             _showMeetingData.ShowNamesIndexes(_meetingList);
             int index = _dataCheck.SelectMeetigForDelete(_meetingList, _person);
             if (!_dataCheck.Confirm())
             {
-                new ControlPanel();
+                _controlPanel = new ControlPanel(consoleClear: true);
+                _controlPanel.RunProgram();
             }
             else
             {
@@ -47,7 +50,8 @@ namespace VismaMeeting.Functions
                 _personSerializer.JsonSerialize(personList);
                 _meetingList.RemoveAt(index);
                 _meetingSerialazer.JsonSerialize(_meetingList);
-                new ControlPanel();
+                _controlPanel = new ControlPanel(consoleClear: true);
+                _controlPanel.RunProgram();
             }
         }
     }

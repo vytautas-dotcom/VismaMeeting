@@ -10,6 +10,6 @@ namespace VismaMeeting.Functions.Interfaces
     {
         void ShowOneItem(T data);
         void ShowAllItems(K data);
-        void ShowNamesIndexes(K data);
+        void ShowNamesIndexes(K data, bool consoleClear = false);
     }
 }

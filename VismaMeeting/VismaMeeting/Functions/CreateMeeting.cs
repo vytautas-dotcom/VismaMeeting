@@ -2,6 +2,7 @@
 using VismaMeeting.Functions.Interfaces;
 using VismaMeeting.MeetingData;
 using VismaMeeting.Serialization;
+using VismaMeeting.UI;
 
 namespace VismaMeeting.Functions
 {
@@ -13,6 +14,7 @@ namespace VismaMeeting.Functions
         private readonly PersonSerialazer _personSerialazer;
         private readonly DataCheck _dataCheck;
         private readonly PersonMeetingData _personMeetingData;
+        ControlPanel controlPanel;
 
         public CreateMeeting(Person person, MeetingList meetingList, MeetingSerialazer meetingSerialazer,
                              PersonSerialazer personSerialazer, DataCheck dataCheck, PersonMeetingData personMeetingData)
@@ -25,15 +27,17 @@ namespace VismaMeeting.Functions
             _personMeetingData = personMeetingData;
 
         }
-        public void Create()
+        public override void Execute()
         {
-            Meeting meeting = _dataCheck.GetUserInput(_person, _personMeetingData);
+            Meeting meeting = _dataCheck.CreateMeeting(_person, _personMeetingData);
             _meetingList.Add(meeting);
             _meetingSerialazer.JsonSerialize(_meetingList);
             PersonList personList = _personSerialazer.Deserialize();
             personList.RemoveAt(personList.FindIndex(x => x.Id == _person.Id));
             personList.Add(_person);
             _personSerialazer.JsonSerialize(personList);
+            controlPanel = new ControlPanel(consoleClear: true);
+            controlPanel.RunProgram();
         }
     }
 }

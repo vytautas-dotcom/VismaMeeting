@@ -1,5 +1,6 @@
 ﻿using VismaMeeting.Employees;
 using VismaMeeting.MeetingData;
+using VismaMeeting.UI;
 
 namespace VismaMeeting.Functions.Interfaces
 {
@@ -12,6 +13,7 @@ namespace VismaMeeting.Functions.Interfaces
         private readonly MeetingShowData _meetingShowData;
         private readonly PersonList _personList;
         ExecuteFunction functionExecuter;
+        ControlPanel _controlPanel;
         public FilterShowData(PersonList personList)
         {
             _personList = personList;
@@ -58,11 +60,16 @@ namespace VismaMeeting.Functions.Interfaces
         }
         public void MeetingsByDescription(MeetingList meetingList)
         {
-            _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text description please"));
+            _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter description text please"));
             _dataVisualization.AskForEntry("Description");
             MeetingList meetings = _filterData.FilterByDescription(_dataCheck.GetData(), meetingList);
+            if(meetings.Count == 0)
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("There is no data matching these parameters"));
+            }
             _meetingShowData.ShowAllItems(meetings);
-            return;
+            _controlPanel = new ControlPanel();
+            _controlPanel.RunProgram();
         }
 
         public void MeetingsByResponsiblePerson(MeetingList meetingList)
@@ -70,8 +77,13 @@ namespace VismaMeeting.Functions.Interfaces
             _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter name please"));
             _dataVisualization.AskForEntry("Name");
             MeetingList meetings = _filterData.FilterByResponsiblePerson(_dataCheck.GetData(), meetingList);
+            if (meetings.Count == 0)
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("There is no data matching these parameters"));
+            }
             _meetingShowData.ShowAllItems(meetings);
-            return;
+            _controlPanel = new ControlPanel();
+            _controlPanel.RunProgram();
         }
         public void MeetingsByCategory(MeetingList meetingList)
         {
@@ -84,8 +96,13 @@ namespace VismaMeeting.Functions.Interfaces
             _dataVisualization.AskForEntry("Number");
             int index = _dataCheck.GetNumberOfEnum<MeetCategory>();
             MeetingList meetings = _filterData.FilterByCategory(index, meetingList);
+            if (meetings.Count == 0)
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("There is no data matching these parameters"));
+            }
             _meetingShowData.ShowAllItems(meetings);
-            return;
+            _controlPanel = new ControlPanel();
+            _controlPanel.RunProgram();
         }
         public void MeetingsByType(MeetingList meetingList)
         {
@@ -97,26 +114,41 @@ namespace VismaMeeting.Functions.Interfaces
             _dataVisualization.AskForEntry("Number");
             int index = _dataCheck.GetNumberOfEnum<MeetType>();
             MeetingList meetings = _filterData.FilterByType(index, meetingList);
+            if (meetings.Count == 0)
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("There is no data matching these parameters"));
+            }
             _meetingShowData.ShowAllItems(meetings);
-            return;
+            _controlPanel = new ControlPanel();
+            _controlPanel.RunProgram();
         }
         public void MeetingsByDate(MeetingList meetingList)
         {
             _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter date please"));
             _dataVisualization.AskForEntry("Date");
             MeetingList meetings = _filterData.FilterByDate(_dataCheck.GetDate(), meetingList);
+            if (meetings.Count == 0)
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("There is no data matching these parameters"));
+            }
             _meetingShowData.ShowAllItems(meetings);
-            return;
+            _controlPanel = new ControlPanel();
+            _controlPanel.RunProgram();
         }
         public void MeetingsByNumberOfAttendees(MeetingList meetingList)
         {
-            _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter interval please"));
+            _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter lowest and highest number of users in a meeting please"));
             _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("(e.g. (num1,0) - up to num1 including num1"));
             _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("(e.g. (num1,num2) - between num1 and num2 including num2"));
             _dataVisualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("(e.g. (0,num2) - over num2"));
             MeetingList meetings = _filterData.FilterByNumberOfAttendees(_dataCheck.GetInterval(), meetingList);
+            if (meetings.Count == 0)
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("There is no data matching these parameters"));
+            }
             _meetingShowData.ShowAllItems(meetings);
-            return;
+            _controlPanel = new ControlPanel();
+            _controlPanel.RunProgram();
         }
 
     }

@@ -17,7 +17,7 @@ namespace VismaMeeting.Functions
         private readonly PersonMeetingData _personMeetingData;
         private readonly IShowData<Meeting, MeetingList> _showMeetingData;
         private readonly IShowData<Person, PersonList> _showPersonData;
-
+        ControlPanel _controlPanel;
         public RemovePerson(Person person, MeetingList meetingList, PersonList personList, MeetingSerialazer meetingSerialazer,
                              PersonSerialazer personSerialazer, DataCheck dataCheck, IShowData<Meeting,
                                  MeetingList> showMeetingData, IShowData<Person, PersonList> showPersonData,
@@ -34,24 +34,27 @@ namespace VismaMeeting.Functions
             _personMeetingData = personMeetingData;
 
         }
-        public void Create()
+        public override void Execute()
         {
             if (_meetingList.Count == 0)
             {
-                new ControlPanel();
+                _controlPanel = new ControlPanel(consoleClear: true);
+                _controlPanel.RunProgram();
             }
             _showMeetingData.ShowNamesIndexes(_meetingList);
             int indexMeeting = _dataCheck.Select(_meetingList);
             if (_meetingList[indexMeeting].Persons.Count == 0)
             {
-                new ControlPanel();
+                _controlPanel = new ControlPanel(consoleClear: true);
+                _controlPanel.RunProgram();
             }
             _showMeetingData.ShowOneItem(_meetingList[indexMeeting]);
             
             int indexPerson = _dataCheck.SelectPersonToRemoveFromMeeting(_meetingList[indexMeeting]);
             if (!_dataCheck.Confirm())
             {
-                new ControlPanel();
+                _controlPanel = new ControlPanel(consoleClear: true);
+                _controlPanel.RunProgram();
             }
             else
             {
@@ -59,8 +62,9 @@ namespace VismaMeeting.Functions
                 _personSerializer.JsonSerialize(_personList);
                 _personMeetingData.RemovePersonFromMeeting(_personList[indexPerson].Id, _meetingList[indexMeeting]);
                 _meetingSerialazer.JsonSerialize(_meetingList);
+                _controlPanel = new ControlPanel(consoleClear: true);
+                _controlPanel.RunProgram();
             }
-            new ControlPanel();
         }
     }
 }

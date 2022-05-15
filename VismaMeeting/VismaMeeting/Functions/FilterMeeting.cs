@@ -37,7 +37,7 @@ namespace VismaMeeting.Functions
             _filterData = new FilterData(_personList);
 
         }
-        public void Create()
+        public override void Execute()
         {
             _filterShowData.ShowFilterParameters();
             int index = _dataCheck.Select(_filterData.FilterParameterIndexes);

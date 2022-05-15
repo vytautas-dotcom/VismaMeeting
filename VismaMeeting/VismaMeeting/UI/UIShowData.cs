@@ -32,22 +32,22 @@ namespace VismaMeeting.UI
             {
                 case 0:
                     return
-                    functionExecuter = _user.UserFunctions.CreateMeeting.Create;
+                    functionExecuter = _user.UserFunctions.CreateMeeting.Execute;
                 case 1:
                     return
-                    functionExecuter = _user.UserFunctions.DeleteMeeting.Create;
+                    functionExecuter = _user.UserFunctions.DeleteMeeting.Execute;
                 case 2:
                     return
-                    functionExecuter = _user.UserFunctions.AddPerson.Create;
+                    functionExecuter = _user.UserFunctions.AddPerson.Execute;
                 case 3:
                     return
-                    functionExecuter = _user.UserFunctions.RemovePerson.Create;
+                    functionExecuter = _user.UserFunctions.RemovePerson.Execute;
                 case 4:
                     return
-                    functionExecuter = _user.UserFunctions.FilterMeeting.Create;
+                    functionExecuter = _user.UserFunctions.FilterMeeting.Execute;
                 case 5:
                     return
-                    functionExecuter = _user.UserFunctions.BackToStart.Create;
+                    functionExecuter = _user.UserFunctions.BackToStart.Execute;
                 default: return null;
             }
         }

@@ -22,7 +22,7 @@ namespace VismaMeeting.Functions.Interfaces
             {"Category", 2},
             {"Type", 3},
             {"Date", 4},
-            {"Attendees", 5}
+            {"Attendees number", 5}
         };
         public List<int> FilterParameterIndexes = new List<int>(new[] { 0, 1, 2, 3, 4, 5 });
 

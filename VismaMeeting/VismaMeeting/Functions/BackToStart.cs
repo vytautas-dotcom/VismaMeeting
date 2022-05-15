@@ -5,9 +5,11 @@ namespace VismaMeeting.Functions
 {
     internal class BackToStart : ICommand
     {
-        public void Create()
+        ControlPanel controlPanel;
+        public override void Execute()
         {
-            new ControlPanel();
+            controlPanel = new ControlPanel(consoleClear: true);
+            controlPanel.RunProgram();
         }
     }
 }

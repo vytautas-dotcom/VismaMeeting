@@ -8,7 +8,7 @@
             {"Delete Meeting", 1},
             {"Add a Person", 2},
             {"Remove a Person", 3},
-            {"Filter Meetings by Parameter", 4},
+            {"Filter Meetings", 4},
             {"Change User", 5},
             {"Exit", 6}
         };
