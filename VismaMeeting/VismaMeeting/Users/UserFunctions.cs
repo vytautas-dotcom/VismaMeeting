@@ -9,5 +9,6 @@ namespace VismaMeeting.Users
         public ICommand DeleteMeeting;
         public ICommand AddPerson;
         public ICommand RemovePerson;
+        public ICommand FilterMeeting;
     }
 }

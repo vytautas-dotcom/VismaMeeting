@@ -54,7 +54,7 @@ namespace VismaMeeting.Functions
         }
         public int Select<T>(List<T> list)
         {
-            _dataVisualization.AskForNumber();
+            _dataVisualization.AskForEntry("Number");
             int index;
             string input = Console.ReadLine();
             bool isCorrect = int.TryParse(input, out index);

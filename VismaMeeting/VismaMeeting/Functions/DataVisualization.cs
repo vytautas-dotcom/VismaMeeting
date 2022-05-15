@@ -46,10 +46,10 @@
             Console.WriteLine(title);
             ShowLine(title.Length);
         }
-        public void AskForNumber()
+        public void AskForEntry(string text)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Number: ");
+            Console.Write($"{text}: ");
             Console.ResetColor();
         }
     }
