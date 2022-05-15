@@ -49,17 +49,23 @@ namespace VismaMeeting.Functions.Interfaces
             }
             return meetings;
         }
-        public MeetingList FilterByCategory(string number, MeetingList meetingList)
+        public MeetingList FilterByCategory(int index, MeetingList meetingList)
         {
             MeetingList meetings = new MeetingList();
-
             foreach (var meeting in meetingList)
             {
-                foreach (var person in _personList)
-                {
-                    if (person.Name.ToLower().Contains(text.ToLower()) && meeting.ResponsiblePersonId == person.Id)
-                        meetings.Add(meeting);
-                }
+                if (meeting.Category == (MeetCategory)index)
+                    meetings.Add(meeting);
+            }
+            return meetings;
+        }
+        public MeetingList FilterByType(int index, MeetingList meetingList)
+        {
+            MeetingList meetings = new MeetingList();
+            foreach (var meeting in meetingList)
+            {
+                if (meeting.Type == (MeetType)index)
+                    meetings.Add(meeting);
             }
             return meetings;
         }

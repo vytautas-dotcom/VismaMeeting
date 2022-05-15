@@ -58,7 +58,7 @@ namespace VismaMeeting.Functions.Interfaces
         }
         public void MeetingsByDescription(MeetingList meetingList)
         {
-            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text please"));
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text description please"));
             _dataVizualization.AskForEntry("Description");
             MeetingList meetings = _filterData.FilterByDescription(_dataCheck.GetData(), meetingList);
             _meetingShowData.ShowAllItems(meetings);
@@ -67,7 +67,7 @@ namespace VismaMeeting.Functions.Interfaces
 
         public void MeetingsByResponsiblePerson(MeetingList meetingList)
         {
-            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text please"));
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter name please"));
             _dataVizualization.AskForEntry("Name");
             MeetingList meetings = _filterData.FilterByResponsiblePerson(_dataCheck.GetData(), meetingList);
             _meetingShowData.ShowAllItems(meetings);
@@ -75,15 +75,30 @@ namespace VismaMeeting.Functions.Interfaces
         }
         public void MeetingsByCategory(MeetingList meetingList)
         {
-            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text please"));
+
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter category number please"));
+            foreach (int i in Enum.GetValues(typeof(MeetCategory)))
+            {
+                _dataVizualization.DisplayData("", Enum.GetName(typeof(MeetCategory), i), i, "Black", "White", writeLine: _dataVizualization.TableLine);
+            }
             _dataVizualization.AskForEntry("Number");
-            MeetingList meetings = _filterData.FilterByResponsiblePerson(_dataCheck.GetData(), meetingList);
+            int index = _dataCheck.GetNumberOfEnum<MeetCategory>();
+            MeetingList meetings = _filterData.FilterByCategory(index, meetingList);
             _meetingShowData.ShowAllItems(meetings);
             return;
         }
         public void MeetingsByType(MeetingList meetingList)
         {
-            Console.WriteLine("By Type");
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter type number please"));
+            foreach (int i in Enum.GetValues(typeof(MeetType)))
+            {
+                _dataVizualization.DisplayData("", Enum.GetName(typeof(MeetType), i), i, "Black", "White", writeLine: _dataVizualization.TableLine);
+            }
+            _dataVizualization.AskForEntry("Number");
+            int index = _dataCheck.GetNumberOfEnum<MeetType>();
+            MeetingList meetings = _filterData.FilterByType(index, meetingList);
+            _meetingShowData.ShowAllItems(meetings);
+            return;
         }
         public void MeetingsByDate(MeetingList meetingList)
         {

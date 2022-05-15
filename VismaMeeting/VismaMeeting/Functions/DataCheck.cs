@@ -83,7 +83,7 @@ namespace VismaMeeting.Functions
             bool isDateCorrect = DateTime.TryParse(GetData(), out DateTime date);
             if (!isDateCorrect)
             {
-                Console.WriteLine("Please enter correct date");
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
                 GetDate();
             }
             return date;
@@ -93,7 +93,7 @@ namespace VismaMeeting.Functions
             bool isNumberOfCategory = Int32.TryParse(GetData(), out int numberOfCategory);
             if (!isNumberOfCategory || !Enum.IsDefined(typeof(T), numberOfCategory))
             {
-                Console.WriteLine("Please enter correct number");
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
                 return GetNumberOfEnum<T>();
             }
             return numberOfCategory;
