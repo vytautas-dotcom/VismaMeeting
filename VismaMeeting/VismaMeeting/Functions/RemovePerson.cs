@@ -6,7 +6,7 @@ using VismaMeeting.UI;
 
 namespace VismaMeeting.Functions
 {
-    internal class AddPerson : ICommand
+    internal class RemovePerson : ICommand
     {
         private readonly Person _person;
         private MeetingList _meetingList;
@@ -18,7 +18,7 @@ namespace VismaMeeting.Functions
         private readonly IShowData<Meeting, MeetingList> _showMeetingData;
         private readonly IShowData<Person, PersonList> _showPersonData;
 
-        public AddPerson(Person person, MeetingList meetingList, PersonList personList, MeetingSerialazer meetingSerialazer,
+        public RemovePerson(Person person, MeetingList meetingList, PersonList personList, MeetingSerialazer meetingSerialazer,
                              PersonSerialazer personSerialazer, DataCheck dataCheck, IShowData<Meeting,
                                  MeetingList> showMeetingData, IShowData<Person, PersonList> showPersonData,
                              PersonMeetingData personMeetingData)
@@ -42,26 +42,25 @@ namespace VismaMeeting.Functions
             }
             _showMeetingData.ShowNamesIndexes(_meetingList);
             int indexMeeting = _dataCheck.Select(_meetingList);
-            if (_meetingList[indexMeeting].Persons.Count == _personList.Count)
+            if (_meetingList[indexMeeting].Persons.Count == 0)
             {
                 new ControlPanel();
             }
             _showMeetingData.ShowOneItem(_meetingList[indexMeeting]);
-            ((PersonShowData)_showPersonData).ShowNamesIndexesNotAddedYet(_personList, _meetingList[indexMeeting].Persons);
-            int indexPerson = _dataCheck.SelectPersonForMeeting(_meetingList[indexMeeting], _personList);
+            
+            int indexPerson = _dataCheck.SelectPersonToRemoveFromMeeting(_meetingList[indexMeeting]);
             if (!_dataCheck.Confirm())
             {
                 new ControlPanel();
             }
             else
             {
-                _personMeetingData.AddMeetingToPerson(_meetingList[indexMeeting].Id, _personList[indexPerson]);
+                _personMeetingData.RemoveMeetingFromPersonMeetings(_meetingList[indexMeeting].Id, _personList[indexPerson]);
                 _personSerializer.JsonSerialize(_personList);
-                _personMeetingData.AddPersonToMeeting(_meetingList[indexMeeting], _personList[indexPerson]);
+                _personMeetingData.RemovePersonFromMeeting(_personList[indexPerson].Id, _meetingList[indexMeeting]);
                 _meetingSerialazer.JsonSerialize(_meetingList);
             }
             new ControlPanel();
-
         }
     }
 }

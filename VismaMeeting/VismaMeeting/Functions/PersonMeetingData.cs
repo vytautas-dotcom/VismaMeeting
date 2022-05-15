@@ -21,5 +21,13 @@ namespace VismaMeeting.Functions
             => meeting.Persons.Add(person);
         public void RemoveMeetingFromPersonMeetings(Guid id, PersonList personList)
             => personList.ForEach(x => x.PersonMeetings.Remove(id));
+        public void RemoveMeetingFromPersonMeetings(Guid id, Person person)
+            => person.PersonMeetings.Remove(id);
+        public void RemovePersonFromMeeting(Guid id, Meeting meeting)
+        {
+            var meetingToRemove = meeting.Persons.Find(x => x.Id == id);
+            meeting.Persons.Remove(meetingToRemove);
+        }
+
     }
 }

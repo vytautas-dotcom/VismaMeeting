@@ -1,5 +1,4 @@
 [
-  
   {
     "Id": "00b379f5-70b3-4af9-a86d-2b3137c37393",
     "Name": "Jonas meeting",
@@ -14,11 +13,6 @@
         "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
         "Name": "Tomas",
         "PersonMeetings": { "00b379f5-70b3-4af9-a86d-2b3137c37393": "2022-05-15T00:09:26.799944+03:00" }
-      },
-      {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": { "00b379f5-70b3-4af9-a86d-2b3137c37393": "2022-05-15T00:13:34.3487792+03:00" }
       },
       {
         "Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
@@ -56,5 +50,26 @@
     "Type": "Live",
     "StartDate": "2022-05-12T00:00:00",
     "EndDate": "2022-05-15T00:00:00"
+  },
+  {
+    "Id": "62dac4cf-1656-4062-bdc1-94869112d3c3",
+    "Name": "Julius meeting ",
+    "ResponsiblePersonId": "f8bb59d4-933c-486f-a505-2f78b962eb99",
+    "Persons": [
+      {
+        "Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
+        "Name": "Julius",
+        "PersonMeetings": {
+          "00b379f5-70b3-4af9-a86d-2b3137c37393": "2022-05-15T00:19:10.3298299+03:00",
+          "b7194170-ab74-445d-bddc-7359c17242f0": "2022-05-15T00:24:01.8928471+03:00",
+          "62dac4cf-1656-4062-bdc1-94869112d3c3": "2022-05-15T02:23:55.7948038+03:00"
+        }
+      }
+    ],
+    "Description": "dsfs",
+    "Category": "CodeMonkey",
+    "Type": "Live",
+    "StartDate": "2022-05-12T00:00:00",
+    "EndDate": "2022-05-13T00:00:00"
   }
 ]

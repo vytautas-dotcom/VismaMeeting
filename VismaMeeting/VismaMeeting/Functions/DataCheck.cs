@@ -5,13 +5,56 @@ namespace VismaMeeting.Functions
 {
     internal class DataCheck
     {
-        DataVisualization _dataVisualization;
+        private readonly DataVisualization _dataVisualization;
+
         public DataCheck()
         {
             _dataVisualization = new DataVisualization();
         }
+        public Meeting GetUserInput(Person person, PersonMeetingData personMeetingData)
+        {
+            Meeting meeting = new Meeting();
+            meeting.Id = Guid.NewGuid();
+            personMeetingData.AddResponsiblePersonToMeeting(meeting, person);
+            meeting.ResponsiblePersonId = person.Id;
+            meeting.Persons = new List<Person>();
+            meeting.Persons.Add(person);
+            Console.WriteLine("Enter meeting's name");
+            meeting.Name = GetData();
+            Console.WriteLine("Enter meeting's description");
+            meeting.Description = GetData();
+            ShowEnum<MeetCategory>();
+            Console.WriteLine("Choose meeting's number of category");
+            meeting.Category = (MeetCategory)GetNumberOfEnum<MeetCategory>();
+            Console.WriteLine(meeting.Category);
+            ShowEnum<MeetType>();
+            Console.WriteLine("Choose meeting's type");
+            meeting.Type = (MeetType)GetNumberOfEnum<MeetType>();
+            Console.WriteLine("Enter meeting's start date");
+            meeting.StartDate = GetDate();
+            Console.WriteLine("Enter meeting's end date");
+            DateTime endDate = GetDate();
+            if (endDate < meeting.StartDate)
+            {
+                while (endDate < meeting.StartDate)
+                {
+                    Console.WriteLine("End date can not be less than start date!");
+                    endDate = GetDate();
+                }
+            }
+            meeting.EndDate = endDate;
+            return meeting;
+        }
+        private void ShowEnum<T>()
+        {
+            foreach (var item in Enum.GetValues(typeof(T)))
+            {
+                Console.WriteLine("{0,-15} - {1}", item, (int)item);
+            }
+        }
         public int Select<T>(List<T> list)
         {
+            _dataVisualization.AskForNumber();
             int index;
             string input = Console.ReadLine();
             bool isCorrect = int.TryParse(input, out index);
@@ -72,25 +115,23 @@ namespace VismaMeeting.Functions
             } while (!success);
             return index;
         }
-        //public int? SelectMeetigForPerson(MeetingList meetingList, Person person)
-        //{
-        //    bool isInputNumber;
-        //    int? index = null;
-        //    do
-        //    {
-        //        _dataVisualization.AskForNumber();
-        //        isInputNumber = Int32.TryParse(GetIndex(), out int selectedIndex);
-        //        if (!isInputNumber)
-        //            break;
-        //        else if (CheckIndex(selectedIndex, meetingList))
-        //        {
-        //            Console.WriteLine("Wrong index, please try again");
-        //            return SelectMeetigForPerson(meetingList, person);
-        //        }
-        //        index = selectedIndex;
-        //    } while (!isInputNumber && index == null);
-        //    return index;
-        //}
+        public int SelectPersonToRemoveFromMeeting(Meeting meeting)
+        {
+            bool success = false;
+            int index;
+            do
+            {
+                index = Select(meeting.Persons);
+                if (IsPersonResponsible(meeting.Persons[index], meeting))
+                {
+                    _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () =>
+                    Console.WriteLine("Responsible person can not be deleted"));
+                    return SelectPersonToRemoveFromMeeting(meeting);
+                }
+                success = true;
+            } while (!success);
+            return index;
+        }
         public int SelectPersonForMeeting(Meeting meeting, PersonList personList)
         {
             bool success = false;

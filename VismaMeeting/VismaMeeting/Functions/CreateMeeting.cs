@@ -27,55 +27,13 @@ namespace VismaMeeting.Functions
         }
         public void Create()
         {
-            Meeting meeting = GetUserInput();
+            Meeting meeting = _dataCheck.GetUserInput(_person, _personMeetingData);
             _meetingList.Add(meeting);
             _meetingSerialazer.JsonSerialize(_meetingList);
             PersonList personList = _personSerialazer.Deserialize();
             personList.RemoveAt(personList.FindIndex(x => x.Id == _person.Id));
             personList.Add(_person);
             _personSerialazer.JsonSerialize(personList);
-        }
-
-        private Meeting GetUserInput()
-        {
-            Meeting meeting = new Meeting();
-            meeting.Id = Guid.NewGuid();
-            _personMeetingData.AddResponsiblePersonToMeeting(meeting, _person);
-            meeting.ResponsiblePersonId = _person.Id;
-            meeting.Persons = new List<Person>();
-            meeting.Persons.Add(_person);
-            Console.WriteLine("Enter meeting's name");
-            meeting.Name = _dataCheck.GetData();
-            Console.WriteLine("Enter meeting's description");
-            meeting.Description = _dataCheck.GetData();
-            ShowEnum<MeetCategory>();
-            Console.WriteLine("Choose meeting's number of category");
-            meeting.Category = (MeetCategory)_dataCheck.GetNumberOfEnum<MeetCategory>();
-            Console.WriteLine(meeting.Category);
-            ShowEnum<MeetType>();
-            Console.WriteLine("Choose meeting's type");
-            meeting.Type = (MeetType)_dataCheck.GetNumberOfEnum<MeetType>();
-            Console.WriteLine("Enter meeting's start date");
-            meeting.StartDate = _dataCheck.GetDate();
-            Console.WriteLine("Enter meeting's end date");
-            DateTime endDate = _dataCheck.GetDate();
-            if (endDate < meeting.StartDate)
-            {
-                while (endDate < meeting.StartDate)
-                {
-                    Console.WriteLine("End date can not be less than start date!");
-                    endDate = _dataCheck.GetDate();
-                }
-            }
-            meeting.EndDate = endDate;
-            return meeting;
-        }
-        private void ShowEnum<T>()
-        {
-            foreach (var item in Enum.GetValues(typeof(T)))
-            {
-                Console.WriteLine("{0,-15} - {1}", item, (int)item);
-            }
         }
     }
 }

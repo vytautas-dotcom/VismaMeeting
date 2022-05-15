@@ -24,7 +24,6 @@ namespace VismaMeeting.UI
         public Person SelectUser()
         {
             Person person = new Person();
-            _dataVisualization.AskForNumber();
             int userNumber = _dataCheck.Select(_personList);
             person = _personList[userNumber];
             Console.WriteLine(new String('-', 50));
