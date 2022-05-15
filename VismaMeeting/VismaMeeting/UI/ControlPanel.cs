@@ -17,6 +17,8 @@ namespace VismaMeeting.UI
         private readonly IShowData<Meeting, MeetingList> _showMeetingData;
         private readonly IShowData<Person, PersonList> _showPersonData;
         private readonly DataVisualization _dataVisualization;
+        public readonly UIShowData _uIShowData;
+        public readonly UIData _uIData;
         public MeetingList MeetingList { get; set; }
         public PersonList PersonList { get; set; }
         public User User { get; set; }
@@ -39,10 +41,21 @@ namespace VismaMeeting.UI
             UserFunctions.AddPerson = new AddPerson(User.Person, MeetingList, PersonList, _meetingSerialazer, _personSerialazer, _dataCheck, _showMeetingData, _showPersonData, _personMeetingData);
             UserFunctions.RemovePerson = new RemovePerson(User.Person, MeetingList, PersonList, _meetingSerialazer, _personSerialazer, _dataCheck, _showMeetingData, _showPersonData, _personMeetingData);
             UserFunctions.FilterMeeting = new FilterMeeting(User.Person, MeetingList, PersonList, _meetingSerialazer, _personSerialazer, _dataCheck, _showMeetingData, _showPersonData, _personMeetingData);
+            UserFunctions.BackToStart = new BackToStart();
+            _uIShowData = new UIShowData(User);
+            _uIData = new UIData();
         }
         public void SetFunctions()
         {
             User.SetUserFunctions(UserFunctions);
+        }
+        public void RunProgram()
+        {
+            SetFunctions();
+            _uIShowData.ShowFunctions();
+            int index = _dataCheck.Select(_uIData.FunctionsIndexes);
+            var function = _uIShowData.SelectFunction(index);
+            function?.Invoke();
         }
         
     }

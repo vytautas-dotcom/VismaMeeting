@@ -10,5 +10,6 @@ namespace VismaMeeting.Users
         public ICommand AddPerson;
         public ICommand RemovePerson;
         public ICommand FilterMeeting;
+        public ICommand BackToStart;
     }
 }
