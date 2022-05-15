@@ -102,7 +102,11 @@ namespace VismaMeeting.Functions.Interfaces
         }
         public void MeetingsByDate(MeetingList meetingList)
         {
-            Console.WriteLine("By Date");
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter date please"));
+            _dataVizualization.AskForEntry("Date");
+            MeetingList meetings = _filterData.FilterByDate(_dataCheck.GetDate(), meetingList);
+            _meetingShowData.ShowAllItems(meetings);
+            return;
         }
         public void MeetingsByNumberOfAttendees(MeetingList meetingList)
         {

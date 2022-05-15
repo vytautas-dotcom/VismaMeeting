@@ -69,5 +69,15 @@ namespace VismaMeeting.Functions.Interfaces
             }
             return meetings;
         }
+        public MeetingList FilterByDate(DateTime date, MeetingList meetingList)
+        {
+            MeetingList meetings = new MeetingList();
+            foreach (var meeting in meetingList)
+            {
+                if (meeting.StartDate >= date && date < meeting.EndDate)
+                    meetings.Add(meeting);
+            }
+            return meetings;
+        }
     }
 }
