@@ -1,4 +1,5 @@
-﻿using VismaMeeting.MeetingData;
+﻿using VismaMeeting.Employees;
+using VismaMeeting.MeetingData;
 
 namespace VismaMeeting.Functions.Interfaces
 {
@@ -9,10 +10,12 @@ namespace VismaMeeting.Functions.Interfaces
         private readonly DataVisualization _dataVizualization;
         private readonly DataCheck _dataCheck;
         private readonly MeetingShowData _meetingShowData;
+        private readonly PersonList _personList;
         ExecuteFunction functionExecuter;
-        public FilterShowData()
+        public FilterShowData(PersonList personList)
         {
-            _filterData = new FilterData();
+            _personList = personList;
+            _filterData = new FilterData(_personList);
             _dataVizualization = new DataVisualization();
             _dataCheck = new DataCheck();
             _meetingShowData = new MeetingShowData();
@@ -56,7 +59,7 @@ namespace VismaMeeting.Functions.Interfaces
         public void MeetingsByDescription(MeetingList meetingList)
         {
             _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text please"));
-            _dataVizualization.AskForEntry("Text");
+            _dataVizualization.AskForEntry("Description");
             MeetingList meetings = _filterData.FilterByDescription(_dataCheck.GetData(), meetingList);
             _meetingShowData.ShowAllItems(meetings);
             return;
@@ -64,11 +67,19 @@ namespace VismaMeeting.Functions.Interfaces
 
         public void MeetingsByResponsiblePerson(MeetingList meetingList)
         {
-            Console.WriteLine("By Responsible");
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text please"));
+            _dataVizualization.AskForEntry("Name");
+            MeetingList meetings = _filterData.FilterByResponsiblePerson(_dataCheck.GetData(), meetingList);
+            _meetingShowData.ShowAllItems(meetings);
+            return;
         }
         public void MeetingsByCategory(MeetingList meetingList)
         {
-            Console.WriteLine("By Category");
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter text please"));
+            _dataVizualization.AskForEntry("Number");
+            MeetingList meetings = _filterData.FilterByResponsiblePerson(_dataCheck.GetData(), meetingList);
+            _meetingShowData.ShowAllItems(meetings);
+            return;
         }
         public void MeetingsByType(MeetingList meetingList)
         {

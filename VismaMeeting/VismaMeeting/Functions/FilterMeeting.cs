@@ -33,8 +33,8 @@ namespace VismaMeeting.Functions
             _showMeetingData = showMeetingData;
             _showPersonData = showPersonData;
             _personMeetingData = personMeetingData;
-            _filterShowData = new FilterShowData();
-            _filterData = new FilterData();
+            _filterShowData = new FilterShowData(_personList);
+            _filterData = new FilterData(_personList);
 
         }
         public void Create()

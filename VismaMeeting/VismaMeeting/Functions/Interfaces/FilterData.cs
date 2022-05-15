@@ -1,9 +1,20 @@
-﻿using VismaMeeting.MeetingData;
+﻿using VismaMeeting.Employees;
+using VismaMeeting.MeetingData;
 
 namespace VismaMeeting.Functions.Interfaces
 {
     internal class FilterData
     {
+        private readonly PersonList _personList;
+        public FilterData()
+        {
+
+        }
+        public FilterData(PersonList personList)
+        {
+            _personList = personList;
+        }
+
         public Dictionary<string, int> FilterParameters = new Dictionary<string, int>()
         {
             {"Description", 0},
@@ -22,6 +33,33 @@ namespace VismaMeeting.Functions.Interfaces
             {
                 if(meeting.Description.ToLower().Contains(text.ToLower()))
                     meetings.Add(meeting);
+            }
+            return meetings;
+        }
+        public MeetingList FilterByResponsiblePerson(string text, MeetingList meetingList)
+        {
+            MeetingList meetings = new MeetingList();
+            foreach (var meeting in meetingList)
+            {
+                foreach (var person in _personList)
+                {
+                    if (person.Name.ToLower().Contains(text.ToLower()) && meeting.ResponsiblePersonId == person.Id)
+                        meetings.Add(meeting);
+                }
+            }
+            return meetings;
+        }
+        public MeetingList FilterByCategory(string number, MeetingList meetingList)
+        {
+            MeetingList meetings = new MeetingList();
+
+            foreach (var meeting in meetingList)
+            {
+                foreach (var person in _personList)
+                {
+                    if (person.Name.ToLower().Contains(text.ToLower()) && meeting.ResponsiblePersonId == person.Id)
+                        meetings.Add(meeting);
+                }
             }
             return meetings;
         }
