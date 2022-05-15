@@ -110,7 +110,13 @@ namespace VismaMeeting.Functions.Interfaces
         }
         public void MeetingsByNumberOfAttendees(MeetingList meetingList)
         {
-            Console.WriteLine("By NumberOfAttendee");
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("Enter interval please"));
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("(e.g. (num1,0) - up to num1 including num1"));
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("(e.g. (num1,num2) - between num1 and num2 including num2"));
+            _dataVizualization.DisplayData("", "", 0, "White", "Black", showMessage: () => Console.WriteLine("(e.g. (0,num2) - over num2"));
+            MeetingList meetings = _filterData.FilterByNumberOfAttendees(_dataCheck.GetInterval(), meetingList);
+            _meetingShowData.ShowAllItems(meetings);
+            return;
         }
 
     }

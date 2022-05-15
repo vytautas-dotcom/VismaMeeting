@@ -79,5 +79,28 @@ namespace VismaMeeting.Functions.Interfaces
             }
             return meetings;
         }
+        public MeetingList FilterByNumberOfAttendees((int, int) interval, MeetingList meetingList)
+        {
+            MeetingList meetings = new MeetingList();
+            if (interval.Item2 == 0)
+                foreach (var meeting in meetingList)
+                {
+                    if (meeting.Persons.Count <= interval.Item1)
+                        meetings.Add(meeting);
+                }
+            else if (interval.Item1 == 0)
+                foreach (var meeting in meetingList)
+                {
+                    if (meeting.Persons.Count > interval.Item2)
+                        meetings.Add(meeting);
+                }
+            else
+                foreach (var meeting in meetingList)
+                {
+                    if (meeting.Persons.Count > interval.Item1 && meeting.Persons.Count <= interval.Item2)
+                        meetings.Add(meeting);
+                }
+            return meetings;
+        }
     }
 }

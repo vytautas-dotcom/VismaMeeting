@@ -70,10 +70,32 @@ namespace VismaMeeting.Functions
             string input = Console.ReadLine();
             if (string.IsNullOrEmpty(input))
             {
-                Console.WriteLine("Please enter required data");
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
                 GetData();
             }
             return input;
+        }
+        public (int, int) GetInterval()
+        {
+            (int, int) interval;
+            _dataVisualization.AskForEntry("First number");
+            if(!int.TryParse(GetData(), out interval.Item1))
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
+                GetInterval();
+            }
+            _dataVisualization.AskForEntry("Second number");
+            if (!int.TryParse(GetData(), out interval.Item2))
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
+                GetInterval();
+            }
+            if(interval.Item1 == 0 && interval.Item2 == 0)
+            {
+                _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Interval (0, 0) is impossible ;D"));
+                GetInterval();
+            }
+            return interval;
         }
         public string GetIndex()
             => Console.ReadLine();
