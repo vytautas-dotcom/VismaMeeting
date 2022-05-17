@@ -29,6 +29,19 @@ namespace VismaMeeting_v2.UI
                 .AddSingleton<FilterManagement>()
                 .BuildServiceProvider();
         }
-        
+        public void Run()
+        {
+            var serviceProvider = ConfigureServices();
+            IServiceScope serviceScope = serviceProvider.CreateScope();
+
+
+            serviceScope.ServiceProvider.GetRequiredService<MeetingsManagement>().Create();
+            serviceScope.ServiceProvider.GetRequiredService<MeetingsManagement>().DeleteMeeting();
+            serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().AddPerson();
+            serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().RemovePerson();
+            serviceScope.ServiceProvider.GetRequiredService<FilterManagement>().Filter();
+
+        }
+
     }
 }
