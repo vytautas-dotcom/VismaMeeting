@@ -1,11 +1,11 @@
 ﻿using VismaMeeting_v2.Models;
+using VismaMeeting_v2.Services.DataDisplay;
 
 namespace VismaMeeting_v2.Services.DataOperations
 {
     public class DataCheck
     {
         private readonly DataVisualization _dataVisualization;
-
         public DataCheck(DataVisualization dataVisualization)
         {
             _dataVisualization = dataVisualization;
