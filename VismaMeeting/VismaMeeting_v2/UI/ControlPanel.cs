@@ -40,6 +40,7 @@ namespace VismaMeeting_v2.UI
             serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().AddPerson();
             serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().RemovePerson();
             serviceScope.ServiceProvider.GetRequiredService<FilterManagement>().Filter();
+            serviceScope.ServiceProvider.GetRequiredService<FilterManagement>().CreateUser();
 
         }
 
