@@ -147,6 +147,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                     else
                         SelectMeetigForDelete(meetingList, person);
                 }
+                //
                 //if (!_dataCheck.Confirm())
                 //{
                 //    Console.Clear();
