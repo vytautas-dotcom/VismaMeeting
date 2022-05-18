@@ -63,7 +63,7 @@ namespace VismaMeeting_v2.Services.DataDisplay
             Meetings meetings = new Meetings();
             foreach (var meeting in meetingList)
             {
-                if (meeting.StartDate >= date && date < meeting.EndDate)
+                if (meeting.StartDate <= date && date < meeting.EndDate)
                     meetings.Add(meeting);
             }
             return meetings;
