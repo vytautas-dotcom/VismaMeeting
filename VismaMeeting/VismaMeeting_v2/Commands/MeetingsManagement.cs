@@ -12,7 +12,7 @@ namespace VismaMeeting_v2.Commands
         public Persons _persons = new();
         private readonly CreateUser _createUser;
         public MeetingsManagement(IDbService<Meetings> dbServiceM, IDbService<Persons> dbServiceP,
-                                  DataCheck dataCheck, DataVisualization dataVisualization, MeetingShowData meetingShowData, 
+                                  DataCheck dataCheck, DataVisualization dataVisualization, MeetingShowData meetingShowData,
                                   PersonShowData personShowData, PersonMeetingData personMeetingData, CreateUser createUser) :
             base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData)
         {
@@ -40,6 +40,7 @@ namespace VismaMeeting_v2.Commands
             _persons.RemoveAt(_persons.FindIndex(x => x.Id == User.Person.Id));
             _persons.Add(User.Person);
             SavePersons(_persons);
+            Console.Clear();
             controlPanel = new ControlPanel();
             controlPanel.Run();
         }
@@ -51,23 +52,18 @@ namespace VismaMeeting_v2.Commands
             ControlPanel controlPanel;
             if (!_dataCheck.IsMeetingToDeleteForPerson(_meetings, User.Person))
             {
+                Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
             _meetingShowData.ShowNamesIndexes(_meetings);
             int index = _dataCheck.SelectMeetigForDelete(_meetings, User.Person);
-            if (!_dataCheck.Confirm())
-            {
-                controlPanel = new ControlPanel();
-                controlPanel.Run();
-            }
-            else
-            {
-                _personMeetingData.RemoveMeetingFromPersonMeetings(_meetings[index].Id, _persons);
-                SavePersons(_persons);
-                _meetings.RemoveAt(index);
-                SaveMeetings(_meetings);
-            }
+            _personMeetingData.RemoveMeetingFromPersonMeetings(_meetings[index].Id, _persons);
+            SavePersons(_persons);
+            _meetings.RemoveAt(index);
+            SaveMeetings(_meetings);
+
+            Console.Clear();
             controlPanel = new ControlPanel();
             controlPanel.Run();
         }

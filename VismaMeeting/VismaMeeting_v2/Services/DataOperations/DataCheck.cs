@@ -1,5 +1,6 @@
 ﻿using VismaMeeting_v2.Models;
 using VismaMeeting_v2.Services.DataDisplay;
+using VismaMeeting_v2.UI;
 
 namespace VismaMeeting_v2.Services.DataOperations
 {
@@ -135,8 +136,24 @@ namespace VismaMeeting_v2.Services.DataOperations
                 {
                     _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () =>
                     Console.WriteLine("Only the responsible person can delete the meeting"));
-                    return SelectMeetigForDelete(meetingList, person);
+                    _dataVisualization.DisplayData("", "", 0, "Black", "Green", showMessage: () =>
+                    Console.WriteLine("Do you want to continue? (y/any key)"));
+                    bool yes = char.TryParse(Console.ReadLine(), out char result);
+                    if ('y' != result || !yes)
+                    {
+                        ControlPanel controlPanel = new ControlPanel();
+                        controlPanel.Run();
+                    }
+                    else
+                        SelectMeetigForDelete(meetingList, person);
                 }
+                //if (!_dataCheck.Confirm())
+                //{
+                //    Console.Clear();
+                //    ControlPanel controlPanel = new ControlPanel();
+                //    controlPanel.Run();
+                //}
+
                 success = true;
             } while (!success);
             return index;

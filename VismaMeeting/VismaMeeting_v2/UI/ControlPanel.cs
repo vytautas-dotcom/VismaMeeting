@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using VismaMeeting_v2.Commands;
+using VismaMeeting_v2.Models;
 using VismaMeeting_v2.Services.DataDisplay;
 using VismaMeeting_v2.Services.DataOperations;
 using VismaMeeting_v2.Services.DataServices;
-using VismaMeeting_v2.Models;
-using VismaMeeting_v2.Commands;
 
 namespace VismaMeeting_v2.UI
 {

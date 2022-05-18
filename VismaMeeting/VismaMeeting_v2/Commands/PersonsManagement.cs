@@ -36,6 +36,7 @@ namespace VismaMeeting_v2.Commands
             ControlPanel controlPanel;
             if (_meetings.Count == 0)
             {
+                Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
@@ -43,6 +44,7 @@ namespace VismaMeeting_v2.Commands
             int indexMeeting = _dataCheck.Select(_meetings);
             if (_meetings[indexMeeting].Persons.Count == _persons.Count)
             {
+                Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
@@ -51,6 +53,7 @@ namespace VismaMeeting_v2.Commands
             int indexPerson = _dataCheck.SelectPersonForMeeting(_meetings[indexMeeting], _persons);
             if (!_dataCheck.Confirm())
             {
+                Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
@@ -61,9 +64,10 @@ namespace VismaMeeting_v2.Commands
                 _personMeetingData.AddPersonToMeeting(_meetings[indexMeeting], _persons[indexPerson]);
                 SaveMeetings(_meetings);
 
-                controlPanel = new ControlPanel();
-                controlPanel.Run();
             }
+            Console.Clear();
+            controlPanel = new ControlPanel();
+            controlPanel.Run();
         }
         #endregion
         #region Remove Person
@@ -73,6 +77,7 @@ namespace VismaMeeting_v2.Commands
             ControlPanel controlPanel;
             if (_meetings.Count == 0)
             {
+                Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
@@ -80,6 +85,7 @@ namespace VismaMeeting_v2.Commands
             int indexMeeting = _dataCheck.Select(_meetings);
             if (_meetings[indexMeeting].Persons.Count == 0)
             {
+                Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
@@ -88,6 +94,7 @@ namespace VismaMeeting_v2.Commands
             int indexPerson = _dataCheck.SelectPersonToRemoveFromMeeting(_meetings[indexMeeting]);
             if (!_dataCheck.Confirm())
             {
+                Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
@@ -97,9 +104,10 @@ namespace VismaMeeting_v2.Commands
                 SavePersons(_persons);
                 _personMeetingData.RemovePersonFromMeeting(_persons[indexPerson].Id, _meetings[indexMeeting]);
                 SaveMeetings(_meetings);
-                controlPanel = new ControlPanel();
-                controlPanel.Run();
             }
+            Console.Clear();
+            controlPanel = new ControlPanel();
+            controlPanel.Run();
         }
         #endregion
         

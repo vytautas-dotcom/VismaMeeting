@@ -1,6 +1,8 @@
-﻿namespace VismaMeeting_v2.Models
+﻿using VismaMeeting_v2.Models;
+
+namespace VismaMeeting_v2.Services.DataDisplay
 {
-    internal class FilterData
+    public class FilterData
     {
         public Dictionary<string, int> FilterParameters = new Dictionary<string, int>()
         {

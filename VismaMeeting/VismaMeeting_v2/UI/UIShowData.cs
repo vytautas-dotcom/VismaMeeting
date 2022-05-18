@@ -1,4 +1,5 @@
-﻿using VismaMeeting_v2.Services.DataDisplay;
+﻿using VismaMeeting_v2.Models;
+using VismaMeeting_v2.Services.DataDisplay;
 using VismaMeeting_v2.Services.DataOperations;
 
 namespace VismaMeeting_v2.UI
@@ -8,13 +9,13 @@ namespace VismaMeeting_v2.UI
         private readonly DataVisualization _dataVisualization;
         private readonly UIData _uIData;
         private readonly DataCheck _dataCheck;
-        private List<Action> _commands;
+        private List<Action> executeFunctions;
         public UIShowData(DataVisualization dataVisualization, DataCheck dataCheck)
         {
             _dataVisualization = dataVisualization;
-            _dataCheck = dataCheck;
             _uIData = new UIData();
-            _commands = new List<Action>();
+            _dataCheck = dataCheck;
+            executeFunctions = new List<Action>();
         }
         public int ShowFunctions()
         {
@@ -28,34 +29,34 @@ namespace VismaMeeting_v2.UI
             int index = _dataCheck.Select(_uIData.FunctionsIndexes);
             return index;
         }
-        public void SetFunctionsToList(List<Action> commands)
+        public void SetFunctionsToList(List<Action> functions)
         {
-            _commands = commands;
+            executeFunctions = functions;
         }
         public void SelectFunction(int index)
         {
             switch (index)
             {
+                case 0:
+                    executeFunctions[index].Invoke();
+                    break;
                 case 1:
-                    _commands[index].Invoke();
+                    executeFunctions[index].Invoke();
                     break;
                 case 2:
-                    _commands[index].Invoke();
+                    executeFunctions[index].Invoke();
                     break;
                 case 3:
-                    _commands[index].Invoke();
+                    executeFunctions[index].Invoke();
                     break;
                 case 4:
-                    _commands[index].Invoke();
+                    executeFunctions[index].Invoke();
                     break;
                 case 5:
-                    _commands[index].Invoke();
-                    break;
-                case 6:
-                    _commands[index].Invoke();
+                    executeFunctions[index].Invoke();
                     break;
                 default: break;
-                        
+
             }
         }
     }
