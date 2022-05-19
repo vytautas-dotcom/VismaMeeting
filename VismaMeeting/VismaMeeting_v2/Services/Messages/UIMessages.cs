@@ -20,7 +20,7 @@
             ShowLine(message.Length, '=');
             Console.ResetColor();
         }
-        public void DisplayData(string title, object name, object id, string userName = "user", int numOfLines = 0,
+        public void DisplayData(string title, object name = null, object id = null, object itemList = null, string userName = "user", int numOfLines = 0,
                                 string backgroundColor = "DarkGray", string textColor = "Gray", bool clearConsole = false,
                                 Action<string, string> writeTitle = null, Action<object, object> writeLine = null, Action showMessage = null)
         {
@@ -38,16 +38,20 @@
                 Console.BackgroundColor = colorBack;
                 Console.ForegroundColor = colorText;
                 writeTitle?.Invoke(title, userName);
-                for (int i = 0; i < numOfLines; i++)
-                {
-                    if (i + 1 == numOfLines)
-                        writeLine?.Invoke(name, id);
-                    else
+                showMessage?.Invoke();
+                if (numOfLines == 0)
+                    writeLine?.Invoke(name, id);
+                else
+                    for (int i = 0; i < numOfLines; i++)
                     {
-                        writeLine?.Invoke(name, id);
-                        ShowLine(22 + name.ToString().Length, '.');
+                        if (i + 1 == numOfLines)
+                            writeLine?.Invoke(name, id);
+                        else
+                        {
+                            writeLine?.Invoke(name, id);
+                            ShowLine(22 + name.ToString().Length, '.');
+                        }
                     }
-                }
                 Console.ResetColor();
             }
 
@@ -63,6 +67,14 @@
             ShowLine(title.Length, '*');
             Console.WriteLine(title);
             ShowLine(title.Length, '*');
+        }
+        private void ShowEnum<T>()
+        {
+            foreach (var item in Enum.GetValues(typeof(T)))
+            {
+                DisplayData("", backgroundColor: "Black", textColor: "Blue", showMessage: () =>
+                    Console.WriteLine("{0,-15} - {1}", item, (int)item));
+            }
         }
     }
 }
