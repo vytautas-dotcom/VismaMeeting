@@ -5,6 +5,13 @@
         public void ShowLine(int numOfSymbols, char symbol)
             => Console.WriteLine(new String(symbol, numOfSymbols));
 
+        public void ShowLineWithUserName(int titleLength, string name, char symbolBefor, char SymbolAfter)
+        {
+            int halfOfTitleLength = (titleLength - name.Length) / 2;
+            Console.Write(new String(symbolBefor, halfOfTitleLength));
+            Console.Write(name);
+            Console.WriteLine(new String(SymbolAfter, halfOfTitleLength));
+        }
         public void ShowMessage(string message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
@@ -13,9 +20,9 @@
             ShowLine(message.Length, '=');
             Console.ResetColor();
         }
-        public void DisplayData(string title, object name, object id, int numOfLines = 0,
+        public void DisplayData(string title, object name, object id, string userName = "user", int numOfLines = 0,
                                 string backgroundColor = "DarkGray", string textColor = "Gray", bool clearConsole = false,
-                                Action<string> writeTitle = null, Action<object, object> writeLine = null, Action showMessage = null)
+                                Action<string, string> writeTitle = null, Action<object, object> writeLine = null, Action showMessage = null)
         {
             if (clearConsole)
             {
@@ -30,7 +37,7 @@
             {
                 Console.BackgroundColor = colorBack;
                 Console.ForegroundColor = colorText;
-                writeTitle?.Invoke(title);
+                writeTitle?.Invoke(title, userName);
                 for (int i = 0; i < numOfLines; i++)
                 {
                     if (i + 1 == numOfLines)
@@ -49,8 +56,10 @@
         {
             Console.WriteLine("{0,-20} - {1}", name, id);
         }
-        public void TableTitle(string title)
+        public void TableTitle(string title, string name)
         {
+            ShowLine(title.Length, '*');
+            ShowLineWithUserName(title.Length, name, '(', ')');
             ShowLine(title.Length, '*');
             Console.WriteLine(title);
             ShowLine(title.Length, '*');
