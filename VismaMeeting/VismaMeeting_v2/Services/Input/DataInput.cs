@@ -25,26 +25,55 @@ namespace VismaMeeting_v2.Services.Input
             return null;
         }
 
-        public void InputNumber(string messageBeforeInput, string messageAfterInput, out int output)
+        public void InputNumber(string messageBeforeInput, string messageAfterInput, out int output, string stringInput = null)
         {
-            _write.ShowMessage(messageAfterInput);
-            string input = Input();
-            bool success = _dataChecking.IsInputNumber(input, out output);
-            if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+            if (!string.IsNullOrEmpty(stringInput))
             {
                 _write.ShowMessage(messageAfterInput);
-                InputNumber(messageBeforeInput, messageAfterInput, out output);
+                string input = stringInput;
+                bool success = _dataChecking.IsInputNumber(input, out output);
+                if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+                {
+                    _write.ShowMessage(messageAfterInput);
+                    InputNumber(messageBeforeInput, messageAfterInput, out output);
+                }
+            }
+            else
+            {
+                _write.ShowMessage(messageAfterInput);
+                string input = Input();
+                bool success = _dataChecking.IsInputNumber(input, out output);
+                if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+                {
+                    _write.ShowMessage(messageAfterInput);
+                    InputNumber(messageBeforeInput, messageAfterInput, out output);
+                }
             }
         }
-        public void InputDate(string messageBeforeInput, string messageAfterInput, out DateTime output)
+        public void InputDate(string messageBeforeInput, string messageAfterInput, out DateTime output, string stringInput = null)
         {
-            _write.ShowMessage(messageAfterInput);
-            string input = Input();
-            bool success = _dataChecking.IsInputDate(input, out output);
-            if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+            if (!string.IsNullOrEmpty(stringInput))
             {
                 _write.ShowMessage(messageAfterInput);
-                InputDate(messageBeforeInput, messageAfterInput, out output);
+                string input = stringInput;
+                bool success = _dataChecking.IsInputDate(input, out output);
+                if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+                {
+                    _write.ShowMessage(messageAfterInput);
+                    InputDate(messageBeforeInput, messageAfterInput, out output);
+                }
+
+            }
+            else
+            {
+                _write.ShowMessage(messageAfterInput);
+                string input = Input();
+                bool success = _dataChecking.IsInputDate(input, out output);
+                if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+                {
+                    _write.ShowMessage(messageAfterInput);
+                    InputDate(messageBeforeInput, messageAfterInput, out output);
+                }
             }
         }
     }
