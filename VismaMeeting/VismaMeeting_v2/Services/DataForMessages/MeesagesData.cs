@@ -2,25 +2,36 @@
 {
     public class MeesagesData
     {
-        Dictionary<string, string> warningMessages;
-        Dictionary<string, string> informationMessages;
+        Dictionary<string, string> WarningMessages;
+        Dictionary<string, string> InformationMessages;
+        Dictionary<string, string> MeetingCreateMessages;
         public MeesagesData()
         {
-            warningMessages = new Dictionary<string, string>();
-            warningMessages.Add("InputWarning", "You have to make correct input");
-            warningMessages.Add("FunctionWarning", "No function under such a choice");
-            warningMessages.Add("DateWarning", "End date can not be less than start date");
-            warningMessages.Add("ConfirmWarning", "Are you sure you want to continue (y/n)");
-            warningMessages.Add("MeetingDeleteWarning", "Only the responsible person can delete the meeting");
-            warningMessages.Add("DeleteResponsiblePersonWarning", "Responsible person can not be deleted");
-            warningMessages.Add("AddedPersonWarning", "This person is already added");
-            warningMessages.Add("ImpossibleIntervalWarning", "Interval (0, 0) is impossible ;D");
+            WarningMessages = new Dictionary<string, string>();
+            WarningMessages.Add("InputWarning", "You have to make correct input");
+            WarningMessages.Add("FunctionWarning", "No function under such a choice");
+            WarningMessages.Add("DateWarning", "End date can not be less than start date");
+            WarningMessages.Add("ConfirmWarning", "Are you sure you want to continue (y/n)");
+            WarningMessages.Add("MeetingDeleteWarning", "Only the responsible person can delete the meeting");
+            WarningMessages.Add("DeleteResponsiblePersonWarning", "Responsible person can not be deleted");
+            WarningMessages.Add("AddedPersonWarning", "This person is already added");
+            WarningMessages.Add("ImpossibleIntervalWarning", "Interval (0, 0) is impossible ;D");
 
-            informationMessages = new Dictionary<string, string>();
-            informationMessages.Add("CreationSuccess", "You have successufully created new meeting");
-            informationMessages.Add("DeleteSuccess", "You have successufully deleted meeting");
-            informationMessages.Add("AddPersonSuccess", "You have successufully added person to meeting");
-            informationMessages.Add("RemovePersonSuccess", "You have successufully removed person from meeting");
+            InformationMessages = new Dictionary<string, string>();
+            InformationMessages.Add("CreationSuccess", "You have successufully created new meeting");
+            InformationMessages.Add("DeleteSuccess", "You have successufully deleted meeting");
+            InformationMessages.Add("AddPersonSuccess", "You have successufully added person to meeting");
+            InformationMessages.Add("RemovePersonSuccess", "You have successufully removed person from meeting");
+
+            MeetingCreateMessages = new Dictionary<string, string>();
+            MeetingCreateMessages.Add("Name", "Enter meeting's name");
+            MeetingCreateMessages.Add("Description", "Enter meeting's description");
+            MeetingCreateMessages.Add("Category", "Choose meeting's number of category");
+            MeetingCreateMessages.Add("Type", "Choose meeting's type");
+            MeetingCreateMessages.Add("StartDate", "Enter meeting's start date");
+            MeetingCreateMessages.Add("EndDate", "Enter meeting's end date");
+
+
         }
         /// <summary>
         /// List of functions for main menu
