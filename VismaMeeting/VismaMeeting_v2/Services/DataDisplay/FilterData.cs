@@ -4,6 +4,7 @@ namespace VismaMeeting_v2.Services.DataDisplay
 {
     public class FilterData
     {
+        //messagesdata
         public Dictionary<string, int> FilterParameters = new Dictionary<string, int>()
         {
             {"Description", 0},

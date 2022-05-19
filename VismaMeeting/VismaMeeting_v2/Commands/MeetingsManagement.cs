@@ -14,7 +14,6 @@ namespace VismaMeeting_v2.Commands
             base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData, createUser)
         {
         }
-        #region Create Meeting
         public void Create()
         {
             CreateUser();
@@ -28,8 +27,6 @@ namespace VismaMeeting_v2.Commands
             controlPanel = new ControlPanel();
             controlPanel.Run();
         }
-        #endregion
-        #region Delete Meeting
         public void DeleteMeeting()
         {
             CreateUser();
@@ -50,7 +47,6 @@ namespace VismaMeeting_v2.Commands
             controlPanel = new ControlPanel();
             controlPanel.Run();
         }
-        #endregion
         
     }
 }
