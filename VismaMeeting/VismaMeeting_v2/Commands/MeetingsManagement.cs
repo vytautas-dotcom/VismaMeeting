@@ -8,32 +8,16 @@ namespace VismaMeeting_v2.Commands
 {
     public class MeetingsManagement : Management
     {
-        public Meetings _meetings = new();
-        public Persons _persons = new();
-        private readonly CreateUser _createUser;
         public MeetingsManagement(IDbService<Meetings> dbServiceM, IDbService<Persons> dbServiceP,
                                   DataCheck dataCheck, DataVisualization dataVisualization, MeetingShowData meetingShowData,
                                   PersonShowData personShowData, PersonMeetingData personMeetingData, CreateUser createUser) :
-            base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData)
+            base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData, createUser)
         {
-            _createUser = createUser;
-        }
-
-        public void GetAllItems()
-        {
-            _meetings = _dbServiceM.Get();
-            _persons = _dbServiceP.Get();
-        }
-        public void CreateUser()
-        {
-            GetAllItems();
-            User = _createUser.SelectUser(_persons);
         }
         #region Create Meeting
         public void Create()
         {
             CreateUser();
-            ControlPanel controlPanel;
             Meeting meeting = _dataCheck.CreateMeeting(User.Person, _personMeetingData);
             _meetings.Add(meeting);
             SaveMeetings(_meetings);
@@ -49,7 +33,6 @@ namespace VismaMeeting_v2.Commands
         public void DeleteMeeting()
         {
             CreateUser();
-            ControlPanel controlPanel;
             if (!_dataCheck.IsMeetingToDeleteForPerson(_meetings, User.Person))
             {
                 Console.Clear();
@@ -68,13 +51,6 @@ namespace VismaMeeting_v2.Commands
             controlPanel.Run();
         }
         #endregion
-        public void SaveMeetings(Meetings meetings)
-        {
-            _dbServiceM.Save(meetings);
-        }
-        public void SavePersons(Persons persons)
-        {
-            _dbServiceP.Save(persons);
-        }
+        
     }
 }

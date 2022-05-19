@@ -24,6 +24,7 @@ namespace VismaMeeting_v2.UI
                 .AddSingleton<PersonShowData>()
                 .AddSingleton<MeetingShowData>()
                 .AddSingleton<FilterShowData>()
+                .AddTransient<Management>()
                 .AddSingleton<MeetingsManagement>()
                 .AddSingleton<PersonsManagement>()
                 .AddSingleton<FilterManagement>()
@@ -40,7 +41,7 @@ namespace VismaMeeting_v2.UI
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().AddPerson());
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().RemovePerson());
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<FilterManagement>().Filter());
-            actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<FilterManagement>().CreateUser());
+            actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<Management>().CreateUser(true));
 
             serviceScope.ServiceProvider.GetRequiredService<UIShowData>().SetFunctionsToList(actions);
             int index = serviceScope.ServiceProvider.GetRequiredService<UIShowData>().ShowFunctions();

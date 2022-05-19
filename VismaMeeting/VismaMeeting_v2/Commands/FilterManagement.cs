@@ -8,31 +8,16 @@ namespace VismaMeeting_v2.Commands
 {
     internal class FilterManagement : Management
     {
-        public Meetings _meetings = new();
-        public Persons _persons = new();
-        private readonly CreateUser _createUser;
         private readonly FilterShowData _filterShowData;
         private readonly FilterData _filterData;
         public FilterManagement(IDbService<Meetings> dbServiceM, IDbService<Persons> dbServiceP,
                                   DataCheck dataCheck, DataVisualization dataVisualization, MeetingShowData meetingShowData,
                                   PersonShowData personShowData, PersonMeetingData personMeetingData, CreateUser createUser,
                                   FilterShowData filterShowData, FilterData filterData) :
-            base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData)
+            base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData, createUser)
         {
-            _createUser = createUser;
             _filterShowData = filterShowData;
             _filterData = filterData;
-        }
-
-        public void GetAllItems()
-        {
-            _meetings = _dbServiceM.Get();
-            _persons = _dbServiceP.Get();
-        }
-        public void CreateUser()
-        {
-            GetAllItems();
-            User = _createUser.SelectUser(_persons);
         }
         public void Filter()
         {

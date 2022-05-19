@@ -8,32 +8,16 @@ namespace VismaMeeting_v2.Commands
 {
     public class PersonsManagement : Management
     {
-        public Persons _persons = new();
-        public Meetings _meetings = new();
-        private readonly CreateUser _createUser;
         public PersonsManagement(IDbService<Persons> dbServiceP, IDbService<Meetings> dbServiceM,
                                  DataCheck dataCheck, DataVisualization dataVisualization, MeetingShowData meetingShowData, 
                                  PersonShowData personShowData, PersonMeetingData personMeetingData, CreateUser createUser) : 
-            base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData)
+            base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData, createUser)
         {
-            _createUser = createUser;
-        }
-
-        public void GetAllItems()
-        {
-            _meetings = _dbServiceM.Get();
-            _persons = _dbServiceP.Get();
-        }
-        public void CreateUser()
-        {
-            GetAllItems();
-            User = _createUser.SelectUser(_persons);
         }
         #region Add Person
         public void AddPerson()
         {
             CreateUser();
-            ControlPanel controlPanel;
             if (_meetings.Count == 0)
             {
                 Console.Clear();
@@ -74,7 +58,6 @@ namespace VismaMeeting_v2.Commands
         public void RemovePerson()
         {
             CreateUser();
-            ControlPanel controlPanel;
             if (_meetings.Count == 0)
             {
                 Console.Clear();
@@ -111,14 +94,6 @@ namespace VismaMeeting_v2.Commands
         }
         #endregion
         
-        public void SaveMeetings(Meetings meetings)
-        {
-            _dbServiceM.Save(meetings);
-        }
-        public void SavePersons(Persons persons)
-        {
-            _dbServiceP.Save(persons);
-        }
 
     }
 }
