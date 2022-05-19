@@ -15,7 +15,7 @@
         }
         public void DisplayData(string title, object name, object id, int numOfLines = 0,
                                 string backgroundColor = "DarkGray", string textColor = "Gray", bool clearConsole = false,
-                                Action<string> writeTitle = null, Action<object, object> writeLine = null)
+                                Action<string> writeTitle = null, Action<object, object> writeLine = null, Action showMessage = null)
         {
             if (clearConsole)
             {

@@ -102,7 +102,7 @@ namespace VismaMeeting_v2.Services.DataOperations
             return interval;
         }
         #endregion
-        
+        //datacheking
         public DateTime GetDate()
         {
             Console.Write("(e.g. mm/dd/yyyy or mm/dd): ");
@@ -159,6 +159,7 @@ namespace VismaMeeting_v2.Services.DataOperations
             } while (!success);
             return index;
         }
+        //datachecking
         public bool IsMeetingToDeleteForPerson(Meetings meetingList, Person person)
         {
             bool isToDelete = false;
@@ -189,7 +190,6 @@ namespace VismaMeeting_v2.Services.DataOperations
             return index;
         }
         #endregion
-        #region Add person
         public int SelectPersonForMeeting(Meeting meeting, Persons personList)
         {
             bool success = false;
@@ -217,8 +217,6 @@ namespace VismaMeeting_v2.Services.DataOperations
             }
             return isAdded;
         }
-        #endregion
-        #region Confirmation
         public bool Confirm()
         {
             _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => 
@@ -228,6 +226,7 @@ namespace VismaMeeting_v2.Services.DataOperations
             char confirmation = 'y';
             do
             {
+                //datachecking
                 if (!char.TryParse(Console.ReadLine(), out char confirmationLetter))
                 {
                     _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
@@ -246,7 +245,7 @@ namespace VismaMeeting_v2.Services.DataOperations
             } while (continueCycle);
             return success;
         }
-        #endregion
+        //datachecking
         public bool IsPersonResponsible(Person person, Meeting meeting)
             => meeting.ResponsiblePerson == person.Name;
 
