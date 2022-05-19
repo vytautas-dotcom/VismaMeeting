@@ -4,11 +4,17 @@ namespace VismaMeeting_v2.Services.Checking
 {
     public class DataChecking
     {
-        public bool IsInputNumber(string value)
+        public bool IsInputNotNullOrEmptySpace(string value)
         {
             if(string.IsNullOrEmpty(value))
                 return false;
             return true;
+        }
+        public bool IsInputNumber(string value, out int input)
+        {
+            bool success = int.TryParse(value, out input);
+            bool isInputCorrect = IsInputNotNullOrEmptySpace(value) && success;
+            return isInputCorrect;
         }
         public bool IsInputDate(string value, out DateTime dateOut)
         {
