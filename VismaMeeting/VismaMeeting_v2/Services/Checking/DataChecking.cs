@@ -1,10 +1,19 @@
 ﻿using VismaMeeting_v2.Extensions;
 using VismaMeeting_v2.Models;
+using VismaMeeting_v2.Services.DataForMessages;
+using VismaMeeting_v2.Services.Messages;
 
 namespace VismaMeeting_v2.Services.Checking
 {
     public class DataChecking
     {
+        private readonly UIMessages _uIMessages;
+        private readonly MessagesData _messageData;
+        public DataChecking(UIMessages uIMessages)
+        {
+            _uIMessages = uIMessages;
+            _messageData = new MessagesData();
+        }
         public bool IsInputNotNullOrEmptySpace(string value)
         {
             if(string.IsNullOrEmpty(value))
@@ -26,7 +35,7 @@ namespace VismaMeeting_v2.Services.Checking
             return isDateCorrect && !date.IsEmpty();
         }
         public bool IsSelectedIndexNotOutTheRange<T>(int index, List<T> list)
-            => index <= list.Count || index > 0;
+            => index <= list.Count - 1 && index >= 0;
         public bool IsConfimationSuccessful(string input)
         {
             char letter = 'y';
@@ -85,6 +94,20 @@ namespace VismaMeeting_v2.Services.Checking
                     isToDelete = true;
             }
             return isToDelete;
+        }
+        public bool IsMeetigToDeleteForPerson(Meetings meetings, Person person, int index)
+        {
+            if (!IsSelectedIndexNotOutTheRange(index, meetings))
+            {
+                _uIMessages.WarningMessage(_messageData.WarningMessages["InputWarning"]);
+                return false;
+            }
+            else if(!IsPersonResponsibleForMeeting(person, meetings[index]))
+            {
+                _uIMessages.WarningMessage(_messageData.WarningMessages["MeetingDeleteWarning"]);
+                return false;
+            }
+            return true;
         }
     }
 }

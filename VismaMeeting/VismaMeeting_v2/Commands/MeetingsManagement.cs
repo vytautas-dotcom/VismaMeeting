@@ -20,73 +20,27 @@ namespace VismaMeeting_v2.Commands
                 uIMessages, dataChecking, dataInput, messagesData)
         {
         }
-        public void Create()
+        public void CreateMeeting()
         {
-            //CreateUser();
             Meeting meeting = _personMeetingData.CreateMeeting(User.Person);
             SaveMeetingPerson(meeting, User.Person);
             Console.Clear();
-            controlPanel = new ControlPanel();
             controlPanel.Run();
         }
-        //public void Create()
-        //{
-        //    CreateUser();
-        //    Meeting meeting = _dataCheck.CreateMeeting(User.Person, _personMeetingData);
-        //    _meetings.Add(meeting);
-        //    SaveMeetings(_meetings);
-        //    _persons.RemoveAt(_persons.FindIndex(x => x.Id == User.Person.Id));
-        //    _persons.Add(User.Person);
-        //    SavePersons(_persons);
-        //    Console.Clear();
-        //    controlPanel = new ControlPanel();
-        //    controlPanel.Run();
-        //}
         public void DeleteMeeting()
         {
-            //CreateUser();
-            if (!_dataChecking.IsMeetingToDeleteForPerson(_meetings, User.Person))
+            if (!_dataChecking.IsMeetingToDeleteForPerson(_meetings, User.Person) || _meetings.Count == 0)
             {
                 Console.Clear();
-                _uIMessages.WarningMessage(_messagesData.WarningMessages["MeetingDeleteWarning"]);
-                controlPanel = new ControlPanel();
+                _uIMessages.WarningMessage(_messagesData.WarningMessages["NoMeetingsToDelete"]);
                 controlPanel.Run();
             }
             else
             {
-                _meetingShowData.ShowNamesIndexes(_meetings);
-                int index = _dataCheck.SelectMeetigForDelete(_meetings, User.Person);
-                _personMeetingData.RemoveMeetingFromPersonMeetings(_meetings[index].Id, _persons);
-                SavePersons(_persons);
-                _meetings.RemoveAt(index);
+                _personMeetingData.DeleteMeeting(_meetings, _persons, User.Person);
                 SaveMeetings(_meetings);
-
-                Console.Clear();
-                controlPanel = new ControlPanel();
-                controlPanel.Run();
+                SavePersons(_persons);
             }
-
         }
-        //public void DeleteMeeting()
-        //{
-        //    CreateUser();
-        //    if (!_dataCheck.IsMeetingToDeleteForPerson(_meetings, User.Person))
-        //    {
-        //        Console.Clear();
-        //        controlPanel = new ControlPanel();
-        //        controlPanel.Run();
-        //    }
-        //    _meetingShowData.ShowNamesIndexes(_meetings);
-        //    int index = _dataCheck.SelectMeetigForDelete(_meetings, User.Person);
-        //    _personMeetingData.RemoveMeetingFromPersonMeetings(_meetings[index].Id, _persons);
-        //    SavePersons(_persons);
-        //    _meetings.RemoveAt(index);
-        //    SaveMeetings(_meetings);
-
-        //    Console.Clear();
-        //    controlPanel = new ControlPanel();
-        //    controlPanel.Run();
-        //}
-
     }
 }

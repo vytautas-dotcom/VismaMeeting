@@ -16,7 +16,7 @@ namespace VismaMeeting_v2.Services.DataOperations
         {
             Meeting meeting = new Meeting();
             meeting.Id = Guid.NewGuid();
-            personMeetingData.AddResponsiblePersonToMeeting(meeting, person);
+            //personMeetingData.AddResponsiblePersonToMeeting(meeting, person);
             meeting.ResponsiblePerson = person.Name;
             meeting.Persons = new List<Person>();
             meeting.Persons.Add(person);

@@ -39,8 +39,12 @@
                 Console.ForegroundColor = colorText;
                 writeTitle?.Invoke(title, userName);
                 showMessage?.Invoke();
-                if (numOfLines == 0)
+                if (numOfLines == 0 && writeLine != null)
+                {
                     writeLine?.Invoke(name, id);
+                    ShowLine(name.ToString().Length, '.');
+                }
+
                 else
                     for (int i = 0; i < numOfLines; i++)
                     {
@@ -49,7 +53,7 @@
                         else
                         {
                             writeLine?.Invoke(name, id);
-                            ShowLine(22 + name.ToString().Length, '.');
+                            ShowLine(name.ToString().Length, '.');
                         }
                     }
                 Console.ResetColor();

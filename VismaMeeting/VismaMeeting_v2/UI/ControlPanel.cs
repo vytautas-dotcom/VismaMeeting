@@ -45,7 +45,7 @@ namespace VismaMeeting_v2.UI
             IServiceScope serviceScope = serviceProvider.CreateScope();
 
             List<Action> actions = new List<Action>();
-            actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<MeetingsManagement>().Create());
+            actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<MeetingsManagement>().CreateMeeting());
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<MeetingsManagement>().DeleteMeeting());
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().AddPerson());
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<PersonsManagement>().RemovePerson());

@@ -18,9 +18,6 @@
   {
     "Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
     "Name": "Julius",
-    "PersonMeetings": {
-      "4246f516-e714-46c6-b5df-dd923d6d02b9": "2022-05-21T07:27:15.6771045+03:00",
-      "2e1eca91-f1a0-4aad-bef5-eca0db98507b": "2022-05-21T07:28:51.526599+03:00"
-    }
+    "PersonMeetings": {}
   }
 ]

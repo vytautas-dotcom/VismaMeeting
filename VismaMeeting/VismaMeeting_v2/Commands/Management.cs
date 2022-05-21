@@ -74,7 +74,7 @@ namespace VismaMeeting_v2.Commands
             else
             {
                 GetAllItems();
-                User = _createUser.SelectUser(_persons);
+                IManagement.User = _createUser.SelectUser(_persons);
                 Console.Clear();
                 controlPanel = new ControlPanel();
                 controlPanel.Run();

@@ -1,8 +1,11 @@
 ﻿using System.Reflection;
 using VismaMeeting_v2.Models;
+using VismaMeeting_v2.Services.Checking;
+using VismaMeeting_v2.Services.DataDisplay;
 using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.Input;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.UI;
 
 namespace VismaMeeting_v2.Services.DataOperations
 {
@@ -11,11 +14,17 @@ namespace VismaMeeting_v2.Services.DataOperations
         private readonly MessagesData _messagesData;
         private readonly DataInput _dataInput;
         private readonly UIMessages _uIMessages;
-        public PersonMeetingData(DataInput dataInput)
+        private readonly DataChecking _dataChecking;
+        private readonly ControlPanel _controlPanel;
+        private readonly MeetingShowData _meetingShowData;
+        public PersonMeetingData(DataInput dataInput, DataChecking dataChecking, MeetingShowData meetingShowData)
         {
             _messagesData = new MessagesData();
             _dataInput = dataInput;
             _uIMessages = new UIMessages();
+            _dataChecking = dataChecking;
+            _controlPanel = new ControlPanel();
+            _meetingShowData = meetingShowData;
         }
         public Meeting CreateMeeting(Person person)
         {
@@ -60,28 +69,33 @@ namespace VismaMeeting_v2.Services.DataOperations
             }
             return meeting;
         }
-        public void AddResponsiblePersonToMeeting(Meeting meeting, Person person)
+        public void DeleteMeeting(Meetings meetings, Persons persons, Person person)
         {
-            if(person.PersonMeetings == null)
+            bool isToDelete = false;
+            if (meetings.Count > 0)
             {
-                person.PersonMeetings = new Dictionary<Guid, DateTime>();
-                person.PersonMeetings.Add(meeting.Id, DateTime.Now);
+                _meetingShowData.ShowNamesIndexes(meetings);
+                int index;
+                _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out index);
+                isToDelete = _dataChecking.IsMeetigToDeleteForPerson(meetings, person, index);
+
+                if (!isToDelete)
+                    DeleteMeeting(meetings, persons, person);
+                else
+                {
+                    person.PersonMeetings.Remove(meetings[index].Id);
+                    persons.ForEach(person => person.PersonMeetings.Remove(meetings[index].Id));
+                    meetings.ForEach(x => x.Persons.ForEach(x => x.PersonMeetings.Remove(meetings[index].Id)));
+                    meetings.RemoveAt(meetings.FindIndex(x => x.Id == meetings[index].Id));
+                }
+
             }
             else
-            person.PersonMeetings.Add(meeting.Id, DateTime.Now);
-        }
-        public void AddMeetingToPerson(Guid id, Person person)
-            => person.PersonMeetings.Add(id, DateTime.Now);
-        public void AddPersonToMeeting(Meeting meeting, Person person)
-            => meeting.Persons.Add(person);
-        public void RemoveMeetingFromPersonMeetings(Guid id, Persons personList)
-            => personList.ForEach(x => x.PersonMeetings.Remove(id));
-        public void RemoveMeetingFromPersonMeetings(Guid id, Person person)
-            => person.PersonMeetings.Remove(id);
-        public void RemovePersonFromMeeting(Guid id, Meeting meeting)
-        {
-            var meetingToRemove = meeting.Persons.Find(x => x.Id == id);
-            meeting.Persons.Remove(meetingToRemove);
+            {
+                Console.Clear();
+                _uIMessages.WarningMessage(_messagesData.WarningMessages["NoMeetingsToDelete"]);
+                _controlPanel.Run();
+            }
         }
 
     }
