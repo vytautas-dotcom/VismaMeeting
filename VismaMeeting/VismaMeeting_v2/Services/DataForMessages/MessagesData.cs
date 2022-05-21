@@ -1,18 +1,20 @@
 ﻿namespace VismaMeeting_v2.Services.DataForMessages
 {
-    public class MeesagesData
+    public class MessagesData
     {
-        Dictionary<string, string> WarningMessages;
-        Dictionary<string, string> InformationMessages;
-        Dictionary<string, string> MeetingCreateMessages;
-        public MeesagesData()
+        public Dictionary<string, string> WarningMessages;
+        public Dictionary<string, string> InformationMessages;
+        public Dictionary<string, string> MeetingCreateMessages;
+        public MessagesData()
         {
             WarningMessages = new Dictionary<string, string>();
             WarningMessages.Add("InputWarning", "You have to make correct input");
             WarningMessages.Add("FunctionWarning", "No function under such a choice");
             WarningMessages.Add("DateWarning", "End date can not be less than start date");
+            WarningMessages.Add("NoMeetings", "There is no any meeting to add person");
+            WarningMessages.Add("FullMeetings", "All meetings are full added");
             WarningMessages.Add("ConfirmWarning", "Are you sure you want to continue (y/n)");
-            WarningMessages.Add("MeetingDeleteWarning", "Only the responsible person can delete the meeting");
+            WarningMessages.Add("MeetingDeleteWarning", "Only responsible person can delete the meeting");
             WarningMessages.Add("DeleteResponsiblePersonWarning", "Responsible person can not be deleted");
             WarningMessages.Add("AddedPersonWarning", "This person is already added");
             WarningMessages.Add("ImpossibleIntervalWarning", "Interval (0, 0) is impossible ;D");

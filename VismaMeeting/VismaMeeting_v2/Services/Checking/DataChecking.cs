@@ -1,4 +1,5 @@
-﻿using VismaMeeting_v2.Models;
+﻿using VismaMeeting_v2.Extensions;
+using VismaMeeting_v2.Models;
 
 namespace VismaMeeting_v2.Services.Checking
 {
@@ -22,7 +23,7 @@ namespace VismaMeeting_v2.Services.Checking
             bool isDateCorrect = DateTime.TryParse(value, out DateTime date);
             dateTime = date;
             dateOut = dateTime;
-            return isDateCorrect;
+            return isDateCorrect && !date.IsEmpty();
         }
         public bool IsSelectedIndexNotOutTheRange<T>(int index, List<T> list)
             => index <= list.Count || index > 0;
@@ -73,6 +74,17 @@ namespace VismaMeeting_v2.Services.Checking
                 if (item.Id == person.Id)
                     return true;
             return false;
+        }
+
+        public bool IsMeetingToDeleteForPerson(Meetings meetingList, Person person)
+        {
+            bool isToDelete = false;
+            foreach (var meeting in meetingList)
+            {
+                if (IsPersonResponsibleForMeeting(person, meeting))
+                    isToDelete = true;
+            }
+            return isToDelete;
         }
     }
 }

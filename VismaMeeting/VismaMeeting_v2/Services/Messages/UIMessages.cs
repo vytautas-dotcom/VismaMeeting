@@ -1,6 +1,6 @@
 ﻿namespace VismaMeeting_v2.Services.Messages
 {
-    public class UIMessages : IWrite
+    public class UIMessages
     {
         public void ShowLine(int numOfSymbols, char symbol)
             => Console.WriteLine(new String(symbol, numOfSymbols));
@@ -20,7 +20,7 @@
             ShowLine(message.Length, '=');
             Console.ResetColor();
         }
-        public void DisplayData(string title, object name = null, object id = null, object itemList = null, string userName = "user", int numOfLines = 0,
+        public void DisplayData(string title, object name = null, object id = null, object itemList = null, string userName = "", int numOfLines = 0,
                                 string backgroundColor = "DarkGray", string textColor = "Gray", bool clearConsole = false,
                                 Action<string, string> writeTitle = null, Action<object, object> writeLine = null, Action showMessage = null)
         {
@@ -75,6 +75,21 @@
                 DisplayData("", backgroundColor: "Black", textColor: "Blue", showMessage: () =>
                     Console.WriteLine("{0,-15} - {1}", item, (int)item));
             }
+        }
+        public void InputInformationMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            ShowLine(message.Length + 1, '.');
+            Console.Write($"{message}: ");
+            Console.ResetColor();
+        }
+        public void WarningMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            ShowLine(message.Length, '/');
+            Console.WriteLine($"{message}");
+            ShowLine(message.Length, '\\');
+            Console.ResetColor();
         }
     }
 }

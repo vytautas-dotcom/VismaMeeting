@@ -1,6 +1,8 @@
-﻿using VismaMeeting_v2.Models;
+﻿using VismaMeeting_v2.Commands;
+using VismaMeeting_v2.Models;
 using VismaMeeting_v2.Services.DataDisplay;
 using VismaMeeting_v2.Services.DataOperations;
+using VismaMeeting_v2.Services.Messages;
 
 namespace VismaMeeting_v2.UI
 {
@@ -10,17 +12,21 @@ namespace VismaMeeting_v2.UI
         private readonly UIData _uIData;
         private readonly DataCheck _dataCheck;
         private List<Action> executeFunctions;
-        public UIShowData(DataVisualization dataVisualization, DataCheck dataCheck)
+        //
+        private readonly UIMessages _uIMessages;
+        public UIShowData(DataVisualization dataVisualization, DataCheck dataCheck, UIMessages uIMessages)
         {
             _dataVisualization = dataVisualization;
             _uIData = new UIData();
             _dataCheck = dataCheck;
             executeFunctions = new List<Action>();
+            //
+            _uIMessages = uIMessages;
         }
         public int ShowFunctions()
         {
             string title = "Select function to execute";
-            _dataVisualization.DisplayData(title, "", 0, "DarkGray", "DarkYellow", writeTitle: _dataVisualization.WrapedTitle);
+            _uIMessages.DisplayData(title, "", 0,backgroundColor: "DarkGray",textColor: "DarkYellow", userName: IManagement.User.Person.Name, writeTitle: _uIMessages.TableTitle);
             foreach (KeyValuePair<string, int> entry in _uIData.Functions)
             {
                 _dataVisualization.DisplayData("", entry.Key, entry.Value, "Gray", "DarkMagenta", writeLine: _dataVisualization.TableLine);
@@ -55,7 +61,8 @@ namespace VismaMeeting_v2.UI
                 case 5:
                     executeFunctions[index].Invoke();
                     break;
-                default: break;
+                default: 
+                    break;
 
             }
         }

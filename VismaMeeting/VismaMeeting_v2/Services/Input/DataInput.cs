@@ -6,21 +6,21 @@ namespace VismaMeeting_v2.Services.Input
     public class DataInput
     {
         private readonly DataChecking _dataChecking;
-        private readonly IWrite _write;
-        public DataInput(DataChecking dataChecking, IWrite write)
+        private readonly UIMessages _uIMessages;
+        public DataInput(DataChecking dataChecking, UIMessages uIMessages)
         {
             _dataChecking = dataChecking;
-            _write = write;
+            _uIMessages = uIMessages;
         }
         private string Input()
             => Console.ReadLine();
         public string InputString(string messageBeforeInput, string messageAfterInput)
         {
-            _write.ShowMessage(messageAfterInput);
+            _uIMessages.InputInformationMessage(messageBeforeInput);
             string input = Input();
             if (_dataChecking.IsInputNotNullOrEmptySpace(input))
                 return input;
-            _write.ShowMessage(messageAfterInput);
+            _uIMessages.WarningMessage(messageAfterInput);
             InputString(messageBeforeInput, messageAfterInput);
             return null;
         }
@@ -32,11 +32,10 @@ namespace VismaMeeting_v2.Services.Input
                 input = stringInput;
             else
                 input = InputString(messageBeforeInput, messageAfterInput);
-            _write.ShowMessage(messageAfterInput);
             bool success = _dataChecking.IsInputNumber(input, out output);
             if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
             {
-                _write.ShowMessage(messageAfterInput);
+                _uIMessages.WarningMessage(messageAfterInput);
                 InputNumber(messageBeforeInput, messageAfterInput, out output);
             }
         }
@@ -47,11 +46,10 @@ namespace VismaMeeting_v2.Services.Input
                 input = stringInput;
             else
                 input = InputString(messageBeforeInput, messageAfterInput);
-            _write.ShowMessage(messageAfterInput);
             bool success = _dataChecking.IsInputDate(input, out output);
-            if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+            if (!success)
             {
-                _write.ShowMessage(messageAfterInput);
+                _uIMessages.WarningMessage(messageAfterInput);
                 InputDate(messageBeforeInput, messageAfterInput, out output);
             }
         }
@@ -60,7 +58,7 @@ namespace VismaMeeting_v2.Services.Input
             InputNumber(messageBeforeInput, messageAfterInput, out output, stringInput);
             if (!Enum.IsDefined(typeof(T), output))
             {
-                _write.ShowMessage(messageAfterInput);
+                _uIMessages.WarningMessage(messageAfterInput);
                 EnumInput<T>(messageBeforeInput, messageAfterInput, out output, stringInput);
             }
         }
