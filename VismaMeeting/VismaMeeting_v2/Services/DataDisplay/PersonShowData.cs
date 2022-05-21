@@ -1,13 +1,16 @@
 ﻿using VismaMeeting_v2.Models;
+using VismaMeeting_v2.Services.Messages;
 
 namespace VismaMeeting_v2.Services.DataDisplay
 {
     public class PersonShowData
     {
         private readonly DataVisualization _dataVisualization;
-        public PersonShowData(DataVisualization dataVisualization)
+        private readonly UIMessages _uIMessages;
+        public PersonShowData(DataVisualization dataVisualization, UIMessages uIMessages)
         {
             _dataVisualization = dataVisualization;
+            _uIMessages = uIMessages;
         }
         public void ShowOneItem(Person person)
         {
@@ -37,14 +40,15 @@ namespace VismaMeeting_v2.Services.DataDisplay
         public void ShowNamesIndexesNotAddedYet(Persons personList, List<Person> meetingPersons)
         {
             string title = "Select person's number to add to the meeting";
-            _dataVisualization.DisplayData(title, "", 0, "DarkGray", "Gray", writeTitle: _dataVisualization.WrapedTitle);
+            _uIMessages.DisplayData(title, "", 0, backgroundColor: "DarkGray", textColor: "Gray", writeTitle: _uIMessages.TableTitle);
             foreach (var person in personList)
             {
                 if (!IsInMeetingPersonsList(person.Id, meetingPersons))
-                    _dataVisualization.DisplayData("", person.Name, personList.IndexOf(person), "Gray", "DarkBlue", writeLine: _dataVisualization.TableLine);
+                    _uIMessages.DisplayData("", person.Name, personList.IndexOf(person),
+                        backgroundColor: "Gray", textColor: "DarkBlue", writeLine: _dataVisualization.TableLine);
 
             }
-            _dataVisualization.ShowLine(title.Length);
+            _uIMessages.ShowLine(title.Length, '-');
         }
         private bool IsInMeetingPersonsList(Guid id, List<Person> meetingPersons)
         {

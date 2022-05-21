@@ -11,8 +11,8 @@
             WarningMessages.Add("InputWarning", "You have to make correct input");
             WarningMessages.Add("FunctionWarning", "No function under such a choice");
             WarningMessages.Add("DateWarning", "End date can not be less than start date");
-            WarningMessages.Add("NoMeetings", "There is no any meeting to add person");
-            WarningMessages.Add("NoMeetingsToDelete", "There is no any meeting to delete");
+            WarningMessages.Add("NoMeetingsToAdd", "There is not any meeting to add person");
+            WarningMessages.Add("NoMeetingsToDelete", "There is not any meeting to delete");
             WarningMessages.Add("FullMeetings", "All meetings are full added");
             WarningMessages.Add("ConfirmWarning", "Are you sure you want to continue (y/n)");
             WarningMessages.Add("MeetingDeleteWarning", "Only responsible person can delete the meeting");

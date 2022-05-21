@@ -6,6 +6,7 @@ using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.Input;
 using VismaMeeting_v2.Services.Messages;
 using VismaMeeting_v2.UI;
+using System.Linq;
 
 namespace VismaMeeting_v2.Services.DataOperations
 {
@@ -17,7 +18,8 @@ namespace VismaMeeting_v2.Services.DataOperations
         private readonly DataChecking _dataChecking;
         private readonly ControlPanel _controlPanel;
         private readonly MeetingShowData _meetingShowData;
-        public PersonMeetingData(DataInput dataInput, DataChecking dataChecking, MeetingShowData meetingShowData)
+        private readonly PersonShowData _personShowData;
+        public PersonMeetingData(DataInput dataInput, DataChecking dataChecking, MeetingShowData meetingShowData, PersonShowData personShowData)
         {
             _messagesData = new MessagesData();
             _dataInput = dataInput;
@@ -25,6 +27,7 @@ namespace VismaMeeting_v2.Services.DataOperations
             _dataChecking = dataChecking;
             _controlPanel = new ControlPanel();
             _meetingShowData = meetingShowData;
+            _personShowData = personShowData;
         }
         public Meeting CreateMeeting(Person person)
         {
@@ -88,7 +91,6 @@ namespace VismaMeeting_v2.Services.DataOperations
                     meetings.ForEach(x => x.Persons.ForEach(x => x.PersonMeetings.Remove(meetings[index].Id)));
                     meetings.RemoveAt(meetings.FindIndex(x => x.Id == meetings[index].Id));
                 }
-
             }
             else
             {
@@ -97,6 +99,62 @@ namespace VismaMeeting_v2.Services.DataOperations
                 _controlPanel.Run();
             }
         }
+        public void AddPerson(Meetings meetings, Persons persons)
+        {
+            bool isToAdd = false;
+            if (meetings.Count > 0)
+            {
+                _meetingShowData.ShowNamesIndexes(meetings);
+                int meetingIndex;
+                _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out meetingIndex);
 
+                isToAdd = !_dataChecking.IsMeetingPersonsListFull(persons, meetings[meetingIndex]) && 
+                    _dataChecking.IsSelectedIndexNotOutTheRange(meetingIndex, meetings);
+
+                if (!isToAdd)
+                    AddPerson(meetings, persons);
+                else
+                {
+                    int personIndex;
+                    List<Person> personsNotAddedYet = SelectNotAddedPersons(meetings[meetingIndex].Id, persons);
+                    _meetingShowData.ShowOneItem(meetings[meetingIndex]);
+                    _personShowData.ShowNamesIndexesNotAddedYet(persons, personsNotAddedYet);
+
+                    _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out personIndex);
+
+                    isToAdd = _dataChecking.IsSelectedIndexNotOutTheRange(personIndex, persons);
+
+                    if (!isToAdd)
+                        AddPerson(meetings, persons);
+                    else
+                    {
+                        persons[personIndex].PersonMeetings.Add(meetings[meetingIndex].Id, DateTime.Now);
+                        AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex].Id, persons[personIndex].Id);
+                        meetings[meetingIndex].Persons.Add(persons[personIndex]);
+                    }
+                }
+            }
+            else
+            {
+                Console.Clear();
+                _uIMessages.WarningMessage(_messagesData.WarningMessages["NoMeetingsToDelete"]);
+                _controlPanel.Run();
+            }
+        }
+        static List<Person> SelectNotAddedPersons(Guid id, Persons persons)
+        {
+            List<Person> personsList = new List<Person>();
+            foreach (var item in persons)
+                if (item.PersonMeetings.ContainsKey(id))
+                    personsList.Add(item);
+            return personsList;
+        }
+        static void AddMeetingToPersonForechMeeting(Meetings meetings, Guid meetingId, Guid personId)
+        {
+            foreach (var meeting in meetings)
+                foreach (var person in meeting.Persons)
+                    if (person.Id == personId)
+                        person.PersonMeetings.Add(meetingId, DateTime.Now);
+        }
     }
 }

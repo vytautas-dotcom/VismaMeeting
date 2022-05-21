@@ -50,6 +50,7 @@ namespace VismaMeeting_v2.Commands
             _dataChecking = dataChecking;
             _dataInput = dataInput;
             _messagesData = messagesData;
+            controlPanel = new ControlPanel();
             //
             if (IManagement.User != null)
             {
@@ -76,7 +77,6 @@ namespace VismaMeeting_v2.Commands
                 GetAllItems();
                 IManagement.User = _createUser.SelectUser(_persons);
                 Console.Clear();
-                controlPanel = new ControlPanel();
                 controlPanel.Run();
             }
         }
@@ -109,7 +109,7 @@ namespace VismaMeeting_v2.Commands
             foreach (var item in _meetings)
             {
                 int? meetingPersonIndex = item.Persons.FindIndex(x => x.Id == person.Id);
-                if (meetingPersonIndex != null && item.Persons[meetingPersonIndex.Value].Id == person.Id)
+                if (meetingPersonIndex != null && meetingPersonIndex != -1)
                 {
                     item.Persons.RemoveAt(meetingPersonIndex.Value);
                     item.Persons.Add(person);

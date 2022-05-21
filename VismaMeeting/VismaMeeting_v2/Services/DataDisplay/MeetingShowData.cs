@@ -20,20 +20,21 @@ namespace VismaMeeting_v2.Services.DataDisplay
         {
             int count = 0;
             string title = $"Selected meeting: {meeting.Name.ToUpper()}";
-            _dataVisualization.DisplayData(title, "", 0, "DarkGray", "Gray", writeTitle: _dataVisualization.WrapedTitle);
-
+            _uIMessages.DisplayData(title, "", 0, backgroundColor: "DarkGray", textColor: "Gray", writeTitle: _uIMessages.TableTitle);
             foreach (PropertyInfo prop in meeting.GetType().GetProperties())
             {
                 if (prop.PropertyType == typeof(List<Person>))
                     continue;
-                _dataVisualization
-                .DisplayData("", prop.Name, prop.GetValue(meeting, null), "Gray", "DarkBlue", writeLine: _dataVisualization.TableLine);
+                _uIMessages.DisplayData("", prop.Name, prop.GetValue(meeting, null), 
+                                        backgroundColor: "Gray", textColor: "DarkBlue", writeLine: _uIMessages.TableLine);
             }
-            _dataVisualization
-                .DisplayData("", "", 0, "Gray", "Black", showMessage: () => Console.WriteLine("Meeting participants:"));
-            meeting.Persons?.ForEach(x => _dataVisualization
-                .DisplayData("", x.Name, count++, "Gray", "DarkBlue", writeLine: _dataVisualization.TableLine));
-            _dataVisualization.ShowLine(title.Length);
+            _uIMessages
+                .DisplayData("", "", 0, backgroundColor: "Gray", textColor: "Black", 
+                             showMessage: () => Console.WriteLine("Meeting participants:"));
+            meeting.Persons?.ForEach(x => _uIMessages
+                                            .DisplayData("", x.Name, count++, backgroundColor: "Gray", textColor: "DarkBlue", 
+                                                         writeLine: _dataVisualization.TableLine));
+            _uIMessages.ShowLine(title.Length, '-');
         }
 
         public void ShowAllItems(Meetings meetingList)
