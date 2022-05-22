@@ -1,18 +1,16 @@
-﻿using System.Reflection;
-using VismaMeeting_v2.Models;
-using VismaMeeting_v2.Services.DataForMessages;
+﻿using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.Models;
+using System.Reflection;
 
 namespace VismaMeeting_v2.Services.DataDisplay
 {
     public class MeetingShowData
     {
-        private readonly DataVisualization _dataVisualization;
         private readonly UIMessages _uIMessages;
         private readonly MessagesData _messagesData;
-        public MeetingShowData(DataVisualization dataVisualization, UIMessages uIMessages)
+        public MeetingShowData(UIMessages uIMessages)
         {
-            _dataVisualization = dataVisualization;
             _uIMessages = uIMessages;
             _messagesData = new MessagesData();
         }
@@ -33,7 +31,7 @@ namespace VismaMeeting_v2.Services.DataDisplay
                              showMessage: () => Console.WriteLine("Meeting participants:"));
             meeting.Persons?.ForEach(x => _uIMessages
                                             .DisplayData("", x.Name, count++, backgroundColor: "Gray", textColor: "DarkBlue", 
-                                                         writeLine: _dataVisualization.TableLine));
+                                                         writeLine: _uIMessages.TableLine));
             _uIMessages.ShowLine(title.Length, '-');
         }
 
@@ -46,13 +44,9 @@ namespace VismaMeeting_v2.Services.DataDisplay
             _uIMessages.DisplayData(title, "", 0, backgroundColor: "DarkGray",textColor: "Gray", writeTitle: _uIMessages.TableTitle);
             meetings.ForEach(x => _uIMessages
                 .DisplayData("", x.Name, meetings.IndexOf(x), backgroundColor: "Gray",textColor: "DarkBlue", writeLine: _uIMessages.TableLine));
-            //_dataVisualization.ShowLine(title.Length);
         }
 
         private void ShowOneItem(string title, object item)
             => Console.WriteLine("{0,-20} - {1}", title, item);
-
-        private void ShowLine(int numberOfChar)
-            => Console.WriteLine(new String('-', numberOfChar));
     }
 }

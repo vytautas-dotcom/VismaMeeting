@@ -1,33 +1,33 @@
-﻿using System.Reflection;
-using VismaMeeting_v2.Models;
-using VismaMeeting_v2.Services.Checking;
+﻿using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.DataDisplay;
-using VismaMeeting_v2.Services.DataForMessages;
-using VismaMeeting_v2.Services.Input;
+using VismaMeeting_v2.Services.Checking;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.Services.Input;
+using VismaMeeting_v2.Models;
 using VismaMeeting_v2.UI;
+using System.Reflection;
 using System.Linq;
 
 namespace VismaMeeting_v2.Services.DataOperations
 {
     public class PersonMeetingData
     {
-        private readonly MessagesData _messagesData;
-        private readonly DataInput _dataInput;
-        private readonly UIMessages _uIMessages;
-        private readonly DataChecking _dataChecking;
-        private readonly ControlPanel _controlPanel;
         private readonly MeetingShowData _meetingShowData;
         private readonly PersonShowData _personShowData;
+        private readonly MessagesData _messagesData;
+        private readonly DataChecking _dataChecking;
+        private readonly ControlPanel _controlPanel;
+        private readonly UIMessages _uIMessages;
+        private readonly DataInput _dataInput;
         public PersonMeetingData(DataInput dataInput, DataChecking dataChecking, MeetingShowData meetingShowData, PersonShowData personShowData)
         {
-            _messagesData = new MessagesData();
             _dataInput = dataInput;
-            _uIMessages = new UIMessages();
             _dataChecking = dataChecking;
-            _controlPanel = new ControlPanel();
             _meetingShowData = meetingShowData;
             _personShowData = personShowData;
+            _uIMessages = new UIMessages();
+            _controlPanel = new ControlPanel();
+            _messagesData = new MessagesData();
         }
         public Meeting CreateMeeting(Person person)
         {

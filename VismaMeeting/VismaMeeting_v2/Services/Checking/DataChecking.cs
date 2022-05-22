@@ -1,7 +1,7 @@
-﻿using VismaMeeting_v2.Extensions;
-using VismaMeeting_v2.Models;
-using VismaMeeting_v2.Services.DataForMessages;
+﻿using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.Extensions;
+using VismaMeeting_v2.Models;
 
 namespace VismaMeeting_v2.Services.Checking
 {

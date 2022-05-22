@@ -64,11 +64,11 @@
         }
         public void TableTitle(string title, string name)
         {
-            ShowLine(title.Length, '*');
-            ShowLineWithUserName(title.Length, name, '(', ')');
-            ShowLine(title.Length, '*');
+            ShowLine(title.Length, '-');
+            ShowLineWithUserName(title.Length, name, ' ', ' ');
+            ShowLine(title.Length, '-');
             Console.WriteLine(title);
-            ShowLine(title.Length, '*');
+            ShowLine(title.Length, '_');
         }
         private void ShowEnum<T>()
         {

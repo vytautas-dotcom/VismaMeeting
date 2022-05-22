@@ -1,21 +1,9 @@
 ﻿using VismaMeeting_v2.Models;
 
-namespace VismaMeeting_v2.Services.DataDisplay
+namespace VismaMeeting_v2.Services.DataOperations
 {
     public class FilterData
     {
-        //messagesdata
-        //public Dictionary<string, int> FilterParameters = new Dictionary<string, int>()
-        //{
-        //    {"Description", 0},
-        //    {"Responsible person", 1},
-        //    {"Category", 2},
-        //    {"Type", 3},
-        //    {"Date", 4},
-        //    {"Attendees number", 5}
-        //};
-        //public List<int> FilterParameterIndexes = new List<int>(new[] { 0, 1, 2, 3, 4, 5 });
-
         public Meetings FilterByDescription(string text, Meetings meetingList)
         {
             Meetings meetings = new Meetings();

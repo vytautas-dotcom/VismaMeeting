@@ -1,79 +1,74 @@
-﻿using VismaMeeting_v2.Models;
-using VismaMeeting_v2.Services.Checking;
-using VismaMeeting_v2.Services.DataDisplay;
-using VismaMeeting_v2.Services.DataForMessages;
+﻿using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.DataOperations;
 using VismaMeeting_v2.Services.DataServices;
-using VismaMeeting_v2.Services.Input;
+using VismaMeeting_v2.Services.DataDisplay;
+using VismaMeeting_v2.Services.Checking;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.Services.Input;
+using VismaMeeting_v2.Models;
 using VismaMeeting_v2.UI;
 
 namespace VismaMeeting_v2.Commands
 {
     public class Management
     {
-        public User User { get; set; }
-        public Meetings _meetings;
-        public Persons _persons;
-        internal ControlPanel controlPanel;
+        internal readonly PersonMeetingData _personMeetingData;
         internal readonly IDbService<Persons> _dbServiceP;
         internal readonly IDbService<Meetings> _dbServiceM;
-        internal readonly DataVisualization _dataVisualization;
         internal readonly MeetingShowData _meetingShowData;
         internal readonly PersonShowData _personShowData;
-        internal readonly PersonMeetingData _personMeetingData;
-        internal readonly CreateUser _createUser;
-        internal readonly MessagesData _messagesData;
-        //
-        internal readonly UIMessages _uIMessages;
         internal readonly DataChecking _dataChecking;
+        internal readonly MessagesData _messagesData;
+        internal readonly ControlPanel _controlPanel;
+        internal readonly CreateUser _createUser;
+        internal readonly UIMessages _uIMessages;
         internal readonly DataInput _dataInput;
+        public Meetings _meetings;
+        public Persons _persons;
+        public User User;
 
-        public Management(IDbService<Persons> dbServiceP, IDbService<Meetings> dbServiceM,
-                          DataVisualization dataVisualization, MeetingShowData meetingShowData, PersonShowData personShowData,
-                          PersonMeetingData personMeetingData, CreateUser createUser,
-                          UIMessages uIMessages, DataChecking dataChecking, DataInput dataInput, MessagesData messagesData)
+        public Management(IDbService<Persons> dbServiceP, IDbService<Meetings> dbServiceM, MeetingShowData meetingShowData, 
+                          PersonShowData personShowData, PersonMeetingData personMeetingData, CreateUser createUser,
+                          UIMessages uIMessages, DataChecking dataChecking, DataInput dataInput)
         {
-            _dbServiceP = dbServiceP;
-            _dbServiceM = dbServiceM;
-            _dataVisualization = dataVisualization;
+            _personMeetingData = personMeetingData;
             _meetingShowData = meetingShowData;
             _personShowData = personShowData;
-            _personMeetingData = personMeetingData;
-            _createUser = createUser;
-            //
-            _uIMessages = uIMessages;
             _dataChecking = dataChecking;
+            _dbServiceP = dbServiceP;
+            _dbServiceM = dbServiceM;
+            _createUser = createUser;
+            _uIMessages = uIMessages;
             _dataInput = dataInput;
-            _messagesData = messagesData;
-            controlPanel = new ControlPanel();
-            //
-            if (IManagement.User != null)
+            _messagesData = new MessagesData();
+            _controlPanel = new ControlPanel();
+            
+            if (SessionData.User != null)
             {
-                User = IManagement.User;
-                _meetings = IManagement._meetings;
-                _persons = IManagement._persons;
+                User = SessionData.User;
+                _meetings = SessionData._meetings;
+                _persons = SessionData._persons;
             }
         }
         public void GetAllItems()
         {
             _persons = _dbServiceP.Get();
-            IManagement._meetings = _dbServiceM.Get();
-            IManagement._persons = _dbServiceP.Get();
+            SessionData._meetings = _dbServiceM.Get();
+            SessionData._persons = _dbServiceP.Get();
         }
         public void CreateUser(bool change = false)
         {
             if (!change)
             {
                 GetAllItems();
-                IManagement.User = _createUser.SelectUser(_persons);
+                SessionData.User = _createUser.SelectUser(_persons);
             }
             else
             {
                 GetAllItems();
-                IManagement.User = _createUser.SelectUser(_persons);
+                SessionData.User = _createUser.SelectUser(_persons);
                 Console.Clear();
-                controlPanel.Run();
+                _controlPanel.Run();
             }
         }
 

@@ -1,38 +1,34 @@
-﻿using VismaMeeting_v2.Commands;
-using VismaMeeting_v2.Models;
-using VismaMeeting_v2.Services.DataDisplay;
-using VismaMeeting_v2.Services.DataOperations;
+﻿using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.Services.Input;
+using VismaMeeting_v2.Commands;
 
 namespace VismaMeeting_v2.UI
 {
     public class UIShowData
     {
-        private readonly DataVisualization _dataVisualization;
-        private readonly UIData _uIData;
-        private readonly DataCheck _dataCheck;
-        private List<Action> executeFunctions;
-        //
+        private readonly MessagesData _messagesData;
         private readonly UIMessages _uIMessages;
-        public UIShowData(DataVisualization dataVisualization, DataCheck dataCheck, UIMessages uIMessages)
+        private readonly DataInput _dataInput;
+        private List<Action> executeFunctions;
+        public UIShowData(UIMessages uIMessages, DataInput dataInput)
         {
-            _dataVisualization = dataVisualization;
-            _uIData = new UIData();
-            _dataCheck = dataCheck;
-            executeFunctions = new List<Action>();
-            //
             _uIMessages = uIMessages;
+            _dataInput = dataInput;
+            _messagesData = new MessagesData(); ;
+            executeFunctions = new List<Action>();
         }
         public int ShowFunctions()
         {
             string title = "Select function to execute";
-            _uIMessages.DisplayData(title, "", 0,backgroundColor: "DarkGray",textColor: "DarkYellow", userName: IManagement.User.Person.Name, writeTitle: _uIMessages.TableTitle);
-            foreach (KeyValuePair<string, int> entry in _uIData.Functions)
+            _uIMessages.DisplayData(title, "", 0,backgroundColor: "DarkGray",textColor: "DarkYellow", userName: SessionData.User.Person.Name, writeTitle: _uIMessages.TableTitle);
+            foreach (KeyValuePair<string, int> entry in _messagesData.Functions)
             {
-                _dataVisualization.DisplayData("", entry.Key, entry.Value, "Gray", "DarkMagenta", writeLine: _dataVisualization.TableLine);
+                _uIMessages.DisplayData("", entry.Key, entry.Value, backgroundColor: "Gray", textColor: "DarkMagenta",
+                    writeLine: _uIMessages.TableLine);
             }
-            _dataVisualization.ShowLine(title.Length);
-            int index = _dataCheck.Select(_uIData.FunctionsIndexes);
+            _uIMessages.ShowLine(title.Length, '-');
+            int index = _dataInput.Select(_messagesData.FunctionsIndexes);
             return index;
         }
         public void SetFunctionsToList(List<Action> functions)
@@ -63,7 +59,6 @@ namespace VismaMeeting_v2.UI
                     break;
                 default: 
                     break;
-
             }
         }
     }

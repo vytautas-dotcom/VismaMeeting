@@ -1,14 +1,15 @@
-﻿using VismaMeeting_v2.Services.Checking;
-using VismaMeeting_v2.Services.DataForMessages;
+﻿using VismaMeeting_v2.Services.DataForMessages;
+using VismaMeeting_v2.Services.Checking;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.Models;
 
 namespace VismaMeeting_v2.Services.Input
 {
     public class DataInput
     {
         private readonly DataChecking _dataChecking;
-        private readonly UIMessages _uIMessages;
         private readonly MessagesData _messagesData;
+        private readonly UIMessages _uIMessages;
         public DataInput(DataChecking dataChecking, UIMessages uIMessages)
         {
             _dataChecking = dataChecking;
@@ -76,6 +77,17 @@ namespace VismaMeeting_v2.Services.Input
                 GetInterval();
             }
             return interval;
+        }
+        public int Select<T>(List<T> list)
+        {
+            int output;
+            InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out output);
+            if (!_dataChecking.IsSelectedIndexNotOutTheRange(output, list))
+            {
+                _uIMessages.WarningMessage(_messagesData.WarningMessages["InputWarning"]);
+                Select(list);
+            }
+            return output;
         }
         public bool Continue()
         {

@@ -1,10 +1,10 @@
-﻿using VismaMeeting_v2.Commands;
-using VismaMeeting_v2.Models;
-using VismaMeeting_v2.Services.Checking;
-using VismaMeeting_v2.Services.DataForMessages;
+﻿using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.DataOperations;
-using VismaMeeting_v2.Services.Input;
+using VismaMeeting_v2.Services.Checking;
 using VismaMeeting_v2.Services.Messages;
+using VismaMeeting_v2.Services.Input;
+using VismaMeeting_v2.Commands;
+using VismaMeeting_v2.Models;
 using VismaMeeting_v2.UI;
 
 namespace VismaMeeting_v2.Services.DataDisplay
@@ -12,23 +12,18 @@ namespace VismaMeeting_v2.Services.DataDisplay
     internal class FilterShowData
     {
         public delegate void ExecuteFunction(Meetings meetingList, Persons persons);
-        private readonly FilterData _filterData;
-        private readonly DataVisualization _dataVisualization;
-        private readonly DataCheck _dataCheck;
         private readonly MeetingShowData _meetingShowData;
-        ExecuteFunction functionExecuter;
-        ControlPanel _controlPanel;
-        private readonly DataInput _dataInput;
         private readonly MessagesData _messagesData;
         private readonly DataChecking _dataChecking;
+        private readonly FilterData _filterData;
         private readonly UIMessages _uIMessages;
-        public FilterShowData(FilterData filterData, DataVisualization dataVisualization,
-                              DataCheck dataCheck, MeetingShowData meetingShowData,
-                              DataInput dataInput, MessagesData messagesData, DataChecking dataChecking, UIMessages uIMessages)
+        private readonly DataInput _dataInput;
+        ExecuteFunction functionExecuter;
+        ControlPanel _controlPanel;
+        public FilterShowData(FilterData filterData, MeetingShowData meetingShowData, DataInput dataInput, 
+                              MessagesData messagesData, DataChecking dataChecking, UIMessages uIMessages)
         {
             _filterData = filterData;
-            _dataVisualization = dataVisualization;
-            _dataCheck = dataCheck;
             _meetingShowData = meetingShowData;
             _dataInput = dataInput;
             _messagesData = messagesData;
@@ -40,12 +35,13 @@ namespace VismaMeeting_v2.Services.DataDisplay
         {
             string title = "Select parameter to filter the meetings";
             _uIMessages.DisplayData(title, "", 0, backgroundColor: "DarkGray", textColor: "DarkYellow",
-                userName: IManagement.User.Person.Name, writeTitle: _uIMessages.TableTitle);
+                userName: SessionData.User.Person.Name, writeTitle: _uIMessages.TableTitle);
             foreach (KeyValuePair<string, int> entry in _messagesData.FilterParameters)
             {
                 _uIMessages.DisplayData("", entry.Key, entry.Value, backgroundColor: "Gray", textColor: "DarkMagenta", writeLine: _uIMessages.TableLine);
             }
-            _dataVisualization.ShowLine(title.Length);
+            _uIMessages.DisplayData("", "", 0, backgroundColor: "DarkGray", textColor: "DarkYellow", 
+                showMessage: () => _uIMessages.ShowLine(title.Length, '-'));
         }
         public int AskForIndex()
         {
@@ -96,7 +92,6 @@ namespace VismaMeeting_v2.Services.DataDisplay
             _meetingShowData.ShowAllItems(meetings);
             _controlPanel.Run();
         }
-
         public void MeetingsByResponsiblePerson(Meetings meetingList, Persons persons)
         {
             _uIMessages.DisplayData("", "", 0, backgroundColor: "White", textColor: "Black", showMessage: () => Console.WriteLine("Enter name please"));
@@ -133,7 +128,7 @@ namespace VismaMeeting_v2.Services.DataDisplay
             _uIMessages.DisplayData("", "", 0, backgroundColor: "White", textColor: "Black", showMessage: () => Console.WriteLine("Enter type number please"));
             foreach (int i in Enum.GetValues(typeof(MeetType)))
             {
-                _uIMessages.DisplayData("", Enum.GetName(typeof(MeetType), i), i, backgroundColor: "Black", textColor: "White", writeLine: _dataVisualization.TableLine);
+                _uIMessages.DisplayData("", Enum.GetName(typeof(MeetType), i), i, backgroundColor: "Black", textColor: "White", writeLine: _uIMessages.TableLine);
             }
             int output;
             _dataInput.EnumInput<MeetType>("Number", _messagesData.WarningMessages["InputWarning"], out output);
@@ -149,8 +144,9 @@ namespace VismaMeeting_v2.Services.DataDisplay
         public void MeetingsByDate(Meetings meetingList, Persons persons)
         {
             _uIMessages.DisplayData("", "", 0, backgroundColor: "White", textColor: "Black", showMessage: () => Console.WriteLine("Enter date please"));
-            _uIMessages.InputInformationMessage("Date");
-            Meetings meetings = _filterData.FilterByDate(_dataCheck.GetDate(), meetingList);
+            DateTime output;
+            _dataInput.InputDate("Date", _messagesData.WarningMessages["InputWarning"], out output);
+            Meetings meetings = _filterData.FilterByDate(output, meetingList);
             if (meetings.Count == 0)
             {
                 Console.Clear();
