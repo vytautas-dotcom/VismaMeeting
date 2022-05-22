@@ -83,7 +83,7 @@ namespace VismaMeeting_v2.Services.DataOperations
         {
             (int, int) interval;
             _dataVisualization.AskForEntry("First number");
-            if(!int.TryParse(GetData(), out interval.Item1))
+            if (!int.TryParse(GetData(), out interval.Item1))
             {
                 _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
                 GetInterval();
@@ -94,7 +94,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                 _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Please enter required data"));
                 GetInterval();
             }
-            if(interval.Item1 == 0 && interval.Item2 == 0)
+            if (interval.Item1 == 0 && interval.Item2 == 0)
             {
                 _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => Console.WriteLine("Interval (0, 0) is impossible ;D"));
                 GetInterval();
@@ -219,7 +219,7 @@ namespace VismaMeeting_v2.Services.DataOperations
         }
         public bool Confirm()
         {
-            _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () => 
+            _dataVisualization.DisplayData("", "", 0, "Black", "Red", showMessage: () =>
             Console.WriteLine("Are you sure you want to continue? (y/n)"));
             bool success = true;
             bool continueCycle = true;
@@ -249,7 +249,7 @@ namespace VismaMeeting_v2.Services.DataOperations
         public bool IsPersonResponsible(Person person, Meeting meeting)
             => meeting.ResponsiblePerson == person.Name;
 
-        
+
 
     }
 }

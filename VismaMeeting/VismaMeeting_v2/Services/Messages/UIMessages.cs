@@ -42,7 +42,6 @@
                 if (numOfLines == 0 && writeLine != null)
                 {
                     writeLine?.Invoke(name, id);
-                    ShowLine(name.ToString().Length, '.');
                 }
 
                 else
@@ -53,7 +52,6 @@
                         else
                         {
                             writeLine?.Invoke(name, id);
-                            ShowLine(name.ToString().Length, '.');
                         }
                     }
                 Console.ResetColor();

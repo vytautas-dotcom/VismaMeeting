@@ -15,7 +15,7 @@ namespace VismaMeeting_v2.Services.Input
             _uIMessages = uIMessages;
             _messagesData = new MessagesData();
         }
-        private string Input()
+        public string Input()
             => Console.ReadLine();
         public string InputString(string messageBeforeInput, string messageAfterInput)
         {
@@ -65,7 +65,18 @@ namespace VismaMeeting_v2.Services.Input
                 EnumInput<T>(messageBeforeInput, messageAfterInput, out output, stringInput);
             }
         }
-
+        public (int, int) GetInterval()
+        {
+            (int, int) interval;
+            InputNumber("First number", _messagesData.WarningMessages["InputWarning"], out interval.Item1);
+            InputNumber("Second number", _messagesData.WarningMessages["InputWarning"], out interval.Item2);
+            if (interval.Item1 == 0 && interval.Item2 == 0)
+            {
+                _uIMessages.WarningMessage(_messagesData.WarningMessages["ImpossibleIntervalWarning"]);
+                GetInterval();
+            }
+            return interval;
+        }
         public bool Continue()
         {
             _uIMessages.InputInformationMessage(_messagesData.WarningMessages["ConfirmWarning"]);

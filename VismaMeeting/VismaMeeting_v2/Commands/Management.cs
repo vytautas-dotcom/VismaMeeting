@@ -18,7 +18,6 @@ namespace VismaMeeting_v2.Commands
         internal ControlPanel controlPanel;
         internal readonly IDbService<Persons> _dbServiceP;
         internal readonly IDbService<Meetings> _dbServiceM;
-        internal readonly DataCheck _dataCheck;
         internal readonly DataVisualization _dataVisualization;
         internal readonly MeetingShowData _meetingShowData;
         internal readonly PersonShowData _personShowData;
@@ -30,14 +29,13 @@ namespace VismaMeeting_v2.Commands
         internal readonly DataChecking _dataChecking;
         internal readonly DataInput _dataInput;
 
-        public Management(IDbService<Persons> dbServiceP, IDbService<Meetings> dbServiceM, DataCheck dataCheck,
+        public Management(IDbService<Persons> dbServiceP, IDbService<Meetings> dbServiceM,
                           DataVisualization dataVisualization, MeetingShowData meetingShowData, PersonShowData personShowData,
                           PersonMeetingData personMeetingData, CreateUser createUser,
                           UIMessages uIMessages, DataChecking dataChecking, DataInput dataInput, MessagesData messagesData)
         {
             _dbServiceP = dbServiceP;
             _dbServiceM = dbServiceM;
-            _dataCheck = dataCheck;
             _dataVisualization = dataVisualization;
             _meetingShowData = meetingShowData;
             _personShowData = personShowData;

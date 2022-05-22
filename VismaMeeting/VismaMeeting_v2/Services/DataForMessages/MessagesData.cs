@@ -26,6 +26,7 @@
             InformationMessages.Add("DeleteSuccess", "You have successufully deleted meeting");
             InformationMessages.Add("AddPersonSuccess", "You have successufully added person to meeting");
             InformationMessages.Add("RemovePersonSuccess", "You have successufully removed person from meeting");
+            InformationMessages.Add("NoMatch", "There is no data matching these parameters");
 
             MeetingCreateMessages = new Dictionary<string, string>();
             MeetingCreateMessages.Add("Name", "Enter meeting's name");

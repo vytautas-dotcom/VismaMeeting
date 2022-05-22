@@ -13,10 +13,10 @@ namespace VismaMeeting_v2.Commands
     public class MeetingsManagement : Management
     {
         public MeetingsManagement(IDbService<Meetings> dbServiceM, IDbService<Persons> dbServiceP,
-                                  DataCheck dataCheck, DataVisualization dataVisualization, MeetingShowData meetingShowData,
+                                  DataVisualization dataVisualization, MeetingShowData meetingShowData,
                                   PersonShowData personShowData, PersonMeetingData personMeetingData, CreateUser createUser,
                                   UIMessages uIMessages, DataChecking dataChecking, DataInput dataInput, MessagesData messagesData) :
-            base(dbServiceP, dbServiceM, dataCheck, dataVisualization, meetingShowData, personShowData, personMeetingData, createUser,
+            base(dbServiceP, dbServiceM, dataVisualization, meetingShowData, personShowData, personMeetingData, createUser,
                 uIMessages, dataChecking, dataInput, messagesData)
         {
         }
