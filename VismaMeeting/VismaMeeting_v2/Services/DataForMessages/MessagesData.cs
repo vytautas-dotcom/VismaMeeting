@@ -13,8 +13,9 @@
             WarningMessages.Add("DateWarning", "End date can not be less than start date");
             WarningMessages.Add("NoMeetingsToAdd", "There is not any meeting to add person");
             WarningMessages.Add("NoMeetingsToDelete", "There is not any meeting to delete");
+            WarningMessages.Add("NoMeetingCreated", "There is no meeting created");
             WarningMessages.Add("FullMeetings", "All meetings are full added");
-            WarningMessages.Add("ConfirmWarning", "Are you sure you want to continue (y/n)");
+            WarningMessages.Add("ConfirmWarning", "Do you want to continue (y/n)");
             WarningMessages.Add("MeetingDeleteWarning", "Only responsible person can delete the meeting");
             WarningMessages.Add("DeleteResponsiblePersonWarning", "Responsible person can not be deleted");
             WarningMessages.Add("AddedPersonWarning", "This person is already added");

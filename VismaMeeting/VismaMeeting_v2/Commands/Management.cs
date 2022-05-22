@@ -35,8 +35,6 @@ namespace VismaMeeting_v2.Commands
                           PersonMeetingData personMeetingData, CreateUser createUser,
                           UIMessages uIMessages, DataChecking dataChecking, DataInput dataInput, MessagesData messagesData)
         {
-            //_meetings = new();
-            //_persons = new();
             _dbServiceP = dbServiceP;
             _dbServiceM = dbServiceM;
             _dataCheck = dataCheck;

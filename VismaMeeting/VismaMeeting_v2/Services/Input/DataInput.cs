@@ -1,4 +1,5 @@
 ﻿using VismaMeeting_v2.Services.Checking;
+using VismaMeeting_v2.Services.DataForMessages;
 using VismaMeeting_v2.Services.Messages;
 
 namespace VismaMeeting_v2.Services.Input
@@ -7,10 +8,12 @@ namespace VismaMeeting_v2.Services.Input
     {
         private readonly DataChecking _dataChecking;
         private readonly UIMessages _uIMessages;
+        private readonly MessagesData _messagesData;
         public DataInput(DataChecking dataChecking, UIMessages uIMessages)
         {
             _dataChecking = dataChecking;
             _uIMessages = uIMessages;
+            _messagesData = new MessagesData();
         }
         private string Input()
             => Console.ReadLine();
@@ -61,6 +64,13 @@ namespace VismaMeeting_v2.Services.Input
                 _uIMessages.WarningMessage(messageAfterInput);
                 EnumInput<T>(messageBeforeInput, messageAfterInput, out output, stringInput);
             }
+        }
+
+        public bool Continue()
+        {
+            _uIMessages.InputInformationMessage(_messagesData.WarningMessages["ConfirmWarning"]);
+            return _dataChecking.IsConfimationSuccessful(InputString("Confirm",
+                _messagesData.WarningMessages["InputWarning"]));
         }
     }
 }

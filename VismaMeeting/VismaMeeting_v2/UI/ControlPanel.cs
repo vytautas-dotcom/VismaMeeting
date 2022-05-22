@@ -21,7 +21,6 @@ namespace VismaMeeting_v2.UI
                 .AddSingleton<DataChecking>()
                 .AddSingleton<DataInput>()
                 .AddSingleton<MessagesData>()
-                //.AddSingleton<PersonMeetingData>()
                 .AddSingleton<UIShowData>()
                 .AddSingleton<DataVisualization>()
                 .AddSingleton<DataCheck>()
@@ -53,15 +52,12 @@ namespace VismaMeeting_v2.UI
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<Management>().CreateUser(true));
             actions.Add(() => serviceScope.ServiceProvider.GetRequiredService<Management>().Exit());
 
+
             serviceScope.ServiceProvider.GetRequiredService<UIShowData>().SetFunctionsToList(actions);
             if (IManagement.User.Person == null)
                 serviceScope.ServiceProvider.GetRequiredService<Management>().CreateUser();
             int index = serviceScope.ServiceProvider.GetRequiredService<UIShowData>().ShowFunctions();
             serviceScope.ServiceProvider.GetRequiredService<UIShowData>().SelectFunction(index);
-
-
-            //Person person = new Person();
-            //serviceScope.ServiceProvider.GetRequiredService<PersonMeetingData>().CreateMeeting(person);
         }
     }
 }

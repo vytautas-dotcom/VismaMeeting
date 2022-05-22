@@ -83,7 +83,12 @@ namespace VismaMeeting_v2.Services.DataOperations
                 isToDelete = _dataChecking.IsMeetigToDeleteForPerson(meetings, person, index);
 
                 if (!isToDelete)
-                    DeleteMeeting(meetings, persons, person);
+                {
+                    if (_dataInput.Continue())
+                        DeleteMeeting(meetings, persons, person);
+                    else
+                        _controlPanel.Run();
+                }
                 else
                 {
                     person.PersonMeetings.Remove(meetings[index].Id);
@@ -108,7 +113,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                 int meetingIndex;
                 _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out meetingIndex);
 
-                isToAdd = !_dataChecking.IsMeetingPersonsListFull(persons, meetings[meetingIndex]) && 
+                isToAdd = !_dataChecking.IsMeetingPersonsListFull(persons, meetings[meetingIndex]) &&
                     _dataChecking.IsSelectedIndexNotOutTheRange(meetingIndex, meetings);
 
                 if (!isToAdd)
@@ -129,8 +134,8 @@ namespace VismaMeeting_v2.Services.DataOperations
                     else
                     {
                         persons[personIndex].PersonMeetings.Add(meetings[meetingIndex].Id, DateTime.Now);
-                        AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex].Id, persons[personIndex].Id);
                         meetings[meetingIndex].Persons.Add(persons[personIndex]);
+                        AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex], persons[personIndex]);
                     }
                 }
             }
@@ -149,12 +154,85 @@ namespace VismaMeeting_v2.Services.DataOperations
                     personsList.Add(item);
             return personsList;
         }
-        static void AddMeetingToPersonForechMeeting(Meetings meetings, Guid meetingId, Guid personId)
+        static void AddMeetingToPersonForechMeeting(Meetings meetings, Meeting meeting, Person person)
         {
-            foreach (var meeting in meetings)
-                foreach (var person in meeting.Persons)
-                    if (person.Id == personId)
-                        person.PersonMeetings.Add(meetingId, DateTime.Now);
+            foreach (var meetingItem in meetings)
+            {
+                if (meetingItem.Id == meeting.Id)
+                    continue;
+                foreach (var personItem in meetingItem.Persons)
+                    if (personItem.Id == person.Id)
+                        personItem.PersonMeetings.Add(meeting.Id, DateTime.Now);
+            }
+        }
+        public void RemovePerson(Meetings meetings, Persons persons)
+        {
+            bool isToAdd = false;
+            if (meetings.Count > 0)
+            {
+                _meetingShowData.ShowNamesIndexes(meetings);
+                int meetingIndex;
+                _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out meetingIndex);
+
+                isToAdd = !_dataChecking.IsMeetingPersonsListFull(persons, meetings[meetingIndex]) &&
+                    _dataChecking.IsSelectedIndexNotOutTheRange(meetingIndex, meetings);
+
+                if (!isToAdd)
+                    AddPerson(meetings, persons);
+                else
+                {
+                    int personIndex;
+                    _meetingShowData.ShowOneItem(meetings[meetingIndex]);
+
+                    _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out personIndex);
+
+                    isToAdd = _dataChecking.IsSelectedIndexNotOutTheRange(personIndex, persons);
+
+                    if (!isToAdd)
+                        AddPerson(meetings, persons);
+                    else if (_dataChecking.IsPersonResponsibleForMeeting(meetings[meetingIndex].Persons[personIndex], meetings[meetingIndex]))
+                    {
+                        _uIMessages.WarningMessage(_messagesData.WarningMessages["DeleteResponsiblePersonWarning"]);
+                        if (_dataInput.Continue())
+                            AddPerson(meetings, persons);
+                        else
+                            _controlPanel.Run();
+                    }
+                    else
+                    {
+                        Person personToChange = meetings[meetingIndex].Persons[personIndex];
+                        RemoveMeetingFromPersonInOtherMeetings(meetings, meetings[meetingIndex], personToChange);
+                        RemoveMeetingFromPerson(meetings[meetingIndex], persons, meetings[meetingIndex].Persons[personIndex]);
+                        meetings[meetingIndex].Persons.Remove(meetings[meetingIndex].Persons[personIndex]);
+                    }
+                }
+            }
+            else
+            {
+                Console.Clear();
+                _uIMessages.WarningMessage(_messagesData.WarningMessages["NoMeetingsToDelete"]);
+                _controlPanel.Run();
+            }
+        }
+        static void RemoveMeetingFromPersonInOtherMeetings(Meetings meetings, Meeting meeting, Person person)
+        {
+            foreach (var itemMeeting in meetings)
+            {
+                if (itemMeeting.Id == meeting.Id)
+                    continue;
+                foreach (var itemPerson in itemMeeting.Persons)
+                {
+                    if (itemPerson.Id == person.Id)
+                    {
+                        itemPerson.PersonMeetings.Remove(meeting.Id);
+                    }
+                }
+            }
+        }
+        static void RemoveMeetingFromPerson(Meeting meeting, Persons persons, Person person)
+        {
+            int index = persons.FindIndex(x => x.Id == person.Id);
+            persons[index].PersonMeetings.Remove(meeting.Id);
         }
     }
 }

@@ -34,13 +34,12 @@ namespace VismaMeeting_v2.Commands
                 Console.Clear();
                 _uIMessages.WarningMessage(_messagesData.WarningMessages["NoMeetingsToDelete"]);
                 controlPanel.Run();
+                return;
             }
-            else
-            {
-                _personMeetingData.DeleteMeeting(_meetings, _persons, User.Person);
-                SaveMeetings(_meetings);
-                SavePersons(_persons);
-            }
+            _personMeetingData.DeleteMeeting(_meetings, _persons, User.Person);
+            SaveMeetings(_meetings);
+            SavePersons(_persons);
+            controlPanel.Run();
         }
     }
 }
