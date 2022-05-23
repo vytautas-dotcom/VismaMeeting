@@ -21,14 +21,14 @@ namespace VismaMeeting_v2.Services.DataDisplay
         ExecuteFunction functionExecuter;
         ControlPanel _controlPanel;
         public FilterShowData(FilterData filterData, MeetingShowData meetingShowData, DataInput dataInput, 
-                              MessagesData messagesData, DataChecking dataChecking, UIMessages uIMessages)
+                              DataChecking dataChecking, UIMessages uIMessages)
         {
             _filterData = filterData;
             _meetingShowData = meetingShowData;
             _dataInput = dataInput;
-            _messagesData = messagesData;
             _dataChecking = dataChecking;
             _uIMessages = uIMessages;
+            _messagesData = new MessagesData();
             _controlPanel = new ControlPanel();
         }
         public void ShowFilterParameters()
