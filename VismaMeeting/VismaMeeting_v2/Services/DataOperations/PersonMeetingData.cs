@@ -106,30 +106,23 @@ namespace VismaMeeting_v2.Services.DataOperations
         }
         public void AddPerson(Meetings meetings, Persons persons)
         {
-            bool isToAdd = false;
             if (meetings.Count > 0)
             {
                 _meetingShowData.ShowNamesIndexes(meetings);
-                int meetingIndex;
-                _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out meetingIndex);
+                int meetingIndex = _dataInput.Select(meetings);
 
-                isToAdd = !_dataChecking.IsMeetingPersonsListFull(persons, meetings[meetingIndex]) &&
-                    _dataChecking.IsSelectedIndexNotOutTheRange(meetingIndex, meetings);
+                bool isToAdd = _dataChecking.IsMeetingPersonsListFull(persons, meetings[meetingIndex]);
 
-                if (!isToAdd)
+                if (isToAdd)
                     AddPerson(meetings, persons);
                 else
                 {
-                    int personIndex;
                     List<Person> personsNotAddedYet = SelectNotAddedPersons(meetings[meetingIndex].Id, persons);
                     _meetingShowData.ShowOneItem(meetings[meetingIndex]);
                     _personShowData.ShowNamesIndexesNotAddedYet(persons, personsNotAddedYet);
+                    int personIndex = _dataInput.Select(persons);
 
-                    _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out personIndex);
-
-                    isToAdd = _dataChecking.IsSelectedIndexNotOutTheRange(personIndex, persons);
-
-                    if (!isToAdd)
+                    if (!_dataInput.Continue())
                         AddPerson(meetings, persons);
                     else
                     {
