@@ -78,23 +78,28 @@ namespace VismaMeeting_v2.Services.DataOperations
             if (meetings.Count > 0)
             {
                 _meetingShowData.ShowNamesIndexes(meetings);
-                int index;
-                _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out index);
-                isToDelete = _dataChecking.IsMeetigToDeleteForPerson(meetings, person, index);
+                int index = _dataInput.Select(meetings);
+                isToDelete = _dataChecking.IsMeetingToDeleteForPerson(meetings, person);
 
                 if (!isToDelete)
                 {
+                    _uIMessages.WarningMessage(_messagesData.WarningMessages["NoMeetingsToDelete"]);
                     if (_dataInput.Continue())
                         DeleteMeeting(meetings, persons, person);
                     else
-                        _controlPanel.Run();
+                        return;
                 }
                 else
                 {
-                    person.PersonMeetings.Remove(meetings[index].Id);
-                    persons.ForEach(person => person.PersonMeetings.Remove(meetings[index].Id));
-                    meetings.ForEach(x => x.Persons.ForEach(x => x.PersonMeetings.Remove(meetings[index].Id)));
-                    meetings.RemoveAt(meetings.FindIndex(x => x.Id == meetings[index].Id));
+                    if (!_dataInput.Continue())
+                        DeleteMeeting(meetings, persons, person);
+                    else
+                    {
+                        person.PersonMeetings.Remove(meetings[index].Id);
+                        persons.ForEach(person => person.PersonMeetings.Remove(meetings[index].Id));
+                        meetings.ForEach(x => x.Persons.ForEach(x => x.PersonMeetings.Remove(meetings[index].Id)));
+                        meetings.RemoveAt(meetings.FindIndex(x => x.Id == meetings[index].Id));
+                    }
                 }
             }
             else

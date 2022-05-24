@@ -1,31 +1,6 @@
 [
   
   {
-    "Id": "7a4ce6df-a064-46e8-b7e3-48c91f148408",
-    "Name": "matas1",
-    "ResponsiblePerson": "Matas",
-    "Persons": [
-      {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": {
-          "7a4ce6df-a064-46e8-b7e3-48c91f148408": "2022-05-24T17:12:52.7711856+03:00",
-          "51d08293-18bc-471c-a633-430f51de7312": "2022-05-24T17:13:10.3853367+03:00"
-        }
-      },
-      {
-        "Id": "d89f5294-67f9-4568-8c42-458d78404ebc",
-        "Name": "Jonas",
-        "PersonMeetings": { "7a4ce6df-a064-46e8-b7e3-48c91f148408": "2022-05-24T20:24:46.9342866+03:00" }
-      }
-    ],
-    "Description": "fg",
-    "Category": "CodeMonkey",
-    "Type": "Live",
-    "StartDate": "2022-01-02T00:00:00",
-    "EndDate": "2022-02-03T00:00:00"
-  },
-  {
     "Id": "51d08293-18bc-471c-a633-430f51de7312",
     "Name": "matas2",
     "ResponsiblePerson": "Matas",
@@ -33,10 +8,7 @@
       {
         "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
         "Name": "Matas",
-        "PersonMeetings": {
-          "7a4ce6df-a064-46e8-b7e3-48c91f148408": "2022-05-24T17:12:52.7711856+03:00",
-          "51d08293-18bc-471c-a633-430f51de7312": "2022-05-24T17:13:10.3853367+03:00"
-        }
+        "PersonMeetings": { "51d08293-18bc-471c-a633-430f51de7312": "2022-05-24T17:13:10.3853367+03:00" }
       }
     ],
     "Description": "fhg",
