@@ -178,7 +178,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                     _dataChecking.IsSelectedIndexNotOutTheRange(meetingIndex, meetings);
 
                 if (!isToAdd)
-                    AddPerson(meetings, persons);
+                    RemovePerson(meetings, persons);
                 else
                 {
                     int personIndex;
@@ -186,15 +186,15 @@ namespace VismaMeeting_v2.Services.DataOperations
 
                     _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out personIndex);
 
-                    isToAdd = _dataChecking.IsSelectedIndexNotOutTheRange(personIndex, persons);
+                    isToAdd = _dataChecking.IsSelectedIndexNotOutTheRange(personIndex, meetings[meetingIndex].Persons);
 
                     if (!isToAdd)
-                        AddPerson(meetings, persons);
+                        RemovePerson(meetings, persons);
                     else if (_dataChecking.IsPersonResponsibleForMeeting(meetings[meetingIndex].Persons[personIndex], meetings[meetingIndex]))
                     {
                         _uIMessages.WarningMessage(_messagesData.WarningMessages["DeleteResponsiblePersonWarning"]);
                         if (_dataInput.Continue())
-                            AddPerson(meetings, persons);
+                            RemovePerson(meetings, persons);
                         else
                             _controlPanel.Run();
                     }
