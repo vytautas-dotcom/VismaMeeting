@@ -2,6 +2,7 @@
 using VismaMeeting_v2.Services.Messages;
 using VismaMeeting_v2.Models;
 using System.Reflection;
+using VismaMeeting_v2.Commands;
 
 namespace VismaMeeting_v2.Services.DataDisplay
 {
@@ -41,7 +42,8 @@ namespace VismaMeeting_v2.Services.DataDisplay
         public void ShowNamesIndexes(Meetings meetings, bool consoleClear = false)
         {
             string title = "Enter number of the meeting";
-            _uIMessages.DisplayData(title, "", 0, backgroundColor: "DarkGray",textColor: "Gray", writeTitle: _uIMessages.TableTitle);
+            _uIMessages.DisplayData(title, "", 0, backgroundColor: "DarkGray",textColor: "Gray", userName: SessionData.User.Person.Name,
+                                    writeTitle: _uIMessages.TableTitle);
             meetings.ForEach(x => _uIMessages
                 .DisplayData("", x.Name, meetings.IndexOf(x), backgroundColor: "Gray",textColor: "DarkBlue", writeLine: _uIMessages.TableLine));
         }

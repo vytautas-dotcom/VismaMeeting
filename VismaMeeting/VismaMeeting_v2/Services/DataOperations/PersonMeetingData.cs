@@ -167,37 +167,27 @@ namespace VismaMeeting_v2.Services.DataOperations
         }
         public void RemovePerson(Meetings meetings, Persons persons)
         {
-            bool isToAdd = false;
             if (meetings.Count > 0)
             {
                 _meetingShowData.ShowNamesIndexes(meetings);
-                int meetingIndex;
-                _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out meetingIndex);
+                int meetingIndex = _dataInput.Select(meetings);
 
-                isToAdd = !_dataChecking.IsMeetingPersonsListFull(persons, meetings[meetingIndex]) &&
-                    _dataChecking.IsSelectedIndexNotOutTheRange(meetingIndex, meetings);
+                _meetingShowData.ShowOneItem(meetings[meetingIndex]);
+                int personIndex = _dataInput.Select(meetings[meetingIndex].Persons);
 
-                if (!isToAdd)
-                    RemovePerson(meetings, persons);
+                if (_dataChecking.IsPersonResponsibleForMeeting(meetings[meetingIndex].Persons[personIndex], meetings[meetingIndex]))
+                {
+                    _uIMessages.WarningMessage(_messagesData.WarningMessages["DeleteResponsiblePersonWarning"]);
+                    if (_dataInput.Continue())
+                        RemovePerson(meetings, persons);
+                    else
+                        _controlPanel.Run();
+                }
                 else
                 {
-                    int personIndex;
-                    _meetingShowData.ShowOneItem(meetings[meetingIndex]);
-
-                    _dataInput.InputNumber("Number", _messagesData.WarningMessages["InputWarning"], out personIndex);
-
-                    isToAdd = _dataChecking.IsSelectedIndexNotOutTheRange(personIndex, meetings[meetingIndex].Persons);
-
-                    if (!isToAdd)
+                    _uIMessages.WarningMessage(_messagesData.WarningMessages["ConfirmWarning"]);
+                    if (!_dataInput.Continue())
                         RemovePerson(meetings, persons);
-                    else if (_dataChecking.IsPersonResponsibleForMeeting(meetings[meetingIndex].Persons[personIndex], meetings[meetingIndex]))
-                    {
-                        _uIMessages.WarningMessage(_messagesData.WarningMessages["DeleteResponsiblePersonWarning"]);
-                        if (_dataInput.Continue())
-                            RemovePerson(meetings, persons);
-                        else
-                            _controlPanel.Run();
-                    }
                     else
                     {
                         Person personToChange = meetings[meetingIndex].Persons[personIndex];
