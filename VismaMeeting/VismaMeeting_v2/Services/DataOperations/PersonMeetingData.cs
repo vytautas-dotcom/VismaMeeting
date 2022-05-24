@@ -181,7 +181,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                     if (_dataInput.Continue())
                         RemovePerson(meetings, persons);
                     else
-                        _controlPanel.Run();
+                        return;
                 }
                 else
                 {
