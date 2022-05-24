@@ -85,7 +85,7 @@ namespace VismaMeeting_v2.Services.Input
             if (!_dataChecking.IsSelectedIndexNotOutTheRange(output, list))
             {
                 _uIMessages.WarningMessage(_messagesData.WarningMessages["InputWarning"]);
-                Select(list);
+                return Select(list);
             }
             return output;
         }

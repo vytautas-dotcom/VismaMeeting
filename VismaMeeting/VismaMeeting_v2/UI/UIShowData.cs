@@ -20,6 +20,7 @@ namespace VismaMeeting_v2.UI
         }
         public int ShowFunctions()
         {
+            Console.Clear();
             string title = "Select function to execute";
             _uIMessages.DisplayData(title, "", 0,backgroundColor: "DarkGray",textColor: "DarkYellow", userName: SessionData.User.Person.Name, writeTitle: _uIMessages.TableTitle);
             foreach (KeyValuePair<string, int> entry in _messagesData.Functions)
