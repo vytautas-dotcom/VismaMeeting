@@ -91,7 +91,7 @@ namespace VismaMeeting_v2.Services.Input
         }
         public bool Continue()
         {
-            _uIMessages.InputInformationMessage(_messagesData.WarningMessages["ConfirmWarning"]);
+            _uIMessages.WarningMessage(_messagesData.WarningMessages["ConfirmWarning"]);
             return _dataChecking.IsConfimationSuccessful(InputString("Confirm",
                 _messagesData.WarningMessages["InputWarning"]));
         }

@@ -88,9 +88,9 @@
         public void WarningMessage(string message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            ShowLine(message.Length, '/');
+            ShowLine(message.Length, '.');
             Console.WriteLine($"{message}");
-            ShowLine(message.Length, '\\');
+            ShowLine(message.Length, '\'');
             Console.ResetColor();
         }
     }
