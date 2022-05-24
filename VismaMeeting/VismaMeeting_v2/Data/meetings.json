@@ -1,36 +1,47 @@
 [
   
   {
-    "Id": "51d08293-18bc-471c-a633-430f51de7312",
-    "Name": "matas2",
-    "ResponsiblePerson": "Matas",
+    "Id": "72735896-9954-42ec-aea9-05b38e8a4465",
+    "Name": "jonas1",
+    "ResponsiblePerson": "Jonas",
     "Persons": [
       {
-        "Id": "af2850c5-9cbd-4573-96a2-3de0601c0afe",
-        "Name": "Matas",
-        "PersonMeetings": { "51d08293-18bc-471c-a633-430f51de7312": "2022-05-24T17:13:10.3853367+03:00" }
+        "Id": "d89f5294-67f9-4568-8c42-458d78404ebc",
+        "Name": "Jonas",
+        "PersonMeetings": { "72735896-9954-42ec-aea9-05b38e8a4465": "2022-05-24T23:42:06.6309518+03:00" }
+      },
+      {
+        "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+        "Name": "Tomas",
+        "PersonMeetings": {
+          "56261ed9-67e2-4d1d-89cd-3b4b543b3648": "2022-05-24T23:43:08.048929+03:00",
+          "72735896-9954-42ec-aea9-05b38e8a4465": "2022-05-24T23:43:28.2233763+03:00"
+        }
       }
     ],
-    "Description": "fhg",
+    "Description": "1",
     "Category": "CodeMonkey",
     "Type": "Live",
     "StartDate": "2022-01-02T00:00:00",
     "EndDate": "2022-02-03T00:00:00"
   },
   {
-    "Id": "0fb0cbfb-5971-4a3e-8b87-ad568f43f5d4",
-    "Name": "julius1",
-    "ResponsiblePerson": "Julius",
+    "Id": "56261ed9-67e2-4d1d-89cd-3b4b543b3648",
+    "Name": "tomas1",
+    "ResponsiblePerson": "Tomas",
     "Persons": [
       {
-        "Id": "f8bb59d4-933c-486f-a505-2f78b962eb99",
-        "Name": "Julius",
-        "PersonMeetings": { "0fb0cbfb-5971-4a3e-8b87-ad568f43f5d4": "2022-05-24T19:35:32.3526573+03:00" }
+        "Id": "6aecbc2b-7e32-486d-9da1-1e7bb2fed18b",
+        "Name": "Tomas",
+        "PersonMeetings": {
+          "56261ed9-67e2-4d1d-89cd-3b4b543b3648": "2022-05-24T23:43:08.048929+03:00",
+          "72735896-9954-42ec-aea9-05b38e8a4465": "2022-05-24T23:43:28.2233763+03:00"
+        }
       }
     ],
-    "Description": "jkhv",
+    "Description": "1",
     "Category": "CodeMonkey",
-    "Type": "InPerson",
+    "Type": "Live",
     "StartDate": "2022-01-02T00:00:00",
     "EndDate": "2022-02-03T00:00:00"
   }

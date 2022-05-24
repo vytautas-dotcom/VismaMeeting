@@ -133,7 +133,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                     {
                         persons[personIndex].PersonMeetings.Add(meetings[meetingIndex].Id, DateTime.Now);
                         meetings[meetingIndex].Persons.Add(persons[personIndex]);
-                        AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex], persons[personIndex]);
+                        //AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex], persons[personIndex]);
                     }
                 }
             }
