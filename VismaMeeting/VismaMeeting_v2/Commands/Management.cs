@@ -66,12 +66,12 @@ namespace VismaMeeting_v2.Commands
             else
             {
                 GetAllItems();
+                _createUser.Notify += _uIMessages.ActionInformation;
                 SessionData.User = _createUser.SelectUser(_persons);
                 Console.Clear();
                 _controlPanel.Run();
             }
         }
-
         public void SaveMeetings(Meetings meetings)
         {
             _dbServiceM.Save(meetings);
@@ -85,7 +85,6 @@ namespace VismaMeeting_v2.Commands
             _dbServiceP.Save(persons);
             _dbServiceM.Save(meetings);
         }
-        
         public void Exit()
         {
             return;

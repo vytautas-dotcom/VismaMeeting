@@ -93,7 +93,7 @@
             ShowLine(message.Length, '\'');
             Console.ResetColor();
         }
-        public void ActionInformation(string message)
+        public void ActionInformation(string message, string userName = "")
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -103,7 +103,14 @@
             ShowLine(message.Length + 10, '/');
             Console.SetCursorPosition(leftOffSet, topOffSet + 1);
             Console.Write("\\\\\\  ");
-            Console.Write(message);
+            if (string.IsNullOrEmpty(userName))
+            {
+                Console.Write(message);
+            }
+            else
+            {
+                Console.Write(message + " " + userName);
+            }
             Console.WriteLine("  ///");
             Console.SetCursorPosition(leftOffSet, topOffSet + 2);
             ShowLine(message.Length + 10, '\\');
