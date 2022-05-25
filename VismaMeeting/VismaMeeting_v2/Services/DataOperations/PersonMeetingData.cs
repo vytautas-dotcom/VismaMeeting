@@ -12,6 +12,9 @@ namespace VismaMeeting_v2.Services.DataOperations
 {
     public class PersonMeetingData
     {
+
+        public delegate void PersonMeetingDataHandler(string message);
+        public event PersonMeetingDataHandler Notify;
         private readonly MeetingShowData _meetingShowData;
         private readonly PersonShowData _personShowData;
         private readonly MessagesData _messagesData;
@@ -133,7 +136,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                     {
                         persons[personIndex].PersonMeetings.Add(meetings[meetingIndex].Id, DateTime.Now);
                         meetings[meetingIndex].Persons.Add(persons[personIndex]);
-                        //AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex], persons[personIndex]);
+                        AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex], persons[personIndex]);
                     }
                 }
             }
@@ -156,11 +159,22 @@ namespace VismaMeeting_v2.Services.DataOperations
         {
             foreach (var meetingItem in meetings)
             {
+                List<Person> personList = new List<Person>();
                 if (meetingItem.Id == meeting.Id)
                     continue;
                 foreach (var personItem in meetingItem.Persons)
+                {
                     if (personItem.Id == person.Id)
-                        personItem.PersonMeetings.Add(meeting.Id, DateTime.Now);
+                    {
+                        personList.Add(person);
+                    }
+                    else
+                    {
+                        personList.Add(personItem);
+                    }
+                }
+                meetingItem.Persons.Clear();
+                meetingItem.Persons.AddRange(personList);
             }
         }
         public void RemovePerson(Meetings meetings, Persons persons)
@@ -183,7 +197,6 @@ namespace VismaMeeting_v2.Services.DataOperations
                 }
                 else
                 {
-                    _uIMessages.WarningMessage(_messagesData.WarningMessages["ConfirmWarning"]);
                     if (!_dataInput.Continue())
                         RemovePerson(meetings, persons);
                     else
@@ -192,6 +205,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                         RemoveMeetingFromPersonInOtherMeetings(meetings, meetings[meetingIndex], personToChange);
                         RemoveMeetingFromPerson(meetings[meetingIndex], persons, meetings[meetingIndex].Persons[personIndex]);
                         meetings[meetingIndex].Persons.Remove(meetings[meetingIndex].Persons[personIndex]);
+                        Notify?.Invoke(_messagesData.InformationMessages["RemovePersonSuccess"]);
                     }
                 }
             }

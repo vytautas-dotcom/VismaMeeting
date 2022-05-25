@@ -80,7 +80,11 @@ namespace VismaMeeting_v2.Commands
         {
             _dbServiceP.Save(persons);
         }
-
+        public void SaveMeetingsAndPersons(Meetings meetings, Persons persons)
+        {
+            _dbServiceP.Save(persons);
+            _dbServiceM.Save(meetings);
+        }
         public void SaveMeetingPerson(Meeting meeting, Person person)
         {
             //add meeting to person

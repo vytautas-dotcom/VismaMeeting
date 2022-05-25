@@ -42,9 +42,9 @@ namespace VismaMeeting_v2.Commands
                 _controlPanel.Run();
                 return;
             }
+            _personMeetingData.Notify += _uIMessages.ActionInformation;
             _personMeetingData.RemovePerson(_meetings, _persons);
-            SaveMeetings(_meetings);
-            SavePersons(_persons);
+            SaveMeetingsAndPersons(_meetings, _persons);
             _controlPanel.Run();
         }
     }

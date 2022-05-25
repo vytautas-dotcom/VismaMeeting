@@ -93,5 +93,23 @@
             ShowLine(message.Length, '\'');
             Console.ResetColor();
         }
+        public void ActionInformation(string message)
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            int leftOffSet = (Console.WindowWidth / 3);
+            int topOffSet = (Console.WindowHeight / 2);
+            Console.SetCursorPosition(leftOffSet, topOffSet);
+            ShowLine(message.Length + 10, '/');
+            Console.SetCursorPosition(leftOffSet, topOffSet + 1);
+            Console.Write("\\\\\\  ");
+            Console.Write(message);
+            Console.WriteLine("  ///");
+            Console.SetCursorPosition(leftOffSet, topOffSet + 2);
+            ShowLine(message.Length + 10, '\\');
+            Console.ResetColor();
+            Thread.Sleep(3500);
+            Console.Clear();
+        }
     }
 }
