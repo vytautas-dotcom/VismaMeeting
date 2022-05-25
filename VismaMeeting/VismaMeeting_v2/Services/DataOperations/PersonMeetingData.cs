@@ -75,6 +75,36 @@ namespace VismaMeeting_v2.Services.DataOperations
             }
             return meeting;
         }
+        public void SaveMeetingPerson(Meetings _meetings, Meeting meeting, Persons _persons, Person person)
+        {
+            //add meeting to person
+            int personIndex = _persons.FindIndex(x => x.Id == person.Id);
+            _persons.RemoveAt(personIndex);
+            _persons.Add(person);
+            //_dbServiceP.Save(_persons);
+
+            //add meeting to other meetings person
+            if (_meetings.Count == 0)
+            {
+                meeting.Persons.Add(person);
+                _meetings.Add(meeting);
+                //_dbServiceM.Save(_meetings);
+                return;
+            }
+            foreach (var item in _meetings)
+            {
+                int? meetingPersonIndex = item.Persons.FindIndex(x => x.Id == person.Id);
+                if (meetingPersonIndex != null && meetingPersonIndex != -1)
+                {
+                    item.Persons.RemoveAt(meetingPersonIndex.Value);
+                    item.Persons.Add(person);
+                }
+            }
+            meeting.Persons.Add(person);
+            _meetings.Add(meeting);
+            Notify?.Invoke(_messagesData.InformationMessages["CreationSuccess"]);
+            //_dbServiceM.Save(_meetings);
+        }
         public void DeleteMeeting(Meetings meetings, Persons persons, Person person)
         {
             bool isToDelete = false;
@@ -102,6 +132,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                         persons.ForEach(person => person.PersonMeetings.Remove(meetings[index].Id));
                         meetings.ForEach(x => x.Persons.ForEach(x => x.PersonMeetings.Remove(meetings[index].Id)));
                         meetings.RemoveAt(meetings.FindIndex(x => x.Id == meetings[index].Id));
+                        Notify?.Invoke(_messagesData.InformationMessages["DeleteSuccess"]);
                     }
                 }
             }
@@ -137,6 +168,7 @@ namespace VismaMeeting_v2.Services.DataOperations
                         persons[personIndex].PersonMeetings.Add(meetings[meetingIndex].Id, DateTime.Now);
                         meetings[meetingIndex].Persons.Add(persons[personIndex]);
                         AddMeetingToPersonForechMeeting(meetings, meetings[meetingIndex], persons[personIndex]);
+                        Notify?.Invoke(_messagesData.InformationMessages["AddPersonSuccess"]);
                     }
                 }
             }

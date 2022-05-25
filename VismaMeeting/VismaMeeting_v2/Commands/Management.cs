@@ -85,35 +85,7 @@ namespace VismaMeeting_v2.Commands
             _dbServiceP.Save(persons);
             _dbServiceM.Save(meetings);
         }
-        public void SaveMeetingPerson(Meeting meeting, Person person)
-        {
-            //add meeting to person
-            int personIndex = _persons.FindIndex(x => x.Id == person.Id);
-            _persons.RemoveAt(personIndex);
-            _persons.Add(person);
-            _dbServiceP.Save(_persons);
-
-            //add meeting to other meetings person
-            if (_meetings.Count == 0)
-            {
-                meeting.Persons.Add(person);
-                _meetings.Add(meeting);
-                _dbServiceM.Save(_meetings);
-                return;
-            }
-            foreach (var item in _meetings)
-            {
-                int? meetingPersonIndex = item.Persons.FindIndex(x => x.Id == person.Id);
-                if (meetingPersonIndex != null && meetingPersonIndex != -1)
-                {
-                    item.Persons.RemoveAt(meetingPersonIndex.Value);
-                    item.Persons.Add(person);
-                }
-            }
-            meeting.Persons.Add(person);
-            _meetings.Add(meeting);
-            _dbServiceM.Save(_meetings);
-        }
+        
         public void Exit()
         {
             return;

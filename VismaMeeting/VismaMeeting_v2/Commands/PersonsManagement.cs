@@ -28,6 +28,7 @@ namespace VismaMeeting_v2.Commands
                 _controlPanel.Run();
                 return;
             }
+            _personMeetingData.Notify += _uIMessages.ActionInformation;
             _personMeetingData.AddPerson(_meetings, _persons);
             SaveMeetings(_meetings);
             SavePersons(_persons);

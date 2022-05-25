@@ -22,7 +22,9 @@ namespace VismaMeeting_v2.Commands
         public void CreateMeeting()
         {
             Meeting meeting = _personMeetingData.CreateMeeting(User.Person);
-            SaveMeetingPerson(meeting, User.Person);
+            _personMeetingData.Notify += _uIMessages.ActionInformation;
+            _personMeetingData.SaveMeetingPerson(_meetings, meeting, _persons, User.Person);
+            SaveMeetingsAndPersons(_meetings, _persons);
             Console.Clear();
             _controlPanel.Run();
         }
@@ -35,6 +37,7 @@ namespace VismaMeeting_v2.Commands
                 _controlPanel.Run();
                 return;
             }
+            _personMeetingData.Notify += _uIMessages.ActionInformation;
             _personMeetingData.DeleteMeeting(_meetings, _persons, User.Person);
             SaveMeetings(_meetings);
             SavePersons(_persons);
