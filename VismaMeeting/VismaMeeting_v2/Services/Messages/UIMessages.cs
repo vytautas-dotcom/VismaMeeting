@@ -99,21 +99,28 @@
             Console.ForegroundColor = ConsoleColor.Green;
             int leftOffSet = (Console.WindowWidth / 3);
             int topOffSet = (Console.WindowHeight / 2);
-            Console.SetCursorPosition(leftOffSet, topOffSet);
-            ShowLine(message.Length + 10, '/');
-            Console.SetCursorPosition(leftOffSet, topOffSet + 1);
-            Console.Write("\\\\\\  ");
             if (string.IsNullOrEmpty(userName))
             {
+                Console.SetCursorPosition(leftOffSet, topOffSet);
+                ShowLine(message.Length + 10, '/');
+                Console.SetCursorPosition(leftOffSet, topOffSet + 1);
+                Console.Write("\\\\\\  ");
                 Console.Write(message);
+                Console.WriteLine("  ///");
+                Console.SetCursorPosition(leftOffSet, topOffSet + 2);
+                ShowLine(message.Length + 10, '\\');
             }
             else
             {
+                Console.SetCursorPosition(leftOffSet, topOffSet);
+                ShowLine(message.Length + 11 + userName.Length, '/');
+                Console.SetCursorPosition(leftOffSet, topOffSet + 1);
+                Console.Write("\\\\\\  ");
                 Console.Write(message + " " + userName);
+                Console.WriteLine("  ///");
+                Console.SetCursorPosition(leftOffSet, topOffSet + 2);
+                ShowLine(message.Length + 11 + userName.Length, '\\');
             }
-            Console.WriteLine("  ///");
-            Console.SetCursorPosition(leftOffSet, topOffSet + 2);
-            ShowLine(message.Length + 10, '\\');
             Console.ResetColor();
             Thread.Sleep(3500);
             Console.Clear();
