@@ -36,7 +36,7 @@ namespace VismaMeeting_v2.Services.Input
             else
                 input = InputString(messageBeforeInput, messageAfterInput);
             bool success = _dataChecking.IsInputNumber(input, out output);
-            if (!_dataChecking.IsInputNotNullOrEmptySpace(input) && !success)
+            if (!success)
             {
                 _uIMessages.WarningMessage(messageAfterInput);
                 InputNumber(messageBeforeInput, messageAfterInput, out output);
