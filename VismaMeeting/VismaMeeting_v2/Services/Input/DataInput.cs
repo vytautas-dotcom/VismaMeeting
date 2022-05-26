@@ -25,8 +25,7 @@ namespace VismaMeeting_v2.Services.Input
             if (_dataChecking.IsInputNotNullOrEmptySpace(input))
                 return input;
             _uIMessages.WarningMessage(messageAfterInput);
-            InputString(messageBeforeInput, messageAfterInput);
-            return null;
+            return InputString(messageBeforeInput, messageAfterInput);
         }
 
         public void InputNumber(string messageBeforeInput, string messageAfterInput, out int output, string stringInput = null)
